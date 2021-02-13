@@ -20,6 +20,9 @@ public class ActivitySearch extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search);
 
+        //Change title for the top title bar
+        getSupportActionBar().setTitle("Search");
+
         //Basic textView to test the bottom navigation
         TextView title = (TextView) findViewById(R.id.testTextSearch);
         title.setText("THIS IS THE SEARCH ACTIVITY");

@@ -18,6 +18,9 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        //Change title for the top title bar
+        getSupportActionBar().setTitle("DailyDesserts");
+
         //Basic textView to test the bottom navigation
         TextView title = (TextView) findViewById(R.id.testText);
         title.setText("THIS IS THE MAIN ACTIVITY");

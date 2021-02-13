@@ -18,6 +18,9 @@ public class ActivityMyRecipes extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my_recipes);
 
+        //Change title for the top title bar
+        getSupportActionBar().setTitle("My recipes");
+
         //Basic textView to test the bottom navigation
         TextView title = (TextView) findViewById(R.id.testTextMyRecipes);
         title.setText("THIS IS THE MY RECIPES ACTIVITY");

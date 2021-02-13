@@ -18,6 +18,9 @@ public class ActivityAddRecipe extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_recipe);
 
+        //Change title for the top title bar
+        getSupportActionBar().setTitle("Add recipe");
+
         //Basic textView to test the bottom navigation
         TextView title = (TextView) findViewById(R.id.testTextAddRecipe);
         title.setText("THIS IS THE ADD RECIPE ACTIVITY");

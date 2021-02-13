@@ -18,6 +18,9 @@ public class ActivityFavorites extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_favorites);
 
+        //Change title for the top title bar
+        getSupportActionBar().setTitle("Favorites");
+
         //Basic textView to test the bottom navigation
         TextView title = (TextView) findViewById(R.id.testTextFavorites);
         title.setText("THIS IS THE FAVORITES ACTIVITY");

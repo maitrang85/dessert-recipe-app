@@ -30,6 +30,9 @@
             android:id="@+id/bottomNav_ViewBar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            app:itemBackground="@color/redPrimary"
+            app:itemIconTint="@drawable/bottom_nav_color"
+            app:itemTextColor="@drawable/bottom_nav_color"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:menu="@menu/menu">
