@@ -1,4 +1,4 @@
-package fi.group6.dessertrecipeapp;
+package fi.group6.dessertrecipeapp.logic;
 
 import java.util.ArrayList;
 /**
