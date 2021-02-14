@@ -18,14 +18,9 @@ public class Recipe {
     private String authorName;
     private float grade;
 
-    /**
-     * Constructor
-     */
-    public Recipe() {
-        ingredientsList = new ArrayList<Ingredient>();
-        instructions = new ArrayList<String>();
-        tagsList = new ArrayList<String>();
-    }
+    //**************//
+    // Constructors //
+    //**************//
     /**
      * Constructor
      * Creates a recipe
@@ -42,7 +37,8 @@ public class Recipe {
      * @param prepareTime
      * Time of preparation
      */
-    public Recipe(String name, ArrayList<Ingredient> ingredientsList, ArrayList<String> instructions, ArrayList<String> tagsList, String photo, boolean local, int numberOfServings, int prepareTime, String authorName, float grade) {
+    public Recipe(String name, ArrayList<Ingredient> ingredientsList, ArrayList<String> instructions, ArrayList<String> tagsList,
+                    String photo, boolean local, int numberOfServings, int prepareTime, String authorName, float grade) {
         this.name = name;
         this.ingredientsList = ingredientsList;
         this.instructions = instructions;
@@ -55,7 +51,41 @@ public class Recipe {
         this.grade = grade;
     }
 
-    //Methods
+    /**
+     * Constructor
+     * Creates a dummy for recipe
+     */
+    public Recipe() {
+        this("Dummy Recipe", new ArrayList<Ingredient>(), new ArrayList<String>(), new ArrayList<String>(),
+                "", false, 1, 0, "Generic", 0);
+    }
+
+    /**
+     * Constructor
+     * Creates a recipe with empty arrays
+     * @param name
+     * Name of recipe
+     * @param photo
+     * Photo path
+     * @param local
+     * Whether the recipe is saved locally or not
+     * @param numberOfServings
+     * Number of servings in that recipe
+     * @param prepareTime
+     * Time of preparation
+     * @param authorName
+     * Name of author
+     * @param grade
+     * Rating level
+     */
+    public Recipe(String name, String photo, boolean local, int numberOfServings, int prepareTime, String authorName, float grade) {
+        this (name, new ArrayList<Ingredient>(), new ArrayList<String>(), new ArrayList<String>(),
+                photo, local, numberOfServings, prepareTime, authorName, grade);
+    }
+
+    //*********//
+    // Methods //
+    //*********//
     /**
      * Gives name of the food recipe
      * @return
