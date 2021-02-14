@@ -1,4 +1,4 @@
-package com.trang.dessert_trang.Recipe;
+package fi.group6.dessertrecipeapp;
 
 import java.util.ArrayList;
 /**
