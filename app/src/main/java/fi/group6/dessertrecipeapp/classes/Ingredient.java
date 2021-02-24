@@ -1,4 +1,4 @@
-package fi.group6.dessertrecipeapp.logic;
+package fi.group6.dessertrecipeapp.classes;
 
 /**
  * Ingredient represents one ingredient used in a recipe.

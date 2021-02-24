@@ -1,4 +1,4 @@
-package fi.group6.dessertrecipeapp.logic;
+package fi.group6.dessertrecipeapp.classes;
 
 import java.util.ArrayList;
 /**
@@ -12,7 +12,7 @@ public class Recipe {
     private ArrayList<String> instructions;
     private ArrayList<String> tagsList;
     private String photo;
-    private boolean local;
+    private boolean custom;
     private int numberOfServings;
     private int prepareTime;
     private String authorName;
@@ -26,7 +26,7 @@ public class Recipe {
      * Creates a recipe
      * @param name
      * Name of recipe
-     * @param local
+     * @param custom
      * Whether the recipe is saved locally or not
      * @param authorName
      * Name of author
@@ -38,13 +38,13 @@ public class Recipe {
      * Time of preparation
      */
     public Recipe(String name, ArrayList<Ingredient> ingredientsList, ArrayList<String> instructions, ArrayList<String> tagsList,
-                    String photo, boolean local, int numberOfServings, int prepareTime, String authorName, float grade) {
+                    String photo, boolean custom, int numberOfServings, int prepareTime, String authorName, float grade) {
         this.name = name;
         this.ingredientsList = ingredientsList;
         this.instructions = instructions;
         this.tagsList = tagsList;
         this.photo = photo;
-        this.local = local;
+        this.custom = custom;
         this.numberOfServings = numberOfServings;
         this.prepareTime = prepareTime;
         this.authorName = authorName;
@@ -67,7 +67,7 @@ public class Recipe {
      * Name of recipe
      * @param photo
      * Photo path
-     * @param local
+     * @param custom
      * Whether the recipe is saved locally or not
      * @param numberOfServings
      * Number of servings in that recipe
@@ -78,9 +78,9 @@ public class Recipe {
      * @param grade
      * Rating level
      */
-    public Recipe(String name, String photo, boolean local, int numberOfServings, int prepareTime, String authorName, float grade) {
+    public Recipe(String name, String photo, boolean custom, int numberOfServings, int prepareTime, String authorName, float grade) {
         this (name, new ArrayList<Ingredient>(), new ArrayList<String>(), new ArrayList<String>(),
-                photo, local, numberOfServings, prepareTime, authorName, grade);
+                photo, custom, numberOfServings, prepareTime, authorName, grade);
     }
 
     //*********//
@@ -142,10 +142,10 @@ public class Recipe {
 
     /**
      * Whether the recipe will be saved locally or not
-     * @param local
+     * @param custom
      */
-    public void setLocal(boolean local) {
-        this.local = local;
+    public void setLocal(boolean custom) {
+        this.custom = custom;
     }
 
     /**
@@ -223,10 +223,10 @@ public class Recipe {
     /**
      * To get whether the recipe is saved locally or not
      * @return
-     * local
+     * custom
      */
-    public boolean isLocal() {
-        return local;
+    public boolean isCustom() {
+        return custom;
     }
 
     /**
@@ -335,7 +335,7 @@ public class Recipe {
                 ", instructions=" + instructions +
                 ", tags=" + tagsList +
                 ", photo='" + photo + '\'' +
-                ", local=" + local +
+                ", custom=" + custom +
                 ", numberOfServings=" + numberOfServings +
                 ", prepareTime=" + prepareTime +
                 ", authorName='" + authorName + '\'' +
