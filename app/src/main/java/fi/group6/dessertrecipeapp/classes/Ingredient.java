@@ -19,7 +19,7 @@ public class Ingredient {
      * @param measure
      * Measure for the amount ( kg, l, etc... )
      */
-    public Ingredient ( String name, int amount, String measure ) {
+    public Ingredient ( String name, double amount, String measure ) {
         this.name = name;
         this.amount = amount;
         this.measure = measure;

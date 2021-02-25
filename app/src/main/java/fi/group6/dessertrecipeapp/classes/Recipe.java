@@ -1,21 +1,42 @@
 package fi.group6.dessertrecipeapp.classes;
 
+import androidx.room.ColumnInfo;
+import androidx.room.Entity;
+import androidx.room.PrimaryKey;
+
+import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 /**
  * Models a dessert recipe
  * @author Trang
- * @version 1.0
+ * @version 1.1
  */
-public class Recipe {
+@Entity
+public class Recipe implements Serializable {
+    @PrimaryKey(autoGenerate = true)
+    private long uid;
+    @ColumnInfo(name = "name")
     private String name;
-    private ArrayList<Ingredient> ingredientsList;
-    private ArrayList<String> instructions;
-    private ArrayList<String> tagsList;
+    @ColumnInfo(name = "ingredients")
+    private String ingredientsList; // comma and semicolon separated values
+    @ColumnInfo(name = "instructions")
+    private String instructions; // ` - is a delimiter
+    @ColumnInfo(name = "tags")
+    private String tagsList; //csv
+    @ColumnInfo(name = "photo_reference")
     private String photo;
+    @ColumnInfo(name = "is_custom")
     private boolean custom;
+    @ColumnInfo(name = "number_of_servings")
     private int numberOfServings;
+    @ColumnInfo(name = "preparation_time")
     private int prepareTime;
+    @ColumnInfo(name = "author")
     private String authorName;
+    @ColumnInfo(name = "rating")
     private float grade;
 
     //**************//
@@ -37,7 +58,7 @@ public class Recipe {
      * @param prepareTime
      * Time of preparation
      */
-    public Recipe(String name, ArrayList<Ingredient> ingredientsList, ArrayList<String> instructions, ArrayList<String> tagsList,
+    public Recipe(String name, String ingredientsList, String instructions, String tagsList,
                     String photo, boolean custom, int numberOfServings, int prepareTime, String authorName, float grade) {
         this.name = name;
         this.ingredientsList = ingredientsList;
@@ -56,8 +77,8 @@ public class Recipe {
      * Creates a dummy for recipe
      */
     public Recipe() {
-        this("Dummy Recipe", new ArrayList<Ingredient>(), new ArrayList<String>(), new ArrayList<String>(),
-                "", false, 1, 0, "Generic", 0);
+        this("Dummy Recipe", "IngredientName,13.2,kg;Ingredient2Name,22.16,l;",
+                "Instruction`Instruction2`", "Tag,Tag2,", "", false, 1, 0, "Generic", 0);
     }
 
     /**
@@ -79,8 +100,8 @@ public class Recipe {
      * Rating level
      */
     public Recipe(String name, String photo, boolean custom, int numberOfServings, int prepareTime, String authorName, float grade) {
-        this (name, new ArrayList<Ingredient>(), new ArrayList<String>(), new ArrayList<String>(),
-                photo, custom, numberOfServings, prepareTime, authorName, grade);
+        this (name, "IngredientName,13.2,kg;Ingredient2Name,22.16,l;",
+                "Instruction`Instruction2`", "Tag,Tag2,", photo, custom, numberOfServings, prepareTime, authorName, grade);
     }
 
     //*********//
@@ -109,17 +130,33 @@ public class Recipe {
      * @return
      * ingredient
      */
-    public ArrayList<Ingredient> getList() {
-        return ingredientsList;
+    public ArrayList<Ingredient> getIngredientList() { // We have complex data inside that string, so some conversions are needed
+        List<String> tempIngredients = new ArrayList<>();                                 // in order to get ArrayList out of that.
+        tempIngredients = splitStringBySemicolon(this.ingredientsList); // This now holds "Name,Amount,Measure" in one place.
+
+        int i;
+        List<String> ingredient = new ArrayList<>();
+        ArrayList<Ingredient> ingredientArrayList = new ArrayList<>();
+        for ( i = 0; i < tempIngredients.size(); i++ ) {
+            ingredient = splitStringByComma(tempIngredients.get(i)); // This now holds "Name", "Amount", "Measure" at 0,1,2
+
+            ingredientArrayList.add(new Ingredient(ingredient.get(0), Double.valueOf(ingredient.get(1)), ingredient.get(2)));
+        }
+        return ingredientArrayList;
     }
 
-    /**
-     * To set the list of ingredients
-     * @param ingredientsList
-     * new list of ingredients
-     */
-    public void setList(ArrayList<Ingredient> ingredientsList) {
-        this.ingredientsList = ingredientsList;
+
+    public void setIngredientsList(ArrayList<Ingredient> ingredientsList) { // Converting ArrayList into complex data String
+        String list = "";
+        for(Ingredient ingredient: ingredientsList) {
+            list += ingredient.getIngredientName();
+            list += ",";
+            list += ingredient.getIngredientAmount();
+            list += ",";
+            list += ingredient.getIngredientMeasure();
+            list += ";";
+        }
+        this.ingredientsList = list;
     }
 
     /**
@@ -229,6 +266,7 @@ public class Recipe {
         return custom;
     }
 
+    //TODO: addTag(), checkTagInRecipe(), removeTag()
     /**
      * To check whether a tag is in the tags list
      * @param tags
@@ -244,7 +282,12 @@ public class Recipe {
      * @param ingredient
      */
     public void addIngredient(Ingredient ingredient) {
-        this.ingredientsList.add(ingredient);
+        this.ingredientsList += ingredient.getIngredientName();
+        this.ingredientsList += ",";
+        this.ingredientsList += ingredient.getIngredientAmount();
+        this.ingredientsList += ",";
+        this.ingredientsList += ingredient.getIngredientMeasure();
+        this.ingredientsList += ";";
     }
 
     /**
@@ -252,7 +295,33 @@ public class Recipe {
      * @param ingredient
      */
     public void deleteIngredient(Ingredient ingredient) {
-        this.ingredientsList.remove(ingredient);
+        // Converting to the ArrayList of Ingredients
+        List<String> ingredientsStrings = new ArrayList<>();
+        ingredientsStrings = splitStringBySemicolon(this.ingredientsList);
+
+        ArrayList<Ingredient> ingredientArrayList = new ArrayList<>();
+        List<String> tempIngredient = new ArrayList<>();
+        int i;
+        for ( i = 0; i < ingredientsStrings.size(); i++ ) {
+            tempIngredient = splitStringByComma(ingredientsStrings.get(i));
+
+            ingredientArrayList.add(new Ingredient(tempIngredient.get(0), Double.valueOf(tempIngredient.get(1)),tempIngredient.get(2)));
+        }
+
+        ingredientArrayList.remove(ingredient); // deleting ingredient from the array
+
+        // Converting back to the String
+        String newList = "";
+        for(Ingredient ing: ingredientArrayList) {
+            newList += ing.getIngredientName();
+            newList += ",";
+            newList += ing.getIngredientAmount();
+            newList += ",";
+            newList += ing.getIngredientMeasure();
+            newList += ";";
+        }
+
+        this.ingredientsList = newList;
     }
 
     /**
@@ -260,9 +329,37 @@ public class Recipe {
      * @param ingredient
      */
     public void changeIngredient(Ingredient ingredient) {
-        int indexIngredient = ingredientsList.indexOf(ingredient);
-        if(indexIngredient >= 0)
-            ingredientsList.set(indexIngredient, ingredient);
+        // Converting to the ArrayList of Ingredients
+        List<String> ingredientsStrings = new ArrayList<>();
+        ingredientsStrings = splitStringBySemicolon(this.ingredientsList);
+
+        ArrayList<Ingredient> ingredientArrayList = new ArrayList<>();
+        List<String> tempIngredient = new ArrayList<>();
+        int i;
+        for ( i = 0; i < ingredientsStrings.size(); i++ ) {
+            tempIngredient = splitStringByComma(ingredientsStrings.get(i));
+
+            ingredientArrayList.add(new Ingredient(tempIngredient.get(0), Double.valueOf(tempIngredient.get(1)),tempIngredient.get(2)));
+        }
+
+        // Modifying chosen ingredient
+        int indexIngredient = ingredientArrayList.indexOf(ingredient);
+        if(indexIngredient >= 0) {
+            ingredientArrayList.set(indexIngredient, ingredient);
+        }
+
+        // Converting back to the String
+        String newList = "";
+        for(Ingredient ing: ingredientArrayList) {
+            newList += ing.getIngredientName();
+            newList += ",";
+            newList += ing.getIngredientAmount();
+            newList += ",";
+            newList += ing.getIngredientMeasure();
+            newList += ";";
+        }
+
+        this.ingredientsList = newList;
     }
 
     /**
@@ -270,7 +367,8 @@ public class Recipe {
      * @param instruction
      */
     public void addInstructions(String instruction) {
-        this.instructions.add(instruction);
+        this.instructions += instruction;
+        this.instructions += "`";
     }
 
     /**
@@ -278,17 +376,46 @@ public class Recipe {
      * @param instruction
      */
     public void modifyInstructions(String instruction) {
-        int indexInstruction = instructions.indexOf(instruction);
-        if(indexInstruction >= 0)
-            instructions.set(indexInstruction, instruction);
+
+        // Converting to the List of Instructions
+        List<String> instructionStrings = new ArrayList<>();
+        instructionStrings = splitString(this.instructions, "`");
+
+        // Modifying instruction inside of the Array
+        int indexInstruction = instructionStrings.indexOf(instruction);
+        if(indexInstruction >= 0) {
+            instructionStrings.set(indexInstruction, instruction);
+        }
+
+        // Converting back to the String
+        String newinstructions = "";
+        for(String instr: instructionStrings) {
+            newinstructions += instr;
+            newinstructions += "`";
+        }
+        this.instructions = newinstructions;
     }
 
     /**
      * To get an ingredient by using its index from the list
      * @param index
+     * @return
+     * Ingredient by index
      */
     public Ingredient getIngredient (int index) {
-        return ingredientsList.get(index);
+        // Converting to the ArrayList of Ingredients
+        List<String> ingredientsStrings = new ArrayList<>();
+        ingredientsStrings = splitStringBySemicolon(this.ingredientsList);
+
+        ArrayList<Ingredient> ingredientArrayList = new ArrayList<>();
+        List<String> tempIngredient = new ArrayList<>();
+        int i;
+        for ( i = 0; i < ingredientsStrings.size(); i++ ) {
+            tempIngredient = splitStringByComma(ingredientsStrings.get(i));
+
+            ingredientArrayList.add(new Ingredient(tempIngredient.get(0), Double.valueOf(tempIngredient.get(1)),tempIngredient.get(2)));
+        }
+        return ingredientArrayList.get(index);
     }
 
     /**
@@ -297,7 +424,11 @@ public class Recipe {
      * ingredients list size
      */
     public int getNumOfIngredients() {
-        return ingredientsList.size();
+        // Converting to the List of Strings with ingredients for each index
+        List<String> ingredientsStrings = new ArrayList<>();
+        ingredientsStrings = splitStringBySemicolon(this.ingredientsList);
+
+        return ingredientsStrings.size(); // it is enough
     }
 
     /**
@@ -306,7 +437,7 @@ public class Recipe {
      * instructions
      */
     public String getAllInstructions() {
-        return instructions.toString();
+        return instructions;
     }
 
     /**
@@ -315,7 +446,11 @@ public class Recipe {
      * instructions
      */
     public String getInstructionByIndex(int index) {
-        return instructions.get(index).toString();
+        // Converting to the List of Instructions
+        List<String> instructionStrings = new ArrayList<>();
+        instructionStrings = splitString(this.instructions, "`");
+
+        return instructionStrings.get(index);
     }
 
     /**
@@ -324,7 +459,11 @@ public class Recipe {
      * instructions list size
      */
     public int getNumOfInstructions() {
-        return instructions.size();
+        // Converting to the List of Instructions
+        List<String> instructionStrings = new ArrayList<>();
+        instructionStrings = splitString(this.instructions, "`");
+
+        return instructionStrings.size();
     }
 
     @Override
@@ -341,6 +480,47 @@ public class Recipe {
                 ", authorName='" + authorName + '\'' +
                 ", grade=" + grade +
                 '}';
+    }
+
+    //*****************//
+    //*PRIVATE METHODS*//
+    //*****************//
+    private List<String> splitStringByComma(String str) {
+        String temp[];
+        temp = str.split(",");
+        List<String> finalArray = new ArrayList<>();
+        finalArray = Arrays.asList(temp);
+        return finalArray;
+    }
+
+    private List<String> splitStringBySemicolon(String str) {
+        String temp[];
+        temp = str.split(";");
+        List<String> finalArray = new ArrayList<>();
+        finalArray = Arrays.asList(temp);
+        return finalArray;
+    }
+
+    private List<String> splitString(String str, String delimiter) {
+        String temp[];
+        temp = str.split(delimiter);
+        List<String> finalArray = new ArrayList<>();
+        finalArray = Arrays.asList(temp);
+        return finalArray;
+    }
+
+    //TODO: Remove some ctrl+c and ctrl+v
+    private ArrayList<Ingredient> ingredientStringToArrayList(String ingredientString) {
+        return null;
+    }
+    private String ingredientArrayListToString(ArrayList<Ingredient> IngredientArrayList) {
+        return null;
+    }
+    private List<String> instructionsStringToList(String instructionsString) {
+        return null;
+    }
+    private String instructionsListToString(List<String> instructionsList) {
+        return null;
     }
 
 }
