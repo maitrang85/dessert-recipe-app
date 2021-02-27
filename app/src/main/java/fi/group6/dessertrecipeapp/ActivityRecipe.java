@@ -5,15 +5,24 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.TextView;
 
+import fi.group6.dessertrecipeapp.classes.RecipeBook;
+
 public class ActivityRecipe extends AppCompatActivity {
+
+    public static final String TAG = "indexOfRecipe";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_recipe);
 
-        //Change title for the action bar
-        getSupportActionBar().setTitle("Recipe title here");
+        //Recall the intent and recall the index of the recipe
+        Bundle b = getIntent().getExtras();
+        int indexOfRecipe = b.getInt(TAG);
+        RecipeBook recipes = RecipeBook.getInstance();
+
+        //Change title for the action bar to the recipe name
+        getSupportActionBar().setTitle(recipes.getRecipe(indexOfRecipe).getName());
         //Add back button to the action bar
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 

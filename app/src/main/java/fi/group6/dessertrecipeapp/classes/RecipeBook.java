@@ -23,7 +23,7 @@ public class RecipeBook {
      */
     private RecipeBook(){
         recipes = new ArrayList<Recipe>();
-        recipes.add(new Recipe("Dummy Recipe 2", "IngredientName,13.2,kg;Ingredient2Name,22.16,l;",
+        recipes.add(new Recipe("Dummy Recipe", "IngredientName,13.2,kg;Ingredient2Name,22.16,l;",
                 "Instruction`Instruction2`", "Tag,Tag2,", "", false, 1,
                 0, "Generic", 0));
     }
@@ -53,7 +53,7 @@ public class RecipeBook {
      * @param recipe
      * Recipe details
      */
-    public void addPresident(Recipe recipe){
+    public void addRecipe(Recipe recipe){
         this.recipes.add(recipe);
     }
 

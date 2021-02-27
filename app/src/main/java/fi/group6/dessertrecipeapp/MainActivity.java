@@ -8,6 +8,10 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -16,11 +20,14 @@ import java.util.ArrayList;
 
 import fi.group6.dessertrecipeapp.classes.Ingredient;
 import fi.group6.dessertrecipeapp.classes.Recipe;
+import fi.group6.dessertrecipeapp.classes.RecipeBook;
 
 public class MainActivity extends AppCompatActivity {
 
     private static final boolean DEBUG_RECIPE = true; //Recipe debug prints //temporary
     private static final boolean DEBUG_RECIPE_EXAMPLE = false; //Just an example for recipe debug prints //temporary
+
+    public static final String TAG = "indexOfRecipe";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,9 +37,28 @@ public class MainActivity extends AppCompatActivity {
         //Change title for the top title bar
         getSupportActionBar().setTitle("DailyDesserts");
 
-        //Basic textView to test the bottom navigation
-        TextView title = (TextView) findViewById(R.id.testText);
-        title.setText("THIS IS THE MAIN ACTIVITY");
+        RecipeBook recipes = RecipeBook.getInstance();
+
+        //Connect the listView in the xml to the MainActivity
+        ListView lv = findViewById(R.id.lvRecipe);
+
+        //Set an adapter for the listView to show all the recipes in the RecipeBook class
+        lv.setAdapter(new ArrayAdapter<Recipe>(
+                this,
+                android.R.layout.simple_expandable_list_item_1,
+                recipes.getAllRecipes()
+        ));
+
+        //Upon clicking any of the recipes, the user will be taken to the specific recipe page
+        lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                //Add intent to change activities
+                Intent detailsActivity = new Intent(MainActivity.this, ActivityRecipe.class);
+                detailsActivity.putExtra(TAG, i);
+                startActivity(detailsActivity);
+            }
+        });
 
         //Set up the bottom navigation bar
         BottomNavigationView bottomNavigationView = (BottomNavigationView) findViewById(R.id.bottomNav_ViewBar);
