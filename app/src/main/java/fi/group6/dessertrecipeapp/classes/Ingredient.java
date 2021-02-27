@@ -2,6 +2,8 @@ package fi.group6.dessertrecipeapp.classes;
 
 /**
  * Ingredient represents one ingredient used in a recipe.
+ * @author Daniil
+ * @version 1.0
  */
 public class Ingredient {
     private String name;
@@ -67,7 +69,7 @@ public class Ingredient {
 
     @Override
     public String toString() {
-        return this.name + " " + Double.toString(this.amount) + " " + measure;
+        return this.name + ": " + Double.toString(this.amount) + " " + measure;
     }
 
 }

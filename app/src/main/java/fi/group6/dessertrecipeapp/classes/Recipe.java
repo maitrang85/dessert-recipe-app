@@ -12,6 +12,7 @@ import java.util.List;
 /**
  * Models a dessert recipe
  * @author Trang
+ * Refactored by Daniil
  * @version 1.1
  */
 @Entity
@@ -113,7 +114,7 @@ public class Recipe implements Serializable {
      * name
      */
     public String getName() {
-        return name;
+        return this.name;
     }
 
     /**
@@ -130,48 +131,32 @@ public class Recipe implements Serializable {
      * @return
      * ingredient
      */
-    public ArrayList<Ingredient> getIngredientList() { // We have complex data inside that string, so some conversions are needed
-        List<String> tempIngredients = new ArrayList<>();                                 // in order to get ArrayList out of that.
-        tempIngredients = splitStringBySemicolon(this.ingredientsList); // This now holds "Name,Amount,Measure" in one place.
-
-        int i;
-        List<String> ingredient = new ArrayList<>();
-        ArrayList<Ingredient> ingredientArrayList = new ArrayList<>();
-        for ( i = 0; i < tempIngredients.size(); i++ ) {
-            ingredient = splitStringByComma(tempIngredients.get(i)); // This now holds "Name", "Amount", "Measure" at 0,1,2
-
-            ingredientArrayList.add(new Ingredient(ingredient.get(0), Double.valueOf(ingredient.get(1)), ingredient.get(2)));
-        }
-        return ingredientArrayList;
+    public ArrayList<Ingredient> getIngredientList() {
+        return ingredientStringToArrayList(this.ingredientsList);
     }
 
-
-    public void setIngredientsList(ArrayList<Ingredient> ingredientsList) { // Converting ArrayList into complex data String
-        String list = "";
-        for(Ingredient ingredient: ingredientsList) {
-            list += ingredient.getIngredientName();
-            list += ",";
-            list += ingredient.getIngredientAmount();
-            list += ",";
-            list += ingredient.getIngredientMeasure();
-            list += ";";
-        }
-        this.ingredientsList = list;
+    /**
+     * Sets new Ingredient list
+     * @param ingredientsList
+     * New ingredient list to set
+     */
+    public void setIngredientsList(ArrayList<Ingredient> ingredientsList) {
+        this.ingredientsList = ingredientArrayListToString(ingredientsList);
     }
 
     /**
      * To get the photo for recipe
      * @return
-     * photo
+     * Reference to photo
      */
     public String getPhoto() {
-        return photo;
+        return this.photo;
     }
 
     /**
      * To change photo for recipe
      * @param photo
-     * new photo
+     * New photo reference
      */
     public void setPhoto(String photo) {
         this.photo = photo;
@@ -180,24 +165,34 @@ public class Recipe implements Serializable {
     /**
      * Whether the recipe will be saved locally or not
      * @param custom
+     * Custom = true, Premade = false.
      */
-    public void setLocal(boolean custom) {
+    public void setCustom(boolean custom) {
         this.custom = custom;
+    }
+
+    /**
+     * To get whether the recipe is custom or not
+     * @return
+     * true - if it is custom, false - if generic
+     */
+    public boolean isCustom() {
+        return this.custom;
     }
 
     /**
      * To get number of servings in recipe
      * @return
-     * number of people to served
+     * Number of people to served
      */
     public int getNumberOfServings() {
-        return numberOfServings;
+        return this.numberOfServings;
     }
 
     /**
      * To change number of servings
      * @param numberOfServings
-     * new number of servings
+     * New number of servings
      */
     public void setNumberOfServings(int numberOfServings) {
         this.numberOfServings = numberOfServings;
@@ -206,16 +201,16 @@ public class Recipe implements Serializable {
     /**
      * To get the preparation time
      * @return
-     * prepare time
+     * Preparation time in minutes
      */
     public int getPrepareTime() {
-        return prepareTime;
+        return this.prepareTime;
     }
 
     /**
      * To change the time for making food
      * @param prepareTime
-     * new prepare time
+     * New preparation time
      */
     public void setPrepareTime(int prepareTime) {
         this.prepareTime = prepareTime;
@@ -224,16 +219,16 @@ public class Recipe implements Serializable {
     /**
      * To get name of person who creates the recipe
      * @return
-     * author name
+     * Author name
      */
     public String getAuthorName() {
-        return authorName;
+        return this.authorName;
     }
 
     /**
      * To set the name of author
      * @param authorName
-     * new author name
+     * New author name
      */
     public void setAuthorName(String authorName) {
         this.authorName = authorName;
@@ -242,28 +237,19 @@ public class Recipe implements Serializable {
     /**
      * To get rating grade
      * @return
-     * grade
+     * Rating
      */
     public float getGrade() {
-        return grade;
+        return this.grade;
     }
 
     /**
      * To set the rating grade
      * @param grade
-     * grade
+     * New grade
      */
     public void setGrade(float grade) {
         this.grade = grade;
-    }
-
-    /**
-     * To get whether the recipe is saved locally or not
-     * @return
-     * custom
-     */
-    public boolean isCustom() {
-        return custom;
     }
 
     //TODO: addTag(), checkTagInRecipe(), removeTag()
@@ -280,6 +266,7 @@ public class Recipe implements Serializable {
     /**
      * To add an ingredient into the ingredient list
      * @param ingredient
+     * Ingredient to add
      */
     public void addIngredient(Ingredient ingredient) {
         this.ingredientsList += ingredient.getIngredientName();
@@ -291,131 +278,15 @@ public class Recipe implements Serializable {
     }
 
     /**
-     * To delete an ingredient from the ingredient list
-     * @param ingredient
-     */
-    public void deleteIngredient(Ingredient ingredient) {
-        // Converting to the ArrayList of Ingredients
-        List<String> ingredientsStrings = new ArrayList<>();
-        ingredientsStrings = splitStringBySemicolon(this.ingredientsList);
-
-        ArrayList<Ingredient> ingredientArrayList = new ArrayList<>();
-        List<String> tempIngredient = new ArrayList<>();
-        int i;
-        for ( i = 0; i < ingredientsStrings.size(); i++ ) {
-            tempIngredient = splitStringByComma(ingredientsStrings.get(i));
-
-            ingredientArrayList.add(new Ingredient(tempIngredient.get(0), Double.valueOf(tempIngredient.get(1)),tempIngredient.get(2)));
-        }
-
-        ingredientArrayList.remove(ingredient); // deleting ingredient from the array
-
-        // Converting back to the String
-        String newList = "";
-        for(Ingredient ing: ingredientArrayList) {
-            newList += ing.getIngredientName();
-            newList += ",";
-            newList += ing.getIngredientAmount();
-            newList += ",";
-            newList += ing.getIngredientMeasure();
-            newList += ";";
-        }
-
-        this.ingredientsList = newList;
-    }
-
-    /**
-     * To modify an ingredient
-     * @param ingredient
-     */
-    public void changeIngredient(Ingredient ingredient) {
-        // Converting to the ArrayList of Ingredients
-        List<String> ingredientsStrings = new ArrayList<>();
-        ingredientsStrings = splitStringBySemicolon(this.ingredientsList);
-
-        ArrayList<Ingredient> ingredientArrayList = new ArrayList<>();
-        List<String> tempIngredient = new ArrayList<>();
-        int i;
-        for ( i = 0; i < ingredientsStrings.size(); i++ ) {
-            tempIngredient = splitStringByComma(ingredientsStrings.get(i));
-
-            ingredientArrayList.add(new Ingredient(tempIngredient.get(0), Double.valueOf(tempIngredient.get(1)),tempIngredient.get(2)));
-        }
-
-        // Modifying chosen ingredient
-        int indexIngredient = ingredientArrayList.indexOf(ingredient);
-        if(indexIngredient >= 0) {
-            ingredientArrayList.set(indexIngredient, ingredient);
-        }
-
-        // Converting back to the String
-        String newList = "";
-        for(Ingredient ing: ingredientArrayList) {
-            newList += ing.getIngredientName();
-            newList += ",";
-            newList += ing.getIngredientAmount();
-            newList += ",";
-            newList += ing.getIngredientMeasure();
-            newList += ";";
-        }
-
-        this.ingredientsList = newList;
-    }
-
-    /**
-     * To add instructions into the instruction list
-     * @param instruction
-     */
-    public void addInstructions(String instruction) {
-        this.instructions += instruction;
-        this.instructions += "`";
-    }
-
-    /**
-     * To modify an instruction
-     * @param instruction
-     */
-    public void modifyInstructions(String instruction) {
-
-        // Converting to the List of Instructions
-        List<String> instructionStrings = new ArrayList<>();
-        instructionStrings = splitString(this.instructions, "`");
-
-        // Modifying instruction inside of the Array
-        int indexInstruction = instructionStrings.indexOf(instruction);
-        if(indexInstruction >= 0) {
-            instructionStrings.set(indexInstruction, instruction);
-        }
-
-        // Converting back to the String
-        String newinstructions = "";
-        for(String instr: instructionStrings) {
-            newinstructions += instr;
-            newinstructions += "`";
-        }
-        this.instructions = newinstructions;
-    }
-
-    /**
      * To get an ingredient by using its index from the list
      * @param index
+     * Index of ingredient to get
      * @return
      * Ingredient by index
      */
     public Ingredient getIngredient (int index) {
-        // Converting to the ArrayList of Ingredients
-        List<String> ingredientsStrings = new ArrayList<>();
-        ingredientsStrings = splitStringBySemicolon(this.ingredientsList);
-
-        ArrayList<Ingredient> ingredientArrayList = new ArrayList<>();
-        List<String> tempIngredient = new ArrayList<>();
-        int i;
-        for ( i = 0; i < ingredientsStrings.size(); i++ ) {
-            tempIngredient = splitStringByComma(ingredientsStrings.get(i));
-
-            ingredientArrayList.add(new Ingredient(tempIngredient.get(0), Double.valueOf(tempIngredient.get(1)),tempIngredient.get(2)));
-        }
-        return ingredientArrayList.get(index);
+        //Converting to the ArrayList of Ingredients and getting right ingredient
+        return ingredientStringToArrayList(this.ingredientsList).get(index);
     }
 
     /**
@@ -424,20 +295,87 @@ public class Recipe implements Serializable {
      * ingredients list size
      */
     public int getNumOfIngredients() {
-        // Converting to the List of Strings with ingredients for each index
-        List<String> ingredientsStrings = new ArrayList<>();
-        ingredientsStrings = splitStringBySemicolon(this.ingredientsList);
-
-        return ingredientsStrings.size(); // it is enough
+        return splitString(this.ingredientsList, ";").size(); // it is enough, no need to convert any further
     }
 
+    /**
+     * To delete an ingredient from the ingredient list
+     * @param index
+     * Index of the ingredient to delete
+     */
+    public void deleteIngredient(int index) {
+        ArrayList<Ingredient> ingredientArrayList = new ArrayList<>();
+        // Converting String to the ArrayList of Ingredients
+        ingredientArrayList = ingredientStringToArrayList(this.ingredientsList);
+
+        ingredientArrayList.remove(index); // deleting ingredient from the array
+
+        // Converting back to the String
+        String newList = ingredientArrayListToString(ingredientArrayList);
+
+        this.ingredientsList = newList;
+    }
+
+    /**
+     * To modify an ingredient
+     * @param indexIngredient
+     * Ingredient to be modified
+     * @param ingredient
+     * Ingredient to set on the previous ingredient place
+     */
+    public void changeIngredient(int indexIngredient, Ingredient ingredient) {
+        ArrayList<Ingredient> ingredientArrayList = new ArrayList<>();
+        // Converting String to the ArrayList of Ingredients
+        ingredientArrayList = ingredientStringToArrayList(this.ingredientsList);
+
+        // Modifying chosen ingredient
+        if(indexIngredient >= 0) {
+            ingredientArrayList.set(indexIngredient, ingredient);
+        }
+
+        // Converting back to the String
+        this.ingredientsList = ingredientArrayListToString(ingredientArrayList);
+    }
+
+    /**
+     * To add instructions into the instruction list
+     * @param instruction
+     * String with instruction text
+     */
+    public void addInstructions(String instruction) {
+        this.instructions += instruction;
+        this.instructions += "`";
+    }
+
+    /**
+     * To modify an instruction
+     * @param indexInstruction
+     * String with the previous instruction text
+     * @param instruction
+     * String with the new instruction text
+     */
+    public void modifyInstructions(int indexInstruction, String instruction) {
+        List<String> instructionStrings = new ArrayList<>();
+        // Converting to the List of Instructions
+        instructionStrings = instructionsStringToList(this.instructions);
+
+        // Modifying instruction inside of the Array
+        if(indexInstruction >= 0) {
+            instructionStrings.set(indexInstruction, instruction);
+        }
+
+        // Converting back to the String
+        this.instructions = instructionsListToString(instructionStrings);
+    }
+
+    //TODO: Parser for instructions. "`" to "\n\n"
     /**
      * To get all instruction strings
      * @return
      * instructions
      */
     public String getAllInstructions() {
-        return instructions;
+        return this.instructions;
     }
 
     /**
@@ -447,10 +385,7 @@ public class Recipe implements Serializable {
      */
     public String getInstructionByIndex(int index) {
         // Converting to the List of Instructions
-        List<String> instructionStrings = new ArrayList<>();
-        instructionStrings = splitString(this.instructions, "`");
-
-        return instructionStrings.get(index);
+        return instructionsStringToList(this.instructions).get(index);
     }
 
     /**
@@ -460,47 +395,40 @@ public class Recipe implements Serializable {
      */
     public int getNumOfInstructions() {
         // Converting to the List of Instructions
-        List<String> instructionStrings = new ArrayList<>();
-        instructionStrings = splitString(this.instructions, "`");
-
-        return instructionStrings.size();
+        return instructionsStringToList(this.instructions).size();
     }
 
+    //TODO: removeInstructions(int index)
+
+    //Mostly for debugging, now, at least
     @Override
     public java.lang.String toString() {
-        return "Recipe{" +
-                "name='" + name + '\'' +
-                ", ingredients=" + ingredientsList +
-                ", instructions=" + instructions +
-                ", tags=" + tagsList +
-                ", photo='" + photo + '\'' +
-                ", custom=" + custom +
-                ", numberOfServings=" + numberOfServings +
-                ", prepareTime=" + prepareTime +
-                ", authorName='" + authorName + '\'' +
-                ", grade=" + grade +
-                '}';
+        return "Recipe{\n" +
+                "1. name='" + this.name + '\'' +
+                "\n2. ingredients='" + this.ingredientsList + '\'' +
+                "\n3. instructions='" + this.instructions + '\'' +
+                "\n4. tags='" + this.tagsList + '\'' +
+                "\n5. photo='" + this.photo + '\'' +
+                "\n6. custom=" + this.custom +
+                "\n7. numberOfServings=" + this.numberOfServings +
+                "\n8. prepareTime=" + this.prepareTime +
+                "\n9. authorName='" + this.authorName + '\'' +
+                "\n10. grade=" + this.grade +
+                "\n}";
     }
 
     //*****************//
     //*PRIVATE METHODS*//
     //*****************//
-    private List<String> splitStringByComma(String str) {
-        String temp[];
-        temp = str.split(",");
-        List<String> finalArray = new ArrayList<>();
-        finalArray = Arrays.asList(temp);
-        return finalArray;
-    }
-
-    private List<String> splitStringBySemicolon(String str) {
-        String temp[];
-        temp = str.split(";");
-        List<String> finalArray = new ArrayList<>();
-        finalArray = Arrays.asList(temp);
-        return finalArray;
-    }
-
+    /**
+     * Splits String by chosen delimiter
+     * @param str
+     * String to split
+     * @param delimiter
+     * Which symbol should be used as a delimiter
+     * @return
+     * List of Strings, separated by the delimiter
+     */
     private List<String> splitString(String str, String delimiter) {
         String temp[];
         temp = str.split(delimiter);
@@ -509,19 +437,73 @@ public class Recipe implements Serializable {
         return finalArray;
     }
 
-    //TODO: Remove some ctrl+c and ctrl+v
+    /**
+     * Converting complex data String to the simple ArrayList of ingredients
+     * @param ingredientString
+     * String with complex dara about the ingredients.
+     * (Ingredient delimited by ",". Ingredients between each other delimited by ";")
+     * @return
+     * Array of ingredients
+     */
     private ArrayList<Ingredient> ingredientStringToArrayList(String ingredientString) {
-        return null;
+        List<String> ingredientsStrings = new ArrayList<>();
+        ingredientsStrings = splitString(ingredientString, ";"); // This now holds "Name,Amount,Measure" in one place.
+
+        ArrayList<Ingredient> ingredientArrayList = new ArrayList<>();
+        List<String> tempIngredient = new ArrayList<>();
+        int i;
+        for ( i = 0; i < ingredientsStrings.size(); i++ ) {
+            tempIngredient = splitString(ingredientsStrings.get(i), ","); // This now holds "Name", "Amount", "Measure" at 0,1,2
+
+            ingredientArrayList.add(new Ingredient(tempIngredient.get(0), Double.valueOf(tempIngredient.get(1)),tempIngredient.get(2)));
+        }
+        return ingredientArrayList;
     }
-    private String ingredientArrayListToString(ArrayList<Ingredient> IngredientArrayList) {
-        return null;
+    /**
+     * Converting ArrayList into complex data String
+     * @param ingredientArrayList
+     * Array of ingredients
+     * @return
+     * String with complex dara about the ingredients.
+     * (Ingredient delimited by ",". Ingredients between each other delimited by ";")
+     */
+    private String ingredientArrayListToString(ArrayList<Ingredient> ingredientArrayList) {
+        String newList = "";
+        for(Ingredient ing: ingredientArrayList) {
+            newList += ing.getIngredientName();
+            newList += ",";
+            newList += ing.getIngredientAmount();
+            newList += ",";
+            newList += ing.getIngredientMeasure();
+            newList += ";";
+        }
+        return newList;
     }
+    /**
+     * Coverts complex instructions String into a list of instructions
+     * @param instructionsString
+     * String with complex data. "`" - delimiter
+     * @return
+     * List with instructions separated by the delimiter
+     */
     private List<String> instructionsStringToList(String instructionsString) {
-        return null;
+        List<String> instructionStrings = new ArrayList<>();
+        instructionStrings = splitString(instructionsString, "`");
+        return instructionStrings;
     }
+    /**
+     * Converts list of instructions into the String with complex data
+     * @param instructionsList
+     * List of instructions
+     * @return
+     * String with complex data. "`" - delimiter
+     */
     private String instructionsListToString(List<String> instructionsList) {
-        return null;
+        String newInstructions = "";
+        for(String instr: instructionsList) {
+            newInstructions += instr;
+            newInstructions += "`";
+        }
+        return newInstructions;
     }
-
 }
-
