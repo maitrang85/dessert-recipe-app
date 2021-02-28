@@ -88,7 +88,7 @@ public class MainActivity extends AppCompatActivity {
     private void debugPrintsForRecipeClass() {
         // Just an example
         if (DEBUG_RECIPE_EXAMPLE){ // A bunch of the recipe debug prints. Mostly for copy/paste :)
-            Recipe testRecipe = new Recipe("Pie", "Bread,100,kg;Hands,2,obj;", "Some instructions.\nI'm tired.`Hell.\nUh.`", "Not safe,Testing",
+            Recipe testRecipe = new Recipe("Pie", "Bread,100,kg;Hands,2,obj;", "Some instructions.\nI'm tired.\n`Hell.\nUh.\n`", "not safe,testing,",
                     "nope", false, 228, 1337, "Daniil", (float) 1.0);
             Recipe testRecipe2 = new Recipe();
             Recipe testRecipe3 = new Recipe("Cake", "no, not this time", false, 2, 666, "Satan", (float) 10.10);
@@ -131,6 +131,16 @@ public class MainActivity extends AppCompatActivity {
             testRecipe2.setGrade((float) 3.5);
             Log.d("setGrade()", Float.toString(testRecipe2.getGrade()));
 
+            Log.d("getTagsString()", testRecipe.getTagsString()); //getTagsList() - should be fine as well
+
+            testRecipe.addTag("great");
+            Log.d("addTag()", testRecipe.getTagsString());
+
+            Log.d("checkTagInRecipe()", Boolean.toString(testRecipe.checkTagInRecipe("testing")));
+
+            testRecipe.removeTag("great");
+            Log.d("removeTag()", testRecipe.getTagsString());
+
             testRecipe.addIngredient(new Ingredient("apples", 3, "obj"));
             Log.d("addIngredient()", testRecipe.getIngredientList().toString());
 
@@ -145,6 +155,7 @@ public class MainActivity extends AppCompatActivity {
             testRecipe.changeIngredient(testRecipe.getNumOfIngredients() - 1, new Ingredient("Apple jam", 250, "l"));
             Log.d("changeIngredient()", testRecipe.getIngredientList().toString());
 
+            Log.d("getRawInstructions()", testRecipe.getRawInstructions());
             Log.d("getAllInstructions()", testRecipe.getAllInstructions());
 
             testRecipe.addInstructions("Get to work!");
