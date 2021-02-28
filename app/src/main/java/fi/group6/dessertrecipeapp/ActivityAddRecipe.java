@@ -18,6 +18,11 @@ import android.widget.Toast;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
+//TODO UI - make "ADD INGREDIENT" button work
+//TODO - configure "ADD RECIPE" button
+//TODO - add recipe tag selection to the UI and the code
+//TODO - figure out how to work with photos
+
 public class ActivityAddRecipe extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
 
     @Override
