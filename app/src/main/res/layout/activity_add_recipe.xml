@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/relativeLayout"
@@ -7,16 +7,264 @@
     android:layout_height="match_parent"
     tools:context="MainActivity">
 
-    <TextView
-        android:id="@+id/testTextAddRecipe"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
-    </TextView>
+        <TextView
+            android:id="@+id/name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="20dp"
+            android:text="@string/recipe_name"
+            android:textSize="18sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <EditText
+            android:id="@+id/editTextTextPersonName"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="12dp"
+            android:layout_marginEnd="16dp"
+            android:ems="10"
+            android:inputType="textPersonName"
+            android:textSize="18sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/name" />
+
+        <EditText
+            android:id="@+id/ingredientAmount"
+            android:layout_width="75dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="12dp"
+            android:ems="10"
+            android:hint="@string/amount"
+            android:inputType="numberDecimal"
+            android:maxLength="4"
+            android:textSize="18sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/ingredient" />
+
+        <TextView
+            android:id="@+id/ingredient"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:text="@string/ingredients"
+            android:textSize="18sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/editTextTextPersonName" />
+
+        <EditText
+            android:id="@+id/ingredientMeasure"
+            android:layout_width="75dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="12dp"
+            android:ems="10"
+            android:hint="@string/measurement_examples"
+            android:inputType="textPersonName"
+            android:textSize="18sp"
+            app:layout_constraintStart_toEndOf="@+id/ingredientAmount"
+            app:layout_constraintTop_toBottomOf="@+id/ingredient" />
+
+        <EditText
+            android:id="@+id/ingredientName"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="12dp"
+            android:layout_marginEnd="16dp"
+            android:ems="10"
+            android:hint="@string/ingredient_name"
+            android:inputType="textPersonName"
+            android:textSize="18sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/ingredientMeasure"
+            app:layout_constraintTop_toBottomOf="@+id/ingredient" />
+
+        <EditText
+            android:id="@+id/portionSize"
+            android:layout_width="40dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="4dp"
+            android:layout_marginTop="19dp"
+            android:ems="10"
+            android:inputType="number"
+            android:maxLength="3"
+            android:textAlignment="center"
+            android:textSize="18sp"
+            app:layout_constraintStart_toEndOf="@+id/portionSizeSplitText1"
+            app:layout_constraintTop_toBottomOf="@+id/addIngredientButton" />
+
+        <TextView
+            android:id="@+id/portionSizeSplitText1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="32dp"
+            android:text="@string/for1"
+            android:textSize="18sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/addIngredientButton" />
+
+        <TextView
+            android:id="@+id/portionSizeSplitText2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="4dp"
+            android:layout_marginTop="32dp"
+            android:text="@string/people"
+            android:textSize="18sp"
+            app:layout_constraintStart_toEndOf="@+id/portionSize"
+            app:layout_constraintTop_toBottomOf="@+id/addIngredientButton" />
+
+        <Button
+            android:id="@+id/addIngredientButton"
+            android:layout_width="wrap_content"
+            android:layout_height="60dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:text="@string/add_ingredient"
+            android:textSize="18sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/ingredientAmount" />
+
+        <TextView
+            android:id="@+id/prepTimeText1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="32dp"
+            android:text="@string/preparation_time"
+            android:textSize="18sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/portionSize" />
+
+        <EditText
+            android:id="@+id/prepTime"
+            android:layout_width="40dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="4dp"
+            android:layout_marginTop="19dp"
+            android:ems="10"
+            android:inputType="number"
+            android:maxLength="3"
+            android:textAlignment="center"
+            app:layout_constraintStart_toEndOf="@+id/prepTimeText1"
+            app:layout_constraintTop_toBottomOf="@+id/portionSize" />
+
+        <TextView
+            android:id="@+id/prepTimeText2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="4dp"
+            android:layout_marginTop="32dp"
+            android:text="@string/minutes"
+            android:textSize="18sp"
+            app:layout_constraintStart_toEndOf="@+id/prepTime"
+            app:layout_constraintTop_toBottomOf="@+id/portionSize" />
+
+        <TextView
+            android:id="@+id/instructionsText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="32dp"
+            android:text="@string/instructions"
+            android:textSize="18sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/prepTime" />
+
+        <ScrollView
+            android:id="@+id/instructionsScrollView"
+            android:layout_width="0dp"
+            android:layout_height="200dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="16dp"
+            android:background="@drawable/multiline_background_border"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/instructionsText">
+
+            <EditText
+                android:id="@+id/instructions"
+                android:layout_width="0dp"
+                android:layout_height="200dp" />
+
+        </ScrollView>
+
+        <TextView
+            android:id="@+id/ratingText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="32dp"
+            android:text="@string/difficulty_rating"
+            android:textSize="18sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/instructionsScrollView" />
+
+        <Spinner
+            android:id="@+id/ratingMenu"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="12dp"
+            android:layout_marginTop="30dp"
+            app:layout_constraintStart_toEndOf="@+id/ratingText"
+            app:layout_constraintTop_toBottomOf="@+id/instructionsScrollView" />
+
+        <TextView
+            android:id="@+id/ratingHelpText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="32dp"
+            android:text="@string/_1_easy_5_difficult"
+            android:textSize="18sp"
+            app:layout_constraintStart_toEndOf="@+id/ratingMenu"
+            app:layout_constraintTop_toBottomOf="@+id/instructionsScrollView" />
+
+        <TextView
+            android:id="@+id/authorText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="32dp"
+            android:text="@string/author"
+            android:textSize="18sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/ratingText" />
+
+        <EditText
+            android:id="@+id/author"
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="21dp"
+            app:layout_constraintStart_toEndOf="@+id/authorText"
+            app:layout_constraintTop_toBottomOf="@+id/ratingHelpText" />
+
+        <Button
+            android:id="@+id/addRecipeButton"
+            android:layout_width="wrap_content"
+            android:layout_height="60dp"
+            android:layout_marginTop="32dp"
+            android:layout_marginBottom="35dp"
+            android:text="@string/add_recipe_caps"
+            android:textSize="18sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/author" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</ScrollView>
