@@ -1,9 +1,11 @@
 package fi.group6.dessertrecipeapp.classes;
 
 import android.annotation.SuppressLint;
+import android.os.Build;
 
 import java.util.List;
 
+import androidx.annotation.RequiresApi;
 import androidx.room.Dao;
 import androidx.room.Delete;
 import androidx.room.Insert;
@@ -28,10 +30,6 @@ public abstract class RecipeDao {
     @Query("SELECT * FROM ingredient")
     abstract public List<Ingredient> getAllIngredients();
 
-    /**
-     * @param recipe
-     * @return recipeId
-     */
     @Insert
     abstract public long insertRecipe(Recipe recipe);
 
@@ -41,12 +39,10 @@ public abstract class RecipeDao {
     @Insert
     abstract public void insertAllIngredients(List<Ingredient> ingredients);
 
-    //Priority function: When a recipe object is created, a recipeId is inserted into database. Then we loop through
-    // all ingredients so that the recipeId is also inserted into each ingredient table.
     @SuppressLint("NewApi")
-    @Insert
+    @Insert // // Priority function
     public void insertRecipeWithIngredients(Recipe recipe, List<Ingredient> ingredients) {
-        long recipeId = insertRecipe(recipe);
+        long recipeId =insertRecipe(recipe);
         ingredients.forEach(ingredient -> ingredient.recipeId = recipeId);
         insertAllIngredients(ingredients);
     }
@@ -80,6 +76,5 @@ public abstract class RecipeDao {
 
     @Update
     abstract public void updateIngredientWithRecipe(Recipe recipe, List<Ingredient> ingredients);
-
-
 }
+
