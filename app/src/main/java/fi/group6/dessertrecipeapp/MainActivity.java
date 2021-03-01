@@ -1,9 +1,11 @@
 package fi.group6.dessertrecipeapp;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
@@ -15,12 +17,16 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.gson.Gson;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
+import fi.group6.dessertrecipeapp.classes.AppDatabase;
 import fi.group6.dessertrecipeapp.classes.Ingredient;
 import fi.group6.dessertrecipeapp.classes.Recipe;
-import fi.group6.dessertrecipeapp.classes.RecipeBook;
+import fi.group6.dessertrecipeapp.classes.RecipeWithIngredients;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -37,16 +43,16 @@ public class MainActivity extends AppCompatActivity {
         //Change title for the top title bar
         getSupportActionBar().setTitle("DailyDesserts");
 
-        RecipeBook recipes = RecipeBook.getInstance();
-
         //Connect the listView in the xml to the MainActivity
         ListView lv = findViewById(R.id.lvRecipe);
+
+        AppDatabase db = AppDatabase.getDbInstance(this.getApplicationContext());
 
         //Set an adapter for the listView to show all the recipes in the RecipeBook class
         lv.setAdapter(new ArrayAdapter<Recipe>(
                 this,
                 android.R.layout.simple_expandable_list_item_1,
-                recipes.getAllRecipes()
+                db.recipeDao().getAllRecipes()
         ));
 
         //Upon clicking any of the recipes, the user will be taken to the specific recipe page
@@ -72,7 +78,7 @@ public class MainActivity extends AppCompatActivity {
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                switch (item.getItemId()){
+                switch (item.getItemId()) {
                     case R.id.navigation_home:
                         //Current activity, nothing happens
                         break;
@@ -100,94 +106,86 @@ public class MainActivity extends AppCompatActivity {
                 return false;
             }
         });
+
     }
+
+
     @Override
     protected void onStart() {
         super.onStart();
+        //loadRecipeList();
+        initDatabase();
+    }
 
-        if (DEBUG_RECIPE){
-            debugPrintsForRecipeClass();
+    void removeAll(List<String> list, String element) {
+        while (list.contains(element)) {
+            list.remove(element);
         }
     }
 
-    //Write Recipe debugging code inside this method. (Database will probably require this anyway) ;)
-    private void debugPrintsForRecipeClass() {
-        // Just an example
-        if (DEBUG_RECIPE_EXAMPLE){ // A bunch of the recipe debug prints. Mostly for copy/paste :)
-            Recipe testRecipe = new Recipe("Pie", "Bread,100,kg;Hands,2,obj;", "Some instructions.\nI'm tired.`Hell.\nUh.`", "Not safe,Testing",
-                    "nope", false, 228, 1337, "Daniil", (float) 1.0);
-            Recipe testRecipe2 = new Recipe();
-            Recipe testRecipe3 = new Recipe("Cake", "no, not this time", false, 2, 666, "Satan", (float) 10.10);
-            Log.d("Decl", testRecipe.toString());
-            Log.d("Decl", testRecipe2.toString());
-            Log.d("Decl", testRecipe3.toString());
+    //TESTING ROOM DATABASE
+    private void loadRecipeList() {
+        AppDatabase db = AppDatabase.getDbInstance(this.getApplicationContext());
+        // GET ALL RECIPES LIST and Ingredients inside recipe.
+        List<RecipeWithIngredients> recipeWithIngredientsList = db.recipeDao().getRecipeWithIngredientsByRecipeId("1");
 
-            Log.d("Decl", "Let's check methods!");
+        //Get Specific Recipe by ID example, in specific recipe Activity.
+        Recipe recipe=  db.recipeDao().getRecipeById(1);
 
-            Log.d("getName()", testRecipe.getName());
-            Log.d("getName()", testRecipe2.getName());
-            Log.d("getName()", testRecipe3.getName());
+        //You can delete Recipe by this function
+        db.recipeDao().deleteRecipe(recipe);
 
-            testRecipe2.setName("pie 2.0");
-            Log.d("setName()", testRecipe2.getName());
+        //If your recipe has ingredient you should use this function to delete recipe and ingredients
+        List<Ingredient> ingredients = new ArrayList<>();
+        db.recipeDao().deleteRecipeWithIngredients(recipe, ingredients);
 
-            Log.d("getIngredientList()", testRecipe.getIngredientList().toString());
+        //Example getAllRecipes and Ingredients belong to them.
+        List<RecipeWithIngredients> recipeWithIngredients = db.recipeDao().getRecipeWithIngredients();
+        List<Ingredient> allIngredients = db.recipeDao().getAllIngredients();
 
-            Log.d("getPhoto()", testRecipe.getPhoto());
-            testRecipe2.setPhoto("ref");
-            Log.d("setPhoto()", testRecipe2.getPhoto());
+        //Search Recipe by Name
+        List<Recipe> recipeListSearch = db.recipeDao().searchRecipeByName("el");
 
-            Log.d("isCustom()", Boolean.toString(testRecipe.isCustom()));
-            testRecipe.setCustom(true);
-            Log.d("setCustom()", Boolean.toString(testRecipe.isCustom()));
+        //Search Recipe and ingredients belong to recipe by Name
+        List<RecipeWithIngredients> recipeWithIngredientsBySearch = db.recipeDao().searchRecipeWithIngredientsByName("el");
 
-            Log.d("getNumberOfServings()", Integer.toString(testRecipe3.getNumberOfServings()));
-            testRecipe2.setNumberOfServings(25);
-            Log.d("setNumberOfServings()", Integer.toString(testRecipe2.getNumberOfServings()));
+        List<Recipe> afterInsert = db.recipeDao().getAllRecipes();
+    }
+    private void initDatabase (){
+        AppDatabase db = AppDatabase.getDbInstance(this.getApplicationContext());
 
-            Log.d("getPrepareTime()", Integer.toString(testRecipe.getPrepareTime()));
-            testRecipe2.setPrepareTime(10);
-            Log.d("setPrepareTime()", Integer.toString(testRecipe2.getPrepareTime()));
+        Recipe recipe = new Recipe();
+        recipe.name = "recipe 3";
+        recipe.author = "Trang 3";
+        recipe.rating = 4.5f;
+        recipe.tags =  Arrays.asList("tag 1","tag 2","tag 3");
+        recipe.instructions = Arrays.asList("instruction 1","instruction 2","instruction 3");
+        recipe.isCustom = false;
+        recipe.photo = "image 1";
+        recipe.numberOfServings = 8;
+        recipe.prepareTime = 10;
 
-            Log.d("getAuthorName()", testRecipe.getAuthorName());
-            testRecipe2.setAuthorName("System");
-            Log.d("setAuthorName()", testRecipe2.getAuthorName());
+        Ingredient ingredient1 = new Ingredient();
+        ingredient1.name = "recipe 3 ingredient1";
+        ingredient1.measure = "recipe 3 ingredient1";
+        ingredient1.amount = 1;
 
-            Log.d("getGrade()", Float.toString(testRecipe.getGrade()));
-            testRecipe2.setGrade((float) 3.5);
-            Log.d("setGrade()", Float.toString(testRecipe2.getGrade()));
+        Ingredient ingredient2 = new Ingredient();
+        ingredient2.name = "recipe 3 ingredient2";
+        ingredient2.measure = "recipe 3 ingredient2";
+        ingredient2.amount = 2;
 
-            testRecipe.addIngredient(new Ingredient("apples", 3, "obj"));
-            Log.d("addIngredient()", testRecipe.getIngredientList().toString());
+        List<Ingredient> ingredients = new ArrayList<>();
+        ingredients.add(ingredient1);
+        ingredients.add(ingredient2);
 
-            Log.d("getNumOfIngredients()", Integer.toString(testRecipe.getNumOfIngredients()));
+        //recipe.tags.remove("tag 1");
+        //Example Insert Recipe and Ingredients into database
+        db.recipeDao().insertRecipeWithIngredients(recipe, ingredients);
 
-            Ingredient ingredientToDelete = testRecipe.getIngredient(testRecipe.getNumOfIngredients() - 1);
-            Log.d("getIngredient()", ingredientToDelete.toString());
-
-            testRecipe.deleteIngredient(testRecipe.getNumOfIngredients() - 1);
-            Log.d("deleteIngredient()", testRecipe.getIngredientList().toString());
-
-            testRecipe.changeIngredient(testRecipe.getNumOfIngredients() - 1, new Ingredient("Apple jam", 250, "l"));
-            Log.d("changeIngredient()", testRecipe.getIngredientList().toString());
-
-            Log.d("getAllInstructions()", testRecipe.getAllInstructions());
-
-            testRecipe.addInstructions("Get to work!");
-            Log.d("addInstructions()", testRecipe.getAllInstructions());
-
-            Log.d("getNumOfInstructions()", Integer.toString(testRecipe.getNumOfInstructions()));
-
-            Log.d("getInstructionByIndex()", testRecipe.getInstructionByIndex(testRecipe.getNumOfInstructions() - 1));
-
-            testRecipe.modifyInstructions(testRecipe.getNumOfInstructions() - 1, "RABOTAY!");
-            Log.d("modifyInstructions()", testRecipe.getInstructionByIndex(testRecipe.getNumOfInstructions() - 1));
-
-            Log.d("FINALE", "AND FOR THE GRAND FINALE\n***************\n***************\n***************\n***************");
-            Log.d("FINALE", testRecipe.toString());
-            Log.d("FINALE", testRecipe2.toString());
-            Log.d("FINALE", testRecipe3.toString());
-            Log.d("FINALE", "***************\n***************\n***************\n***************");
-        }
+        List<RecipeWithIngredients> recipeWithIngredientsList = db.recipeDao().getRecipeWithIngredients();
+        Gson gson = new Gson();
+        String json = gson.toJson(recipeWithIngredientsList);
+        Log.d("json", "duma: " + json);
     }
 }

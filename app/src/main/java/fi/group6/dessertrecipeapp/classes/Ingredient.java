@@ -1,75 +1,57 @@
 package fi.group6.dessertrecipeapp.classes;
 
+import androidx.room.ColumnInfo;
+import androidx.room.Entity;
+import androidx.room.PrimaryKey;
+
 /**
  * Ingredient represents one ingredient used in a recipe.
- * @author Daniil
- * @version 1.0
+ * @author TRANG
+ * Refactored by Trang
+ * @version 1.2
  */
+@Entity
 public class Ingredient {
-    private String name;
-    private double amount;
-    private String measure;
-    //**************//
-    // Constructors //
-    //**************//
-    /**
-     * Creates new Ingredient
-     * @param name
-     * Name of the ingredient
-     * @param amount
-     * Amount of the ingredient given by decimal number
-     * @param measure
-     * Measure for the amount ( kg, l, etc... )
-     */
-    public Ingredient ( String name, double amount, String measure ) {
+
+    @PrimaryKey(autoGenerate = true)
+    public int uid;
+
+    @ColumnInfo(name = "name")
+    public String name;
+
+    @ColumnInfo(name = "amount")
+    public double amount;
+
+    @ColumnInfo(name = "measure")
+    public String measure;
+
+    @ColumnInfo(name = "recipeId")
+    public long recipeId;
+
+    public Ingredient() {
+    }
+
+    public Ingredient(String name, double amount, String measure) {
         this.name = name;
         this.amount = amount;
         this.measure = measure;
     }
 
-    //*********//
-    // Methods //
-    //*********//
-
-    /**
-     * Changes amount of the ingredient
-     * @param newNum
-     * New amount
-     */
-    public void changeAmount(double newNum) {
-        this.amount = newNum;
-    }
-
-    /**
-     * Gives name of the ingredient
-     * @return
-     * Name of the Ingredient
-     */
-    public String getIngredientName() {
-        return this.name;
-    }
-
-    /**
-     * Gives amount of the ingredient
-     * @return
-     * Amount
-     */
-    public double getIngredientAmount() {
-        return this.amount;
-    }
-
-    /**
-     * Gives measure for the ingredient amount
-     * @return
-     * Measure
-     */
-    public String getIngredientMeasure() {
-        return this.measure;
+    public Ingredient(String name, double amount, String measure, long recipeId) {
+        this.name = name;
+        this.amount = amount;
+        this.measure = measure;
+        this.recipeId = recipeId;
     }
 
     @Override
     public String toString() {
-        return this.name + ": " + Double.toString(this.amount) + " " + measure;
+        return "Ingredient{" +
+                "uid=" + uid +
+                ", name='" + name + '\'' +
+                ", amount=" + amount +
+                ", measure='" + measure + '\'' +
+                ", recipeId=" + recipeId +
+                '}';
     }
-
 }

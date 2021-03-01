@@ -5,7 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.TextView;
 
-import fi.group6.dessertrecipeapp.classes.RecipeBook;
+import fi.group6.dessertrecipeapp.classes.AppDatabase;
 
 public class ActivityRecipe extends AppCompatActivity {
 
@@ -19,10 +19,9 @@ public class ActivityRecipe extends AppCompatActivity {
         //Recall the intent and recall the index of the recipe
         Bundle b = getIntent().getExtras();
         int indexOfRecipe = b.getInt(TAG);
-        RecipeBook recipes = RecipeBook.getInstance();
-
+        AppDatabase db = AppDatabase.getDbInstance(this.getApplicationContext());
         //Change title for the action bar to the recipe name
-        getSupportActionBar().setTitle(recipes.getRecipe(indexOfRecipe).getName());
+        getSupportActionBar().setTitle(db.recipeDao().getRecipeById(indexOfRecipe).name);
         //Add back button to the action bar
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
