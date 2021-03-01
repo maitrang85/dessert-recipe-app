@@ -19,28 +19,29 @@ import java.util.List;
  */
 @Entity
 public class Recipe implements Serializable {
+
     @PrimaryKey(autoGenerate = true)
-    private long uid;
+    public long recipeId;
     @ColumnInfo(name = "name")
-    private String name;
+    public String name;
     @ColumnInfo(name = "ingredients")
-    private String ingredientsList; // comma and semicolon separated values
+    public String ingredientsList; // comma and semicolon separated values
     @ColumnInfo(name = "instructions")
-    private String instructions; // ` - is a delimiter
+    public String instructions; // ` - is a delimiter
     @ColumnInfo(name = "tags")
-    private String tags; //csv
+    public String tags; //csv
     @ColumnInfo(name = "photo_reference")
-    private String photo;
+    public String photo;
     @ColumnInfo(name = "is_custom")
-    private boolean custom;
+    public boolean custom;
     @ColumnInfo(name = "number_of_servings")
-    private int numberOfServings;
+    public int numberOfServings;
     @ColumnInfo(name = "preparation_time")
-    private int prepareTime;
+    public int prepareTime;
     @ColumnInfo(name = "author")
-    private String authorName;
+    public String authorName;
     @ColumnInfo(name = "rating")
-    private float grade;
+    public float grade;
 
     private static final String TAG = "RECIPE_CLASS";
 
