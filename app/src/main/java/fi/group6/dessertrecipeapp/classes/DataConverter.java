@@ -8,7 +8,6 @@ import java.lang.reflect.Type;
 import java.util.List;
 
 import androidx.room.TypeConverter;
-
 public class DataConverter {
     @TypeConverter
     public static List<String> fromString(String value) {
@@ -18,7 +17,7 @@ public class DataConverter {
     }
 
     @TypeConverter
-    public static String fromArrayList(List<String> list) {
+    public static String fromList(List<String> list) {
         Gson gson = new Gson();
         String json = gson.toJson(list);
         return json;

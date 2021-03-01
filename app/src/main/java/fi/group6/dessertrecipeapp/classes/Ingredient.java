@@ -28,6 +28,22 @@ public class Ingredient {
     @ColumnInfo(name = "recipeId")
     public long recipeId;
 
+    public Ingredient() {
+    }
+
+    public Ingredient(String name, double amount, String measure) {
+        this.name = name;
+        this.amount = amount;
+        this.measure = measure;
+    }
+
+    public Ingredient(String name, double amount, String measure, long recipeId) {
+        this.name = name;
+        this.amount = amount;
+        this.measure = measure;
+        this.recipeId = recipeId;
+    }
+
     @Override
     public String toString() {
         return "Ingredient{" +

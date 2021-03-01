@@ -54,7 +54,7 @@ public abstract class RecipeDao {
     abstract public void deleteIngredient(Ingredient ingredient);
 
     @Delete
-    abstract public void deleteRecipeWithIngredients(Recipe album, List<Ingredient> ingredients);
+    abstract public void deleteRecipeWithIngredients(Recipe recipe, List<Ingredient> ingredients);
 
     @Query("SELECT * FROM recipe WHERE recipeId=:uid")
     abstract public Recipe getRecipeById(int uid);

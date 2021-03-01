@@ -4,6 +4,7 @@ import android.util.Log;
 
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
+import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
 
 import java.io.Serializable;
@@ -53,6 +54,22 @@ public class Recipe {
 
     @ColumnInfo(name = "rating")
     public float rating;
+
+    public Recipe() {
+    }
+
+    public Recipe(String name, List<String> instructions, List<String> tags, String photo, boolean isCustom, int numberOfServings, int prepareTime, String author, float rating) {
+        this.recipeId = recipeId;
+        this.name = name;
+        this.instructions = instructions;
+        this.tags = tags;
+        this.photo = photo;
+        this.isCustom = isCustom;
+        this.numberOfServings = numberOfServings;
+        this.prepareTime = prepareTime;
+        this.author = author;
+        this.rating = rating;
+    }
 
     @Override
     public String toString() {

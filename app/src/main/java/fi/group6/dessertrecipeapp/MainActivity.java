@@ -13,6 +13,7 @@ import android.view.MenuItem;
 import android.widget.TextView;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.gson.Gson;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -88,20 +89,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onStart() {
         super.onStart();
         //loadRecipeList();
-        testRemoveList();
-    }
-
-    private void testRemoveList(){
-
-//        List<String> tags = Arrays.asList("tag 1","tag 2","tag 3");
-//        removeAll(tags, "tag 2");
-
-        ArrayList<String> myStrings = new ArrayList<>();
-        myStrings.add("Alpha");
-        myStrings.add("Beta");
-        myStrings.add("Gama");
-
-        myStrings.remove("Beta");
+        initDatabase();
     }
 
     void removeAll(List<String> list, String element) {
@@ -113,10 +101,33 @@ public class MainActivity extends AppCompatActivity {
     //TESTING ROOM DATABASE
     private void loadRecipeList() {
         AppDatabase db = AppDatabase.getDbInstance(this.getApplicationContext());
+        // GET ALL RECIPES LIST and Ingredients inside recipe.
+        List<RecipeWithIngredients> recipeWithIngredientsList = db.recipeDao().getRecipeWithIngredientsByRecipeId("1");
 
-        //Get All Recipes list
-        List<Recipe> recipeList = db.recipeDao().getAllRecipes();
-        //recipeListAdapter.setRecipeList(recipeList);
+        //Get Specific Recipe by ID example, in specific recipe Activity.
+        Recipe recipe=  db.recipeDao().getRecipeById(1);
+
+        //You can delete Recipe by this function
+        db.recipeDao().deleteRecipe(recipe);
+
+        //If your recipe has ingredient you should use this function to delete recipe and ingredients
+        List<Ingredient> ingredients = new ArrayList<>();
+        db.recipeDao().deleteRecipeWithIngredients(recipe, ingredients);
+
+        //Example getAllRecipes and Ingredients belong to them.
+        List<RecipeWithIngredients> recipeWithIngredients = db.recipeDao().getRecipeWithIngredients();
+        List<Ingredient> allIngredients = db.recipeDao().getAllIngredients();
+
+        //Search Recipe by Name
+        List<Recipe> recipeListSearch = db.recipeDao().searchRecipeByName("el");
+
+        //Search Recipe and ingredients belong to recipe by Name
+        List<RecipeWithIngredients> recipeWithIngredientsBySearch = db.recipeDao().searchRecipeWithIngredientsByName("el");
+
+        List<Recipe> afterInsert = db.recipeDao().getAllRecipes();
+    }
+    private void initDatabase (){
+        AppDatabase db = AppDatabase.getDbInstance(this.getApplicationContext());
 
         Recipe recipe = new Recipe();
         recipe.name = "recipe 3";
@@ -124,6 +135,10 @@ public class MainActivity extends AppCompatActivity {
         recipe.rating = 4.5f;
         recipe.tags =  Arrays.asList("tag 1","tag 2","tag 3");
         recipe.instructions = Arrays.asList("instruction 1","instruction 2","instruction 3");
+        recipe.isCustom = false;
+        recipe.photo = "image 1";
+        recipe.numberOfServings = 8;
+        recipe.prepareTime = 10;
 
         Ingredient ingredient1 = new Ingredient();
         ingredient1.name = "recipe 3 ingredient1";
@@ -140,28 +155,12 @@ public class MainActivity extends AppCompatActivity {
         ingredients.add(ingredient2);
 
         //recipe.tags.remove("tag 1");
-        //Example Insert Recipe and Ingredients
+        //Example Insert Recipe and Ingredients into database
         db.recipeDao().insertRecipeWithIngredients(recipe, ingredients);
 
-        //Example getAllRecipes and Ingredients belong to them.
-        List<RecipeWithIngredients> recipeWithIngredients = db.recipeDao().getRecipeWithIngredients();
-        List<Ingredient> allIngredients = db.recipeDao().getAllIngredients();
-
-        List<RecipeWithIngredients> recipeWithIngredientsList = db.recipeDao().getRecipeWithIngredientsByRecipeId("1");
-        //Get Recipe by ID example
-        Recipe recipeById =  db.recipeDao().getRecipeById(1);
-
-        //Search Recipe by Name
-        List<Recipe> recipeListSearch = db.recipeDao().searchRecipeByName("el");
-
-        //Delete Recipe
-        db.recipeDao().deleteRecipe(recipeById);
-
-         //Insert Recipe
-        recipeById.recipeId = 4;
-        db.recipeDao().insertRecipe(recipeById);
-        List<Recipe> afterInsert = db.recipeDao().getAllRecipes();
-
-
+        List<RecipeWithIngredients> recipeWithIngredientsList = db.recipeDao().getRecipeWithIngredients();
+        Gson gson = new Gson();
+        String json = gson.toJson(recipeWithIngredientsList);
+        Log.d("json", "duma: " + json);
     }
 }
