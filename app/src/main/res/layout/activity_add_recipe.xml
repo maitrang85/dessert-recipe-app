@@ -36,20 +36,6 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/name" />
 
-        <EditText
-            android:id="@+id/ingredientAmount"
-            android:layout_width="75dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="12dp"
-            android:ems="10"
-            android:hint="@string/amount"
-            android:inputType="numberDecimal"
-            android:maxLength="4"
-            android:textSize="18sp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/ingredient" />
-
         <TextView
             android:id="@+id/ingredient"
             android:layout_width="wrap_content"
@@ -61,33 +47,27 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/editTextTextPersonName" />
 
-        <EditText
-            android:id="@+id/ingredientMeasure"
-            android:layout_width="75dp"
+        <LinearLayout
+            android:id="@+id/ingredient_list"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="12dp"
-            android:ems="10"
-            android:hint="@string/measurement_examples"
-            android:inputType="textPersonName"
-            android:textSize="18sp"
-            app:layout_constraintStart_toEndOf="@+id/ingredientAmount"
-            app:layout_constraintTop_toBottomOf="@+id/ingredient" />
+            android:layout_marginTop="10dp"
+            android:orientation="vertical"
+            app:layout_constraintTop_toBottomOf="@+id/ingredient"
+            tools:layout_editor_absoluteX="29dp" >
 
-        <EditText
-            android:id="@+id/ingredientName"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="12dp"
-            android:layout_marginEnd="16dp"
-            android:ems="10"
-            android:hint="@string/ingredient_name"
-            android:inputType="textPersonName"
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/addIngredientButton"
+            android:layout_width="wrap_content"
+            android:layout_height="60dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:text="@string/add_ingredient"
             android:textSize="18sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/ingredientMeasure"
-            app:layout_constraintTop_toBottomOf="@+id/ingredient" />
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/ingredient_list" />
 
         <EditText
             android:id="@+id/portionSize"
@@ -125,16 +105,7 @@
             app:layout_constraintStart_toEndOf="@+id/portionSize"
             app:layout_constraintTop_toBottomOf="@+id/addIngredientButton" />
 
-        <Button
-            android:id="@+id/addIngredientButton"
-            android:layout_width="wrap_content"
-            android:layout_height="60dp"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="16dp"
-            android:text="@string/add_ingredient"
-            android:textSize="18sp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/ingredientAmount" />
+
 
         <TextView
             android:id="@+id/prepTimeText1"

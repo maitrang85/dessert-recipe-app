@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal" 
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingTop="5dp"
+    android:paddingBottom="5dp">
+
+    <EditText
+        android:id="@+id/ingredientAmount"
+        android:layout_width="0dp"
+        android:layout_weight=".06"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_gravity="center_vertical"
+        android:hint="@string/amount"
+        android:inputType="numberDecimal"
+        android:maxLength="4"
+        android:textSize="18sp" />
+
+    <EditText
+        android:id="@+id/ingredientMeasure"
+        android:layout_width="0dp"
+        android:layout_weight=".06"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_gravity="center_vertical"
+        android:hint="@string/measurement_examples"
+        android:inputType="textPersonName"
+        android:textSize="18sp" />
+
+    <EditText
+        android:id="@+id/ingredientName"
+        android:layout_height="wrap_content"
+        android:layout_width="0dp"
+        android:layout_weight=".14"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="4dp"
+        android:layout_gravity="center_vertical"
+        android:ems="10"
+        android:hint="@string/ingredient_name"
+        android:inputType="textPersonName"
+        android:textSize="18sp" />
+
+    <ImageView
+        android:id="@+id/image_delete"
+        android:layout_width="35dp"
+        android:layout_height="35dp"
+        android:layout_marginStart="4dp"
+        android:layout_gravity="center_vertical"
+        android:src="@drawable/ic_delete" />
+
+</LinearLayout>
