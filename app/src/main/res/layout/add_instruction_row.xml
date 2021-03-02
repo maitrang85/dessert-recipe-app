@@ -14,7 +14,7 @@
         android:layout_marginStart="16dp"
         android:hint="@string/write_your_instructions_here"
         android:layout_marginEnd="4dp"
-        android:maxLength="300"
+        android:maxLength="500"
         android:background="@drawable/multiline_background_border"
         android:singleLine="false"
         android:gravity="top"
