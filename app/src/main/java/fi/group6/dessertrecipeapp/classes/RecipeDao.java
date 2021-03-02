@@ -16,6 +16,9 @@ import androidx.room.Update;
 @Dao
 public abstract class RecipeDao {
 
+    @Query("SELECT count(*) FROM recipe")
+    abstract public int countRecipes();
+
     @Query("SELECT * FROM recipe")
     abstract public List<Recipe> getAllRecipes();
 

@@ -1,0 +1,186 @@
+[
+  {
+    "ingredients":[
+      {
+        "amount":2,
+        "measure":"pieces",
+        "name":"apple"
+      },
+      {
+        "amount":25,
+        "measure":"gram",
+        "name":"white sugar"
+      },
+      {
+        "amount":25,
+        "measure":"gram",
+        "name":"melt butter"
+      },
+      {
+        "amount":1,
+        "measure":"sheet",
+        "name":"frozen puff pastry"
+      }
+    ],
+    "recipe":{
+      "author":"Nina",
+      "instructions":[
+        "Preheat oven to 400 degrees F (200 degrees C). Butter 2 small ramekins (6 to 8 ounce) and dust with white sugar.",
+        "Place apple slices on a plate, overlapping slightly if necessary. Microwave on High about 45 seconds just until slices have softened a bit. Cover plate with plastic wrap and a kitchen towel.",
+        "Mix together sugar and cinnamon in a bowl.",
+        "Roll puff pastry sheet to less than 1/8-inch thickness. Using a pizza cutter, cut two 3-inch by 12-inch rectangles. Reserve remaining pieces for another use.",
+        "Spread melted butter over dough; top with a generous amount of cinnamon-sugar. Place apple slices along 1 long edge of dough, about 1/4 inch beyond edge of dough, overlapping slices slightly. Fold bottom half of dough over the apple slices to form a long \"folder\" of dough with rounded edges of apple slices exposed.",
+        "Beat egg and water together in a bowl. Paint surface of dough with egg wash. Sprinkle with more cinnamon-sugar, to taste.",
+        "Starting from one end, roll dough not too tightly to form a rose-shaped pastry. Seal roll with end of dough strip.",
+        "Transfer roses to prepared ramekins. Sprinkle with a little more cinnamon-sugar. Place ramekins directly on middle rack of preheated oven.",
+        "Bake until well browned, about 45 minutes. Remove ramekins with tongs and place on baking sheet to cool 5 to 10 minutes. Remove apple roses from ramekins and finish cooling on rack. Dust with confectioners' sugar before serving."
+      ],
+      "isCustom":false,
+      "name":"Baked Apple Roses",
+      "numberOfServings":8,
+      "photo":"https://imagesvc.meredithcorp.io/v3/mm/image?url=https%3A%2F%2Fimages.media-allrecipes.com%2Fuserphotos%2F2667683.jpg&w=1200&h=678&c=sc&poi=face&q=85",
+      "prepareTime":25,
+      "levelOfDifficulty":"easy",
+      "tags":[
+        "Vegeterian"
+      ]
+    }
+  },
+  {
+    "ingredients":[
+      {
+        "amount":0.75,
+        "measure":"cup",
+        "name":"white sugar"
+      },
+      {
+        "amount":0.3,
+        "measure":"cup",
+        "name":"all-purpose flour"
+      },
+      {
+        "amount":1,
+        "measure":"cup",
+        "name":"milk"
+      },
+      {
+        "amount":3,
+        "measure":"pieces",
+        "name":"egg yolks, beaten"
+      },
+      {
+        "amount":2,
+        "measure":"tablespoons",
+        "name":"butter"
+      },
+      {
+        "amount":1,
+        "measure":"pieces",
+        "name":"baked pastry shell"
+      },
+      {
+        "amount":4,
+        "measure":"pieces",
+        "name":"Banana, sliced"
+      }
+    ],
+    "recipe":{
+      "author":"Ruby Pleffer",
+      "instructions":[
+        "In a saucepan, combine the sugar, flour, and salt. Add milk in gradually while stirring gently. Cook over medium heat, stirring constantly, until the mixture is bubbly. Keep stirring and cook for about 2 more minutes, and then remove from the burner.",
+        "Stir a small quantity of the hot mixture into the beaten egg yolks, and immediately add egg yolk mixture to the rest of the hot mixture. Cook for 2 more minutes; remember to keep stirring. Remove the mixture from the stove, and add butter and vanilla. Stir until the whole thing has a smooth consistency.",
+        "Slice bananas into the cooled baked pastry shell. Top with pudding mixture.",
+        "Bake at 350 degrees F (175 degrees C) for 12 to 15 minutes. Chill for an hour."
+      ],
+      "isCustom":false,
+      "name":"Banana Cream Pie",
+      "numberOfServings":8,
+      "photo":"https://imagesvc.meredithcorp.io/v3/mm/image?url=https%3A%2F%2Fimages.media-allrecipes.com%2Fuserphotos%2F1719014.jpg&w=596&h=399&c=sc&poi=face&q=85",
+      "prepareTime":45,
+      "levelOfDifficulty":"medium",
+      "tags":[
+        "Sweet"
+      ]
+    }
+  },
+  {
+    "ingredients":[
+      {
+        "amount":2,
+        "measure":"tbsp",
+        "name":"oatmeal"
+      },
+      {
+        "amount":300,
+        "measure":"gram",
+        "name":"fresh Finnish raspberries"
+      },
+      {
+        "amount":20,
+        "measure":"gram",
+        "name":"caster sugar"
+      },
+      {
+        "amount":350,
+        "measure":"ml",
+        "name":"double cream"
+      },
+      {
+        "amount":2,
+        "measure":"tbsp",
+        "name":"heather honey"
+      },
+      {
+        "amount":3,
+        "measure":"tbsp",
+        "name":" whisky"
+      }
+    ],
+    "recipe":{
+      "author":"Miina Mikki",
+      "instructions":[
+        "To toast the oatmeal, spread it out on a baking sheet and grill until it smells rich and nutty. It will not darken quickly, so use your sense of smell to tell you when it is nutty enough. Cool the oatmeal.",
+        "Make a raspberry purée by crushing half the fruit and sieving. Sweeten this to taste with a little caster sugar. Whisk the double cream until just set, and stir in the honey and whisky, trying not to over-whip the cream. Taste the mix and add more of either if you feel the need.",
+        "Stir in the oatmeal and whisk lightly until the mixture is just firm. Alternate layers of the cream with the remaining whole raspberries and purée in 4 serving dishes. Allow to chill slightly before eating."
+      ],
+      "isCustom":false,
+      "name":"Cranachan",
+      "numberOfServings":4,
+      "photo":"https://images.immediate.co.uk/production/volatile/sites/30/2020/08/recipe-image-legacy-id-1201791_10-6b6dc1b.jpg?quality=90&webp=true&resize=300,272",
+      "prepareTime":20,
+      "levelOfDifficulty":"easy",
+      "tags":[
+        "Vegeterian"
+      ]
+    }
+  },
+  {
+    "ingredients":[
+      {
+        "amount":1,
+        "measure":"piece",
+        "name":"frozen banana"
+      },
+      {
+        "amount":1,
+        "measure":"tsp",
+        "name":"cocoa powder"
+      }
+    ],
+    "recipe":{
+      "author":"Sofia Godwin",
+      "instructions":[
+        "In a blender, blitz the frozen banana with the cocoa powder until smooth. Eat straight away."
+      ],
+      "isCustom":false,
+      "name":"Vegan chocolate banana ice cream",
+      "numberOfServings":1,
+      "photo":"image 1",
+      "prepareTime":5,
+      "levelOfDifficulty":"easy",
+      "tags":[
+        "Vegeterian"
+      ]
+    }
+  }
+]

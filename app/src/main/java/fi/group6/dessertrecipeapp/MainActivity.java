@@ -18,7 +18,12 @@ import android.widget.TextView;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -27,7 +32,7 @@ import fi.group6.dessertrecipeapp.classes.AppDatabase;
 import fi.group6.dessertrecipeapp.classes.Ingredient;
 import fi.group6.dessertrecipeapp.classes.Recipe;
 import fi.group6.dessertrecipeapp.classes.RecipeWithIngredients;
-
+@RequiresApi(api = Build.VERSION_CODES.N)
 public class MainActivity extends AppCompatActivity {
 
     private static final boolean DEBUG_RECIPE = true; //Recipe debug prints //temporary
@@ -115,26 +120,38 @@ public class MainActivity extends AppCompatActivity {
         super.onStart();
         //loadRecipeList();
         initDatabase();
+        loadRecipeList();
     }
 
     //TESTING ROOM DATABASE
     private void loadRecipeList() {
         AppDatabase db = AppDatabase.getDbInstance(this.getApplicationContext());
+
+        // GET ALL RECIPES LIST if you don't need to have ingredients inside
+        List<Recipe> recipes = db.recipeDao().getAllRecipes();
+        recipes.forEach(recipe -> {
+            Log.d("Log to see how to use", recipe.name + "------" + recipe.photo);
+        });
+
         // GET ALL RECIPES LIST and Ingredients inside recipe.
         List<RecipeWithIngredients> recipeWithIngredientsList = db.recipeDao().getRecipeWithIngredients();
-
-        // GET ALL RECIPES LIST.
-        List<Recipe> afterInsert = db.recipeDao().getAllRecipes();
+        recipeWithIngredientsList.forEach(recipeWithIngredient -> {
+            Log.d("Log to see how to use", recipeWithIngredient.recipe.name + "------" + recipeWithIngredient.recipe.photo);
+            recipeWithIngredient.ingredients.forEach(ingredient -> {
+                Log.d("Log to see how to use", ingredient.name  + "----" + ingredient.measure);
+            });
+        });
 
         //Get Specific Recipe by ID example, in specific recipe Activity.
         Recipe recipe=  db.recipeDao().getRecipeById(1);
 
         //You can delete Recipe by this function
-        db.recipeDao().deleteRecipe(recipe);
+        if(recipe!=null)
+            db.recipeDao().deleteRecipe(recipe);
 
         //If your recipe has ingredient you should use this function to delete recipe and ingredients
-        List<Ingredient> ingredients = new ArrayList<>();
-        db.recipeDao().deleteRecipeWithIngredients(recipe, ingredients);
+//        if(recipe!=null)
+//          db.recipeDao().deleteRecipeWithIngredients(recipeWithIngredient.recipe, recipeWithIngredient.ingredients);
 
         //Example get all Ingredients inside database
         List<Ingredient> allIngredients = db.recipeDao().getAllIngredients();
@@ -147,38 +164,34 @@ public class MainActivity extends AppCompatActivity {
 
     }
     private void initDatabase (){
-
-        Recipe recipe = new Recipe();
-        recipe.name = "recipe 3";
-        recipe.author = "Trang 3";
-        recipe.levelOfDifficulty = "easy";
-        recipe.tags =  Arrays.asList("tag 1","tag 2","tag 3");
-        recipe.instructions = Arrays.asList("instruction 1","instruction 2","instruction 3");
-        recipe.isCustom = false;
-        recipe.photo = "image 1";
-        recipe.numberOfServings = 8;
-        recipe.prepareTime = 10;
-
-        Ingredient ingredient1 = new Ingredient();
-        ingredient1.name = "recipe 3 ingredient1";
-        ingredient1.measure = "recipe 3 ingredient1";
-        ingredient1.amount = 1;
-
-        Ingredient ingredient2 = new Ingredient();
-        ingredient2.name = "recipe 3 ingredient2";
-        ingredient2.measure = "recipe 3 ingredient2";
-        ingredient2.amount = 2;
-
-        List<Ingredient> ingredients = new ArrayList<>();
-        ingredients.add(ingredient1);
-        ingredients.add(ingredient2);
-
         AppDatabase db = AppDatabase.getDbInstance(this.getApplicationContext());
-        //Example Insert Recipe and Ingredients into database
-        db.recipeDao().insertRecipeWithIngredients(recipe, ingredients);
+        if(db.recipeDao().countRecipes()<=0){ //Data is empty
+            Gson gson = new Gson();
+            InputStream recipeJsonInputStream = getResources().openRawResource(R.raw.recipe); // getting recipe.jsonfile
+            String recipeJson = readTextFile(recipeJsonInputStream);
+            Type listType = new TypeToken<List<RecipeWithIngredients>>() {}.getType();
+            List<RecipeWithIngredients> recipeWithIngredientsList = gson.fromJson(recipeJson, listType);
+            //Insert data into database
+            recipeWithIngredientsList.forEach(recipeWithIngredient -> {
+                db.recipeDao().insertRecipeWithIngredients(recipeWithIngredient.recipe, recipeWithIngredient.ingredients);
+                Log.d("Data", recipeWithIngredient.recipe.name + "------" + recipeWithIngredient.recipe.photo);
+            });
+        }
+    }
 
-        List<RecipeWithIngredients> recipeWithIngredientsList = db.recipeDao().getRecipeWithIngredients();
-        Gson gson = new Gson();
-        String json = gson.toJson(recipeWithIngredientsList);
+    public String readTextFile(InputStream inputStream) {
+        ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+
+        byte buf[] = new byte[1024];
+        int len;
+        try {
+            while ((len = inputStream.read(buf)) != -1) {
+                outputStream.write(buf, 0, len);
+            }
+            outputStream.close();
+            inputStream.close();
+        } catch (IOException e) {
+        }
+        return outputStream.toString();
     }
 }
