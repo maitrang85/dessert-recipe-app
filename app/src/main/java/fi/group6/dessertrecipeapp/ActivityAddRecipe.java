@@ -47,17 +47,16 @@ public class ActivityAddRecipe extends AppCompatActivity implements AdapterView.
         addIngredient.setOnClickListener(this);
 
         //Set the rating spinner to show numbers from 1-5
-        Spinner ratingMenu = findViewById(R.id.ratingMenu);
+        Spinner ratingMenu = (Spinner) findViewById(R.id.ratingMenu);
         //Every possible value of the spinner
-        Integer[] ratingLevels = new Integer[]{1,2,3,4,5};
+        String ratingLevels[] = {"easy", "medium", "hard"};
         //Set an adapter for the spinner
-        ArrayAdapter<Integer> adapterRating = new ArrayAdapter<Integer>(this,android.R.layout.simple_spinner_item, ratingLevels);
+        ArrayAdapter<String> adapterRating = new ArrayAdapter<String>(this,android.R.layout.simple_spinner_item, ratingLevels);
         //Set the style for the spinner menu
         adapterRating.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         ratingMenu.setAdapter(adapterRating);
         //Upon clicking the spinner, the user can choose the difficulty level from the ratingLevels array
         ratingMenu.setOnItemSelectedListener(this);
-
     }
 
 
@@ -72,7 +71,7 @@ public class ActivityAddRecipe extends AppCompatActivity implements AdapterView.
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
         //The difficulty rating will be saved to an integer value when clicked
-        Integer rating = (int) parent.getItemAtPosition(position);
+        String rating = (String) parent.getItemAtPosition(position);
     }
 
     @Override

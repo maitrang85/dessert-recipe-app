@@ -44,7 +44,7 @@ public class MainActivity extends AppCompatActivity {
         getSupportActionBar().setTitle("DailyDesserts");
 
         //Connect the listView in the xml to the MainActivity
-        ListView lv = findViewById(R.id.lvRecipe);
+        ListView lv = findViewById(R.id.recycleViewRecipes);
 
         AppDatabase db = AppDatabase.getDbInstance(this.getApplicationContext());
 
