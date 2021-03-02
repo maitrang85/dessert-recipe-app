@@ -1,20 +1,14 @@
 package fi.group6.dessertrecipeapp;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
-import android.widget.Adapter;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -23,13 +17,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.android.material.bottomnavigation.BottomNavigationView;
-
-import org.w3c.dom.Text;
-
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
 
 import fi.group6.dessertrecipeapp.classes.AppDatabase;
@@ -73,8 +61,8 @@ public class ActivityAddRecipe extends AppCompatActivity implements AdapterView.
 
     String[] tagArray = {"Lactose intolerant", "Keto diet", "Paleo diet", "Vegan",
             "Low calorie", "Low fat", "Plant based", "Sweet"};
-    ArrayList<String> dayList = new ArrayList<>();
-    boolean[] selectedDay;
+    ArrayList<String> tagList = new ArrayList<>();
+    boolean[] selectedTag;
     List<String> tagInput;
 
     @Override
@@ -116,7 +104,7 @@ public class ActivityAddRecipe extends AppCompatActivity implements AdapterView.
         ratingMenu.setOnItemSelectedListener(this);
 
         tagSelectorTv = findViewById(R.id.tagSelectorTv);
-        selectedDay = new boolean[tagArray.length];
+        selectedTag = new boolean[tagArray.length];
 
         tagSelectorTv.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -125,13 +113,13 @@ public class ActivityAddRecipe extends AppCompatActivity implements AdapterView.
                 builder.setTitle("Select tags for your recipe");
                 builder.setCancelable(false);
 
-                builder.setMultiChoiceItems(tagArray, selectedDay, new DialogInterface.OnMultiChoiceClickListener() {
+                builder.setMultiChoiceItems(tagArray, selectedTag, new DialogInterface.OnMultiChoiceClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which, boolean isChecked) {
                         if (isChecked) {
-                            dayList.add(tagArray[which]);
+                            tagList.add(tagArray[which]);
                         } else {
-                            dayList.remove(tagArray[which]);
+                            tagList.remove(tagArray[which]);
                         }
                     }
                 });
@@ -143,12 +131,12 @@ public class ActivityAddRecipe extends AppCompatActivity implements AdapterView.
                         tagInput = new ArrayList<>();
                         String items = "";
 
-                        for(int element = 0; element < dayList.size(); element++){
+                        for(int element = 0; element < tagList.size(); element++){
 
-                            items = items + dayList.get(element);
-                            tagInput.add(dayList.get(element).toString());
+                            items = items + tagList.get(element);
+                            tagInput.add(tagList.get(element).toString());
 
-                            if(element != dayList.size() - 1){
+                            if(element != tagList.size() - 1){
                                 items = items + ", ";
                             }
                         }
