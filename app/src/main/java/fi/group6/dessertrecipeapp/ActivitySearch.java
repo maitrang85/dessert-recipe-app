@@ -5,20 +5,36 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import org.w3c.dom.Text;
 
+import java.lang.reflect.Array;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
+import fi.group6.dessertrecipeapp.classes.AppDatabase;
+import fi.group6.dessertrecipeapp.classes.Recipe;
+
 public class ActivitySearch extends AppCompatActivity {
+
+    private static final String SEARCH_TAG = "SEARCH";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search);
+
+        AppDatabase db = AppDatabase.getDbInstance(this.getApplicationContext());
 
         //Change title for the top title bar
         getSupportActionBar().setTitle("Search");
@@ -67,5 +83,94 @@ public class ActivitySearch extends AppCompatActivity {
                 return false;
             }
         });
+
+        Button searchButton = (Button) findViewById(R.id.searchButton);
+        boolean onlyExact = false; //TODO: Checkbox for that. Maybe inside filters
+
+        searchButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                EditText searchBar = (EditText) findViewById(R.id.searchBar);
+
+
+                List<Recipe> recipesList = db.recipeDao().getAllRecipes();
+                List<Recipe> searchResults = searchInRecipesList(recipesList,searchBar.getText().toString().trim(), onlyExact);
+
+                //For Testing:
+                Log.d(SEARCH_TAG, Integer.toString(searchResults.size()) + " results found");
+                int i;
+                for (i = 0; i < searchResults.size(); i++) {
+                    Log.d(SEARCH_TAG, Integer.toString(i+1) + ".\n" + searchResults.get(i).toString());
+                }
+
+            }
+        });
+    }
+
+    /**
+     * Gives a list of recipes that matches the name given, or is similar to the name given
+     * @param toFind
+     * Recipe name String
+     */
+    private List<Recipe> searchInRecipesList (List<Recipe> recipesList,String toFind, boolean onlyExact) {
+        List<Recipe> resultRecipesList = new ArrayList<>();
+
+        //Searching for exact matches --> Fast
+        if(onlyExact){
+            for (Recipe recipe : recipesList) {
+                if (recipe.name.equals(toFind)) {
+                    resultRecipesList.add(recipe);
+                }
+            }
+        }
+
+        //Searching for word matches --> Slow
+        if(!onlyExact) {
+            //Searching for word matches in the recipe names
+            //Position in the list depends on the number of word matches
+            //Example: searching "chocolate cupcakes"
+            //Found: 1."chocolate cupcakes", 2."chocolate cupcakes with ...", 3."chocolate cake", 4."cupcakes" ...
+
+            List<String> toFindList = Arrays.asList(toFind.split(" "));
+            int requiredNumberOfMatches = toFindList.size(); // in order to sort them by number of matches
+            while (requiredNumberOfMatches > 0) { // looping until we will have 0 required amount of matches
+                for (Recipe recipe: recipesList) {
+                    if (countWordMatchesInLists(toFindList, Arrays.asList(recipe.name.split(" "))) == requiredNumberOfMatches) { // if we get exactly needed amount of matches
+                        resultRecipesList.add(recipe);                                                                                 // add it to the results array
+                    }
+                }
+                requiredNumberOfMatches--;
+            }
+        }
+
+        return resultRecipesList;
+    }
+
+    /**
+     * Compares 2 lists of strings for identical words ignoring the case.
+     * Example: "Chocolate chocolate cake" and "Chocolate cake"
+     * Result: 2
+     * @param strList1
+     * First list of strings
+     * @param strList2
+     * Second list of strings
+     * @return
+     * Matches count
+     */
+    private int countWordMatchesInLists(List<String> strList1, List<String> strList2) {
+        int counter = 0;
+        ArrayList<String> strArrayList2 = new ArrayList<>(); // array list is needed for .remove. Without that code becomes much more complicated
+        strArrayList2.addAll(strList2);
+
+        for (String str1: strList1) {
+            for (String str2: strArrayList2) {
+                if(str1.equalsIgnoreCase(str2)) {
+                    counter++;
+                    strArrayList2.remove(str2); // If we encounter the same word - it should be removed from the second array in order not to count it accidentally second time
+                    break;
+                }
+            }
+        }
+        return counter;
     }
 }
