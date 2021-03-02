@@ -23,6 +23,7 @@
     <string name="author">Author</string>
     <string name="add_recipe_caps">ADD RECIPE</string>
     <string name="add_instruction_step">ADD INSTRUCTION STEP</string>
+    <string name="add_tags_here">Add tags here</string>
     <integer-array name="ratingLevels">
         <item>1</item>
         <item>2</item>

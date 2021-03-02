@@ -1,8 +1,10 @@
 package fi.group6.dessertrecipeapp;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -23,8 +25,11 @@ import android.widget.Toast;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
+import org.w3c.dom.Text;
+
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 import fi.group6.dessertrecipeapp.classes.AppDatabase;
@@ -38,6 +43,8 @@ public class ActivityAddRecipe extends AppCompatActivity implements AdapterView.
 
     LinearLayout ingredientListLayout;
     LinearLayout instructionListLayout;
+
+    TextView tagSelectorTv;
 
     EditText name;
     EditText author;
@@ -63,6 +70,12 @@ public class ActivityAddRecipe extends AppCompatActivity implements AdapterView.
     List<String> instructions = new ArrayList<>();
     List<Ingredient> ingredients = new ArrayList<>();
     Recipe myOwnRecipe = new Recipe();
+
+    String[] tagArray = {"Lactose intolerant", "Keto diet", "Paleo diet", "Vegan",
+            "Low calorie", "Low fat", "Plant based", "Sweet"};
+    ArrayList<String> dayList = new ArrayList<>();
+    boolean[] selectedDay;
+    List<String> tagInput;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -101,6 +114,59 @@ public class ActivityAddRecipe extends AppCompatActivity implements AdapterView.
         ratingMenu.setAdapter(adapterRating);
         //Upon clicking the spinner, the user can choose the difficulty level from the ratingLevels array
         ratingMenu.setOnItemSelectedListener(this);
+
+        tagSelectorTv = findViewById(R.id.tagSelectorTv);
+        selectedDay = new boolean[tagArray.length];
+
+        tagSelectorTv.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                AlertDialog.Builder builder = new AlertDialog.Builder(ActivityAddRecipe.this);
+                builder.setTitle("Select tags for your recipe");
+                builder.setCancelable(false);
+
+                builder.setMultiChoiceItems(tagArray, selectedDay, new DialogInterface.OnMultiChoiceClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which, boolean isChecked) {
+                        if (isChecked) {
+                            dayList.add(tagArray[which]);
+                        } else {
+                            dayList.remove(tagArray[which]);
+                        }
+                    }
+                });
+
+                builder.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+
+                        tagInput = new ArrayList<>();
+                        String items = "";
+
+                        for(int element = 0; element < dayList.size(); element++){
+
+                            items = items + dayList.get(element);
+                            tagInput.add(dayList.get(element).toString());
+
+                            if(element != dayList.size() - 1){
+                                items = items + ", ";
+                            }
+                        }
+                        tagSelectorTv.setText(items);
+                    }
+                });
+
+                builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                    }
+                });
+
+                AlertDialog dialog = builder.create();
+                builder.show();
+            }
+        });
     }
 
 
@@ -175,11 +241,17 @@ public class ActivityAddRecipe extends AppCompatActivity implements AdapterView.
             ingredients.add(new Ingredient(ingredientNameInput, ingredientAmountInput, ingredientMeasureInput));
         }
 
-        myOwnRecipe = new Recipe(nameInput, instructions, Arrays.asList("Fruity", "Calorie dense", "Vegetarian"), "Photo 1",
+        myOwnRecipe = new Recipe(nameInput, instructions, tagInput, "Photo 1",
                 true, false, portionInput, prepTimeInput, authorInput, levelOfDifficultyInput);
 
         AppDatabase db = AppDatabase.getDbInstance(this.getApplicationContext());
         db.recipeDao().insertRecipeWithIngredients(myOwnRecipe, ingredients);
+
+        Intent intent = new Intent(ActivityAddRecipe.this, ActivityMyRecipes.class);
+        startActivity(intent);
+
+        Toast.makeText(ActivityAddRecipe.this,
+                "Congrats, you've created a new recipe!", Toast.LENGTH_LONG).show();
     }
 
     private boolean checkdataValidity() {
