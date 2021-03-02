@@ -27,7 +27,10 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-//TODO - configure "ADD RECIPE" button
+import fi.group6.dessertrecipeapp.classes.AppDatabase;
+import fi.group6.dessertrecipeapp.classes.Ingredient;
+import fi.group6.dessertrecipeapp.classes.Recipe;
+
 //TODO - add recipe tag selection to the UI and the code
 //TODO - figure out how to work with photos
 
@@ -48,12 +51,18 @@ public class ActivityAddRecipe extends AppCompatActivity implements AdapterView.
     String nameInput;
     String step;
     String authorInput;
-    String difficultyRating;
+    String levelOfDifficultyInput;
+    String ingredientNameInput;
+    String ingredientMeasureInput;
 
     Integer portionInput;
     Integer prepTimeInput;
 
+    Double ingredientAmountInput;
+
     List<String> instructions = new ArrayList<>();
+    List<Ingredient> ingredients = new ArrayList<>();
+    Recipe myOwnRecipe = new Recipe();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -82,7 +91,7 @@ public class ActivityAddRecipe extends AppCompatActivity implements AdapterView.
         addRecipeButton.setOnClickListener(this);
 
         //Set the rating spinner to show numbers from 1-5
-        Spinner ratingMenu = (Spinner) findViewById(R.id.ratingMenu);
+        Spinner ratingMenu = (Spinner) findViewById(R.id.levelOfDifficultyMenu);
         //Every possible value of the spinner
         String ratingLevels[] = {"easy", "medium", "hard"};
         //Set an adapter for the spinner
@@ -139,10 +148,8 @@ public class ActivityAddRecipe extends AppCompatActivity implements AdapterView.
         portionInput = Integer.parseInt(portions.getText().toString());
         prepTimeInput = Integer.parseInt(prepTime.getText().toString());
 
-        Spinner ratingMenu = (Spinner) findViewById(R.id.ratingMenu);
-        difficultyRating = ratingMenu.getSelectedItem().toString();
-
-        Log.d("Rating is", difficultyRating);
+        Spinner ratingMenu = (Spinner) findViewById(R.id.levelOfDifficultyMenu);
+        levelOfDifficultyInput = ratingMenu.getSelectedItem().toString();
 
         for(int i = 0; i < instructionListLayout.getChildCount(); i++){
 
@@ -150,15 +157,32 @@ public class ActivityAddRecipe extends AppCompatActivity implements AdapterView.
             EditText instructionStep = (EditText)instructionStepLayout.findViewById(R.id.instructions);
             step = instructionStep.getText().toString();
 
-            if(!instructionStep.getText().toString().equals("")){
-                instructions.add(step);
-            }
+            instructions.add(step);
         }
 
+        for(int i = 0; i < ingredientListLayout.getChildCount(); i++){
+
+            View ingredientStepLayout = ingredientListLayout.getChildAt(i);
+
+            EditText ingredientName = (EditText)ingredientStepLayout.findViewById(R.id.ingredientName);
+            EditText ingredientAmount = (EditText)ingredientStepLayout.findViewById(R.id.ingredientAmount);
+            EditText ingredientMeasure = (EditText)ingredientStepLayout.findViewById(R.id.ingredientMeasure);
+
+            ingredientNameInput = ingredientName.getText().toString();
+            ingredientAmountInput = Double.valueOf(ingredientAmount.getText().toString());
+            ingredientMeasureInput = ingredientMeasure.getText().toString();
+
+            ingredients.add(new Ingredient(ingredientNameInput, ingredientAmountInput, ingredientMeasureInput));
+        }
+
+        myOwnRecipe = new Recipe(nameInput, instructions, Arrays.asList("Fruity", "Calorie dense", "Vegetarian"), "Photo 1",
+                true, false, portionInput, prepTimeInput, authorInput, levelOfDifficultyInput);
+
+        AppDatabase db = AppDatabase.getDbInstance(this.getApplicationContext());
+        db.recipeDao().insertRecipeWithIngredients(myOwnRecipe, ingredients);
     }
 
     private boolean checkdataValidity() {
-
         boolean result = true;
 
         if(name.getText().toString().equals("")){
@@ -166,7 +190,20 @@ public class ActivityAddRecipe extends AppCompatActivity implements AdapterView.
                     "Please enter a recipe name", Toast.LENGTH_LONG).show();
         }
 
-        //INGREDIENTS GO HERE
+        for(int i = 0; i < ingredientListLayout.getChildCount(); i++){
+            View ingredientStepLayout = ingredientListLayout.getChildAt(i);
+
+            EditText ingredientName = (EditText)ingredientStepLayout.findViewById(R.id.ingredientName);
+            EditText ingredientAmount = (EditText)ingredientStepLayout.findViewById(R.id.ingredientAmount);
+            EditText ingredientMeasure = (EditText)ingredientStepLayout.findViewById(R.id.ingredientMeasure);
+
+            if(ingredientName.getText().toString().equals("") || ingredientAmount.getText().toString().equals("") ||
+                    ingredientMeasure.getText().toString().equals("")) {
+                Toast.makeText(ActivityAddRecipe.this,
+                        "Please fill out or delete the the empty ingredient text", Toast.LENGTH_LONG).show();
+                result = false;
+            }
+        }
 
         if(portions.getText().toString().equals("0") || portions.getText().toString().equals("00") ||
                 portions.getText().toString().equals("000") || portions.getText().toString().equals("")){
