@@ -105,8 +105,6 @@
             app:layout_constraintStart_toEndOf="@+id/portionSize"
             app:layout_constraintTop_toBottomOf="@+id/addIngredientButton" />
 
-
-
         <TextView
             android:id="@+id/prepTimeText1"
             android:layout_width="wrap_content"
@@ -153,43 +151,48 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/prepTime" />
 
-            <EditText
-                android:id="@+id/instructions"
-                android:layout_width="0dp"
-                android:layout_height="200dp"
-                android:layout_marginStart="16dp"
-                android:hint="@string/write_your_instructions_here"
-                android:layout_marginTop="16dp"
-                android:layout_marginEnd="16dp"
-                android:background="@drawable/multiline_background_border"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/instructionsText"
-                android:singleLine="false"
-                android:gravity="top"
-                android:scrollbars="vertical"
-                android:overScrollMode="always"
-                android:scrollbarStyle="insideInset" />
+        <LinearLayout
+            android:id="@+id/instruction_list"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:orientation="vertical"
+            app:layout_constraintTop_toBottomOf="@+id/instructionsText"
+            tools:layout_editor_absoluteX="29dp" >
+
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/addInstructionsButton"
+            android:layout_width="wrap_content"
+            android:layout_height="60dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:text="@string/add_instruction_step"
+            android:textSize="18sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/instruction_list"
+            tools:layout_editor_absoluteX="16dp" />
 
         <TextView
             android:id="@+id/ratingText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
-            android:layout_marginTop="32dp"
+            android:layout_marginTop="25dp"
             android:text="@string/difficulty_rating"
             android:textSize="18sp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/instructions" />
+            app:layout_constraintTop_toBottomOf="@+id/addInstructionsButton" />
 
         <Spinner
             android:id="@+id/ratingMenu"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="12dp"
-            android:layout_marginTop="30dp"
+            android:layout_marginTop="25dp"
             app:layout_constraintStart_toEndOf="@+id/ratingText"
-            app:layout_constraintTop_toBottomOf="@+id/instructions" />
+            app:layout_constraintTop_toBottomOf="@+id/addInstructionsButton" />
 
         <TextView
             android:id="@+id/authorText"

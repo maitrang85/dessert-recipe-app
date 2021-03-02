@@ -17,11 +17,12 @@
     <string name="preparation_time">Preparation time:</string>
     <string name="minutes">minutes</string>
     <string name="instructions">Instructions</string>
-    <string name="write_your_instructions_here">write your instructions here</string>
+    <string name="write_your_instructions_here">write one step of the instructions here</string>
     <string name="difficulty_rating">Difficulty rating</string>
     <string name="_1_easy_5_difficult">(1 easy, 5 difficult)</string>
     <string name="author">Author</string>
     <string name="add_recipe_caps">ADD RECIPE</string>
+    <string name="add_instruction_step">ADD INSTRUCTION STEP</string>
     <integer-array name="ratingLevels">
         <item>1</item>
         <item>2</item>

@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingTop="5dp"
+    android:paddingBottom="5dp">
+
+    <EditText
+        android:id="@+id/instructions"
+        android:layout_width="0dp"
+        android:layout_weight=".4"
+        android:layout_height="110dp"
+        android:layout_marginStart="16dp"
+        android:hint="@string/write_your_instructions_here"
+        android:layout_marginEnd="4dp"
+        android:maxLength="300"
+        android:background="@drawable/multiline_background_border"
+        android:singleLine="false"
+        android:gravity="top"
+        android:scrollbars="vertical"
+        android:overScrollMode="always"
+        android:scrollbarStyle="insideInset" />
+
+    <ImageView
+        android:id="@+id/image_delete_ins"
+        android:layout_width="35dp"
+        android:layout_height="35dp"
+        android:layout_marginStart="4dp"
+        android:layout_gravity="center_vertical"
+        android:src="@drawable/ic_delete" />
+
+</LinearLayout>

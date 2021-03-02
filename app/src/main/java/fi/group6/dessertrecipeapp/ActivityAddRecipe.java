@@ -29,7 +29,9 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 public class ActivityAddRecipe extends AppCompatActivity implements AdapterView.OnItemSelectedListener, View.OnClickListener {
 
     LinearLayout ingredientListLayout;
+    LinearLayout instructionListLayout;
     Button addIngredient;
+    Button addInstruction;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,7 +46,11 @@ public class ActivityAddRecipe extends AppCompatActivity implements AdapterView.
         ingredientListLayout = findViewById(R.id.ingredient_list);
         addIngredient = findViewById(R.id.addIngredientButton);
 
+        instructionListLayout = findViewById(R.id.instruction_list);
+        addInstruction = findViewById(R.id.addInstructionsButton);
+
         addIngredient.setOnClickListener(this);
+        addInstruction.setOnClickListener(this);
 
         //Set the rating spinner to show numbers from 1-5
         Spinner ratingMenu = (Spinner) findViewById(R.id.ratingMenu);
@@ -79,11 +85,17 @@ public class ActivityAddRecipe extends AppCompatActivity implements AdapterView.
 
     }
 
-
     @Override
     public void onClick(View v) {
         //Ingredient row is added when the user clicks the "ADD INGREDIENT" button
-        addIngredientRow();
+        switch (v.getId()) {
+            case R.id.addIngredientButton:
+                addIngredientRow();
+                break;
+            case R.id.addInstructionsButton:
+                addInstructionRow();
+                break;
+        }
     }
 
     private void addIngredientRow() {
@@ -104,12 +116,37 @@ public class ActivityAddRecipe extends AppCompatActivity implements AdapterView.
                 removeRow(ingredientRow);
             }
         });
-
         ingredientListLayout.addView(ingredientRow);
+    }
+
+    private void addInstructionRow() {
+
+        //Inflate the instructions row by one
+        View instructionRow = getLayoutInflater().inflate(R.layout.add_instruction_row, null, false);
+
+        //Connect the widgets inside the add_instructions_row.xml with the code
+        EditText instructionStep = (EditText)instructionRow.findViewById(R.id.instructions);
+        ImageView deleteInstructionRow = (ImageView)instructionRow.findViewById(R.id.image_delete_ins);
+
+        //If the user clicks the delete button, that specific row will be deleted
+        deleteInstructionRow.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                removeInsRow(instructionRow);
+            }
+        });
+        instructionListLayout.addView(instructionRow);
     }
 
     private void removeRow(View view) {
         //When the user clicks the delete button, the ingredient row will be deleted
         ingredientListLayout.removeView(view);
     }
+
+    private void removeInsRow(View view) {
+        //When the user clicks the delete button, the ingredient row will be deleted
+        instructionListLayout.removeView(view);
+    }
+
+
 }
