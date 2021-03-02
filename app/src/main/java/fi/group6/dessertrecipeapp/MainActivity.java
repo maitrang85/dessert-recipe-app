@@ -117,17 +117,14 @@ public class MainActivity extends AppCompatActivity {
         initDatabase();
     }
 
-    void removeAll(List<String> list, String element) {
-        while (list.contains(element)) {
-            list.remove(element);
-        }
-    }
-
     //TESTING ROOM DATABASE
     private void loadRecipeList() {
         AppDatabase db = AppDatabase.getDbInstance(this.getApplicationContext());
         // GET ALL RECIPES LIST and Ingredients inside recipe.
-        List<RecipeWithIngredients> recipeWithIngredientsList = db.recipeDao().getRecipeWithIngredientsByRecipeId("1");
+        List<RecipeWithIngredients> recipeWithIngredientsList = db.recipeDao().getRecipeWithIngredients();
+
+        // GET ALL RECIPES LIST.
+        List<Recipe> afterInsert = db.recipeDao().getAllRecipes();
 
         //Get Specific Recipe by ID example, in specific recipe Activity.
         Recipe recipe=  db.recipeDao().getRecipeById(1);
@@ -139,8 +136,7 @@ public class MainActivity extends AppCompatActivity {
         List<Ingredient> ingredients = new ArrayList<>();
         db.recipeDao().deleteRecipeWithIngredients(recipe, ingredients);
 
-        //Example getAllRecipes and Ingredients belong to them.
-        List<RecipeWithIngredients> recipeWithIngredients = db.recipeDao().getRecipeWithIngredients();
+        //Example get all Ingredients inside database
         List<Ingredient> allIngredients = db.recipeDao().getAllIngredients();
 
         //Search Recipe by Name
@@ -149,15 +145,13 @@ public class MainActivity extends AppCompatActivity {
         //Search Recipe and ingredients belong to recipe by Name
         List<RecipeWithIngredients> recipeWithIngredientsBySearch = db.recipeDao().searchRecipeWithIngredientsByName("el");
 
-        List<Recipe> afterInsert = db.recipeDao().getAllRecipes();
     }
     private void initDatabase (){
-        AppDatabase db = AppDatabase.getDbInstance(this.getApplicationContext());
 
         Recipe recipe = new Recipe();
         recipe.name = "recipe 3";
         recipe.author = "Trang 3";
-        recipe.rating = 4.5f;
+        recipe.levelOfDifficulty = "easy";
         recipe.tags =  Arrays.asList("tag 1","tag 2","tag 3");
         recipe.instructions = Arrays.asList("instruction 1","instruction 2","instruction 3");
         recipe.isCustom = false;
@@ -179,13 +173,12 @@ public class MainActivity extends AppCompatActivity {
         ingredients.add(ingredient1);
         ingredients.add(ingredient2);
 
-        //recipe.tags.remove("tag 1");
+        AppDatabase db = AppDatabase.getDbInstance(this.getApplicationContext());
         //Example Insert Recipe and Ingredients into database
         db.recipeDao().insertRecipeWithIngredients(recipe, ingredients);
 
         List<RecipeWithIngredients> recipeWithIngredientsList = db.recipeDao().getRecipeWithIngredients();
         Gson gson = new Gson();
         String json = gson.toJson(recipeWithIngredientsList);
-        Log.d("json", "duma: " + json);
     }
 }

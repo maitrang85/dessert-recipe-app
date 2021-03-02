@@ -6,7 +6,7 @@ import androidx.room.PrimaryKey;
 
 /**
  * Ingredient represents one ingredient used in a recipe.
- * @author TRANG
+ * @author Daniil
  * Refactored by Trang
  * @version 1.2
  */

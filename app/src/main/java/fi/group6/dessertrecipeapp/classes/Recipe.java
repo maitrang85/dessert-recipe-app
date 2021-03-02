@@ -52,13 +52,13 @@ public class Recipe {
     @ColumnInfo(name = "author")
     public String author;
 
-    @ColumnInfo(name = "rating")
-    public float rating;
+    @ColumnInfo(name = "level_of_difficulty")
+    public String levelOfDifficulty ;
 
     public Recipe() {
     }
 
-    public Recipe(String name, List<String> instructions, List<String> tags, String photo, boolean isCustom, int numberOfServings, int prepareTime, String author, float rating) {
+    public Recipe(String name, List<String> instructions, List<String> tags, String photo, boolean isCustom, int numberOfServings, int prepareTime, String author, String levelOfDifficulty) {
         this.recipeId = recipeId;
         this.name = name;
         this.instructions = instructions;
@@ -68,7 +68,7 @@ public class Recipe {
         this.numberOfServings = numberOfServings;
         this.prepareTime = prepareTime;
         this.author = author;
-        this.rating = rating;
+        this.levelOfDifficulty = levelOfDifficulty;
     }
 
     @Override
@@ -83,7 +83,7 @@ public class Recipe {
                 ", numberOfServings=" + numberOfServings +
                 ", prepareTime=" + prepareTime +
                 ", author='" + author + '\'' +
-                ", rating=" + rating +
+                ", levelOfDifficulty=" + levelOfDifficulty +
                 '}';
     }
 }
