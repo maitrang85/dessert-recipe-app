@@ -43,6 +43,9 @@ public class Recipe {
     @ColumnInfo(name = "is_custom")
     public boolean isCustom;
 
+    @ColumnInfo(name = "is_favourite")
+    public boolean isFavourite;
+
     @ColumnInfo(name = "number_of_servings")
     public int numberOfServings;
 
@@ -58,13 +61,14 @@ public class Recipe {
     public Recipe() {
     }
 
-    public Recipe(String name, List<String> instructions, List<String> tags, String photo, boolean isCustom, int numberOfServings, int prepareTime, String author, String levelOfDifficulty) {
+    public Recipe(String name, List<String> instructions, List<String> tags, String photo, boolean isCustom, boolean isFavourite, int numberOfServings, int prepareTime, String author, String levelOfDifficulty) {
         this.recipeId = recipeId;
         this.name = name;
         this.instructions = instructions;
         this.tags = tags;
         this.photo = photo;
         this.isCustom = isCustom;
+        this.isFavourite = isFavourite;
         this.numberOfServings = numberOfServings;
         this.prepareTime = prepareTime;
         this.author = author;
@@ -80,6 +84,7 @@ public class Recipe {
                 ", instruction='" + instructions + '\'' +
                 ", photo='" + photo + '\'' +
                 ", isCustom=" + isCustom +
+                ", isFavourite=" + isFavourite +
                 ", numberOfServings=" + numberOfServings +
                 ", prepareTime=" + prepareTime +
                 ", author='" + author + '\'' +
