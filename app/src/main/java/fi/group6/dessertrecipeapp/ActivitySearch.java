@@ -1,8 +1,10 @@
 package fi.group6.dessertrecipeapp;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -30,6 +32,25 @@ public class ActivitySearch extends AppCompatActivity {
 
     private static final String SEARCH_TAG = "SEARCH";
 
+    //Variables for the tag selector
+    TextView tagSelectorTv;
+    String[] tagArray = {"Dairy-free", "Gluten-free", "Nut-free", "Keto diet", "Paleo diet", "Vegan",
+            "Low-calorie", "Low-fat", "Low-carb", "Plant based", "Sweet", "No cooking needed", "Frozen dessert"};
+    ArrayList<String> tagList = new ArrayList<>();
+    boolean[] selectedTag;
+
+    //THIS CAN BE USED FOR SEARCH, IT'S AN ARRAY MADE ONLY FROM THE SELECTED ITEMS
+    List<String> tagInput;
+
+    //Variables for the difficulty selector
+    TextView difficultySelectorTv;
+    String[] difficultyArray = {"easy", "medium", "hard"};
+    ArrayList<String> difficultyList = new ArrayList<>();
+    boolean[] selectedDifficulty;
+
+    //THIS CAN BE USED FOR SEARCH, IT'S AN ARRAY MADE ONLY FROM THE SELECTED ITEMS
+    List<String> difficultyInput;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -38,11 +59,122 @@ public class ActivitySearch extends AppCompatActivity {
         AppDatabase db = AppDatabase.getDbInstance(this.getApplicationContext());
 
         //Change title for the top title bar
-        getSupportActionBar().setTitle("Search");
+        getSupportActionBar().setTitle("SEARCH");
 
         //Basic textView to test the bottom navigation
         TextView title = (TextView) findViewById(R.id.testTextSearch);
-        title.setText("THIS IS THE SEARCH ACTIVITY");
+        title.setText("Test here");
+
+        //CODE FOR THE TAG SELECTOR
+        tagSelectorTv = findViewById(R.id.tagSelectorTv);
+        selectedTag = new boolean[tagArray.length];
+
+        tagSelectorTv.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                AlertDialog.Builder builder = new AlertDialog.Builder(ActivitySearch.this);
+                builder.setTitle("Select tags for your recipe");
+                builder.setCancelable(false);
+
+                builder.setMultiChoiceItems(tagArray, selectedTag, new DialogInterface.OnMultiChoiceClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which, boolean isChecked) {
+                        if (isChecked) {
+                            tagList.add(tagArray[which]);
+                        } else {
+                            tagList.remove(tagArray[which]);
+                        }
+                    }
+                });
+
+                builder.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+
+                        tagInput = new ArrayList<>();
+                        String items = "";
+
+                        for(int element = 0; element < tagList.size(); element++){
+
+                            items = items + tagList.get(element);
+                            tagInput.add(tagList.get(element).toString());
+
+                            if(element != tagList.size() - 1){
+                                items = items + ", ";
+                            }
+                        }
+                        tagSelectorTv.setText(items);
+                        Log.d("Tags selected", tagInput.toString());
+                    }
+                });
+
+                builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                    }
+                });
+
+                AlertDialog dialog = builder.create();
+                builder.show();
+            }
+        });
+
+        //CODE FOR THE DIFFICULTY SELECTOR
+        difficultySelectorTv = findViewById(R.id.difficultySelectorTv);
+        selectedDifficulty = new boolean[difficultyArray.length];
+
+        difficultySelectorTv.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                AlertDialog.Builder builder = new AlertDialog.Builder(ActivitySearch.this);
+                builder.setTitle("Select tags for your recipe");
+                builder.setCancelable(false);
+
+                builder.setMultiChoiceItems(difficultyArray, selectedDifficulty, new DialogInterface.OnMultiChoiceClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which, boolean isChecked) {
+                        if (isChecked) {
+                            difficultyList.add(difficultyArray[which]);
+                        } else {
+                            difficultyList.remove(difficultyArray[which]);
+                        }
+                    }
+                });
+
+                builder.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+
+                        difficultyInput = new ArrayList<>();
+                        String items2 = "";
+
+                        for(int element = 0; element < difficultyList.size(); element++){
+
+                            items2 = items2 + difficultyList.get(element);
+                            difficultyInput.add(difficultyList.get(element).toString());
+
+                            if(element != difficultyList.size() - 1){
+                                items2 = items2 + ", ";
+                            }
+                        }
+                        difficultySelectorTv.setText(items2);
+                        Log.d("Tags selected", difficultyInput.toString());
+                    }
+                });
+
+                builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                    }
+                });
+
+                AlertDialog dialog = builder.create();
+                builder.show();
+            }
+        });
+
 
         //Set up the bottom navigation bar
         BottomNavigationView bottomNavigationView = (BottomNavigationView) findViewById(R.id.bottomNav_ViewBar);

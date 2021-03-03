@@ -2,6 +2,7 @@
     <string name="app_name">Dessert Recipe App</string>
     <string name="home">Home</string>
     <string name="search">Search</string>
+    <string name="searchByName">Search by name</string>
     <string name="add_recipe">Add recipe</string>
     <string name="favorites">Favorites</string>
     <string name="my_recipes">My recipes</string>
@@ -23,6 +24,11 @@
     <string name="author">Author</string>
     <string name="add_recipe_caps">ADD RECIPE</string>
     <string name="add_instruction_step">ADD INSTRUCTION STEP</string>
+    <string name="search_by_tags">Tags</string>
+    <string name="exact_name">Exact name</string>
+    <string name="from">From</string>
+    <string name="to">to</string>
+    <string name="search_by_difficulty_level">Difficulty level</string>
     <integer-array name="ratingLevels">
         <item>1</item>
         <item>2</item>
