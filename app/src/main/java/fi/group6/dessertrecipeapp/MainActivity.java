@@ -28,6 +28,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 import fi.group6.dessertrecipeapp.classes.AppDatabase;
 import fi.group6.dessertrecipeapp.classes.Ingredient;
 import fi.group6.dessertrecipeapp.classes.Recipe;
@@ -39,6 +41,8 @@ public class MainActivity extends AppCompatActivity {
     private static final boolean DEBUG_RECIPE_EXAMPLE = false; //Just an example for recipe debug prints //temporary
 
     public static final String TAG = "indexOfRecipe";
+    private ArrayList<String> mRecipeNames = new ArrayList<>();
+    private ArrayList<String> mImageUrls = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,19 +53,19 @@ public class MainActivity extends AppCompatActivity {
         getSupportActionBar().setTitle("DailyDesserts");
 
         //Connect the listView in the xml to the MainActivity
-        ListView lv = findViewById(R.id.recycleViewRecipes);
+        //ListView lv = findViewById(R.id.recycleViewRecipes);
 
         AppDatabase db = AppDatabase.getDbInstance(this.getApplicationContext());
 
         //Set an adapter for the listView to show all the recipes in the RecipeBook class
-        lv.setAdapter(new ArrayAdapter<Recipe>(
+        /**lv.setAdapter(new ArrayAdapter<Recipe>(
                 this,
                 android.R.layout.simple_expandable_list_item_1,
                 db.recipeDao().getAllRecipes()
-        ));
+        ));*/
 
         //Upon clicking any of the recipes, the user will be taken to the specific recipe page
-        lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        /**lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 //Add intent to change activities
@@ -69,7 +73,7 @@ public class MainActivity extends AppCompatActivity {
                 detailsActivity.putExtra(TAG, i);
                 startActivity(detailsActivity);
             }
-        });
+        });*/
 
         //Set up the bottom navigation bar
         BottomNavigationView bottomNavigationView = (BottomNavigationView) findViewById(R.id.bottomNav_ViewBar);
@@ -111,7 +115,7 @@ public class MainActivity extends AppCompatActivity {
                 return false;
             }
         });
-
+        initRecyclerView();
     }
 
 
@@ -194,4 +198,14 @@ public class MainActivity extends AppCompatActivity {
         }
         return outputStream.toString();
     }
+    // init Recycler view
+    private void initRecyclerView() {
+        Log.d(TAG, "initRecyclerView: init recyclerView");
+        RecyclerView recyclerView = findViewById(R.id.recycler_view);
+        AppDatabase db = AppDatabase.getDbInstance(this.getApplicationContext());
+        RecyclerViewAdapter adapter = new RecyclerViewAdapter(db.recipeDao().getRecipeWithIngredients(), this);
+        recyclerView.setAdapter(adapter);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+    }
+
 }

@@ -43,7 +43,7 @@
       "prepareTime":25,
       "levelOfDifficulty":"easy",
       "tags":[
-        "Vegeterian"
+        "Vegan"
       ]
     }
   },
@@ -179,7 +179,7 @@
       "isFavourite": true,
       "name":"Vegan chocolate banana ice cream",
       "numberOfServings":1,
-      "photo":"image 1",
+      "photo":"https://whatmollymade.com/wp-content/uploads/2019/07/vegan-chocolate-banana-ice-cream-13.jpg",
       "prepareTime":5,
       "levelOfDifficulty":"easy",
       "tags":[
