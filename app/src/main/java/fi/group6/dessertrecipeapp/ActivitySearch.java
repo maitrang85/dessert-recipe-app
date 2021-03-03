@@ -12,6 +12,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.TextView;
 
@@ -31,10 +32,11 @@ import fi.group6.dessertrecipeapp.classes.RecipeWithIngredients;
 public class ActivitySearch extends AppCompatActivity {
 
     private static final String SEARCH_TAG = "SEARCH";
+    private static final boolean DEBUG_PRINTS = true;
 
     //Variables for the tag selector
     TextView tagSelectorTv;
-    String[] tagArray = {"Dairy-free", "Gluten-free", "Nut-free", "Keto diet", "Paleo diet", "Vegan",
+    String[] tagArray = {"Dairy-free", "Gluten-free", "Nut-free", "Keto diet", "Paleo diet", "Vegetarian",
             "Low-calorie", "Low-fat", "Low-carb", "Plant based", "Sweet", "No cooking needed", "Frozen dessert"};
     ArrayList<String> tagList = new ArrayList<>();
     boolean[] selectedTag;
@@ -50,6 +52,9 @@ public class ActivitySearch extends AppCompatActivity {
 
     //THIS CAN BE USED FOR SEARCH, IT'S AN ARRAY MADE ONLY FROM THE SELECTED ITEMS
     List<String> difficultyInput;
+
+    //THIS IS USED TO GET A LIST WITH THE SEARCH RESULTS
+    List<RecipeWithIngredients> searchResults = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -218,32 +223,102 @@ public class ActivitySearch extends AppCompatActivity {
         });
 
         Button searchButton = (Button) findViewById(R.id.searchButton);
-        boolean onlyExact = false; //TODO: Checkbox for that. Maybe inside filters
 
         searchButton.setOnClickListener(new View.OnClickListener() {
+            /**
+             * Method in anonymous click listener for the search activation.
+             * Activates and performs search based on all selected filters.
+             * Use searchResults in order to get the result.
+             * @param v
+             * View
+             */
             @Override
             public void onClick(View v) {
+                //Search bar
                 EditText searchBar = (EditText) findViewById(R.id.searchBar);
+                //Preparation time from view
+                EditText prepTimeFromView = (EditText) findViewById(R.id.prepTimeFrom);
+                //Preparation time to view
+                EditText prepTimeToView = (EditText) findViewById(R.id.prepTimeTo);
+                //Checkbox for the exact search
+                CheckBox exactNameCheckBox = (CheckBox)findViewById(R.id.exactNameCheckBox);
+                //Boolean, determined by the checkbox for the exact name search
+                boolean onlyExact = exactNameCheckBox.isChecked();
+                //Filtering from this time
+                int prepTimeFrom = -1;
+                if(!prepTimeFromView.getText().toString().equals("")) { //Validating input
+                    prepTimeFrom = Integer.valueOf(prepTimeFromView.getText().toString().trim());
+                }
+                //Filtering until this time
+                int prepTimeTo = -1;
+                if(!prepTimeToView.getText().toString().equals("")) { //Validating input
+                    prepTimeTo = Integer.valueOf(prepTimeToView.getText().toString().trim());
+                }
+                //
+                List<String> filteringTags = new ArrayList<>();
+                if (tagInput != null) {
+                    filteringTags = tagInput;
+                }
+                //
+                List<String> filteringDifficulty = new ArrayList<>();
+                if (difficultyInput != null) {
+                    filteringDifficulty = difficultyInput;
+                }
+                //String to search for in the name
+                String searchingFor = searchBar.getText().toString().trim();
 
+                // There is no point to search for recipes if we aren't searching for anything. Home page exists for that purpose.
+                if(searchingFor.equals("") && prepTimeFrom == -1 && prepTimeTo == -1 && filteringTags.size() == 0 && filteringDifficulty.size() == 0) {
+                    Log.e(SEARCH_TAG, "No searching filters or name provided");
+                    return;
+                }
 
-                List<RecipeWithIngredients> recipesList = db.recipeDao().getRecipeWithIngredients();
-                List<RecipeWithIngredients> searchResults = searchInRecipesList(recipesList,searchBar.getText().toString().trim(), onlyExact);
+                //List with all recipes from the database to be filtered
+                List<RecipeWithIngredients> allRecipesList = db.recipeDao().getRecipeWithIngredients();
+                //List, to be used for search
+                List<RecipeWithIngredients> filteredRecipesList = new ArrayList<>();
+
+                // Filtering recipes
+                filteredRecipesList = filterRecipes(allRecipesList, filteringTags, filteringDifficulty, prepTimeFrom, prepTimeTo);
+
+                if(searchingFor.equals("")) { //If we have no name input - means we want to get filtered results without specified name
+                    searchResults = filteredRecipesList;
+                } else {
+                    // Searching for the name inside the filtered recipes
+                    searchResults = searchInRecipesList(filteredRecipesList, searchingFor, onlyExact);
+                }
 
                 //For Testing:
-                Log.d(SEARCH_TAG, Integer.toString(searchResults.size()) + " results found");
-                int i;
-                for (i = 0; i < searchResults.size(); i++) {
-                    Log.d(SEARCH_TAG, Integer.toString(i+1) + ".\n" + searchResults.get(i).recipe.toString());
+                if(DEBUG_PRINTS) {
+                    Log.d(SEARCH_TAG, "onlyExact=" + Boolean.toString(onlyExact));
+                    Log.d(SEARCH_TAG, "Size: " + Integer.toString(filteringTags.size()) + " Tags to search for: " + filteringTags.toString());
+                    Log.d(SEARCH_TAG, "Size: " + Integer.toString(filteringDifficulty.size()) + " Difficulties to search for: " + filteringDifficulty.toString());
+                    Log.d(SEARCH_TAG, "Time From=" + Integer.toString(prepTimeFrom));
+                    Log.d(SEARCH_TAG, "Time To  =" + Integer.toString(prepTimeTo));
+                    Log.d(SEARCH_TAG, Integer.toString(searchResults.size()) + " results found");
+                    int i;
+                    for (i = 0; i < searchResults.size(); i++) {
+                        Log.d(SEARCH_TAG, Integer.toString(i + 1) + ".\n" + searchResults.get(i).recipe.toString());
+                    }
                 }
 
             }
         });
     }
 
+    //*******************//
+    //* PRIVATE METHODS *//
+    //*******************//
     /**
      * Gives a list of recipes that matches the name given, or is similar to the name given
+     * @param recipesList
+     * List to search for the name in
      * @param toFind
      * Recipe name String
+     * @param onlyExact
+     * If the search should be only for exact matches
+     * @return
+     * RecipeWithIngredients list with the result of the search
      */
     private List<RecipeWithIngredients> searchInRecipesList (List<RecipeWithIngredients> recipesList, String toFind, boolean onlyExact) {
         List<RecipeWithIngredients> resultRecipesList = new ArrayList<>();
@@ -305,5 +380,98 @@ public class ActivitySearch extends AppCompatActivity {
             }
         }
         return counter;
+    }
+
+    /**
+     * Filters given recipes by specified tags, difficulty and preparation time
+     * @param recipes
+     * Recipe list to filter
+     * @param filteringTags
+     * Tags, which must be in a recipe in order to be accepted
+     * @param filteringDifficulty
+     * Accepted levels of difficulty
+     * @param timeFrom
+     * Minimal time of preparation
+     * @param timeTo
+     * Maximum time of preparation
+     * @return
+     * Accepted by filter recipes list
+     */
+    private List<RecipeWithIngredients> filterRecipes(List<RecipeWithIngredients> recipes, List<String> filteringTags, List<String> filteringDifficulty, int timeFrom, int timeTo) {
+        List<RecipeWithIngredients> filteredByTags = new ArrayList(); // 1st level
+        List<RecipeWithIngredients> filteredByTagsAndDifficulty = new ArrayList<>(); // 2nd level
+        List<RecipeWithIngredients> filteredResultList = new ArrayList<>(); // 3rd level
+
+        // 1st level. Tags
+        if (filteringTags.size() == 0) { //No preferred tags
+            filteredByTags = recipes;
+        } else {
+            for (RecipeWithIngredients recipe: recipes) {
+                if (checkRecipeForAllGivenTags(filteringTags, recipe)) { // If all needed tags are in a recipe
+                    filteredByTags.add(recipe);                          // - accept it
+                }
+            }
+        }
+
+        // 2nd level. Difficulty
+        if (filteringDifficulty.size() == 0 || filteringDifficulty.size() == 3) { // None/all difficulties selected
+            filteredByTagsAndDifficulty = filteredByTags;
+        } else {
+            for (RecipeWithIngredients recipe: filteredByTags) {
+                for (String difficulty: filteringDifficulty) {
+                    if( recipe.recipe.levelOfDifficulty.equals(difficulty) ) { // If needed difficulty is found
+                        filteredByTagsAndDifficulty.add(recipe);               // - accept recipe
+                    }
+                }
+            }
+        }
+
+        // 3rd level. Time
+        if (timeFrom < 0 && timeTo < 0) { //No preferred time of preparation
+            filteredResultList = filteredByTagsAndDifficulty;
+        } else if (timeFrom >= 0 && timeTo < 0) { //Time limited only from below. ( "I'm planning to cook for an hour!" )
+            for (RecipeWithIngredients recipe: filteredByTagsAndDifficulty) {
+                if (recipe.recipe.prepareTime >= timeFrom) { // If preparation is longer or the same as needed
+                    filteredResultList.add(recipe);          // - accept recipe
+                }
+            }
+        } else { //Other two combinations are handled in normal way
+            for (RecipeWithIngredients recipe: filteredByTagsAndDifficulty) {
+                // If preparation time is between minimum and maximum or equals to one of them
+                // - accept recipe
+                if (recipe.recipe.prepareTime >= timeFrom && recipe.recipe.prepareTime <= timeTo) {
+                    filteredResultList.add(recipe);
+                }
+            }
+        }
+
+        return filteredResultList;
+    }
+
+    /**
+     * Checks if a recipe has all given tags
+     * @param tagsToFind
+     * Tags that should be marked in a recipe
+     * @param recipeToCheck
+     * Checked recipe
+     * @return
+     * true - all tags are marked in a recipe, false - one tag wasn't found in a recipe.
+     */
+    private boolean checkRecipeForAllGivenTags(List<String> tagsToFind, RecipeWithIngredients recipeToCheck) {
+        List<String> tagsToCheck = recipeToCheck.recipe.tags;
+        boolean exists = false;
+
+        for (String tagToFind: tagsToFind) {
+            for (String tagToCheck: tagsToCheck) {
+                if (tagToFind.equals(tagToCheck)) {
+                    exists = true;
+                }
+            }
+            if (!exists) {
+                return false;
+            }
+            exists = false;
+        }
+        return true;
     }
 }
