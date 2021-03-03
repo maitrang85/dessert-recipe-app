@@ -59,7 +59,7 @@ public class ActivityAddRecipe extends AppCompatActivity implements AdapterView.
     List<Ingredient> ingredients = new ArrayList<>();
     Recipe myOwnRecipe = new Recipe();
 
-    String[] tagArray = {"Dairy-free", "Gluten-free", "Nut-free", "Keto diet", "Paleo diet", "Vegan",
+    String[] tagArray = {"Dairy-free", "Gluten-free", "Nut-free", "Keto diet", "Paleo diet", "Vegetarian",
             "Low-calorie", "Low-fat", "Low-carb", "Plant based", "Sweet", "No cooking needed", "Frozen dessert"};
     ArrayList<String> tagList = new ArrayList<>();
     boolean[] selectedTag;

@@ -458,6 +458,10 @@ public class ActivitySearch extends AppCompatActivity {
      * true - all tags are marked in a recipe, false - one tag wasn't found in a recipe.
      */
     private boolean checkRecipeForAllGivenTags(List<String> tagsToFind, RecipeWithIngredients recipeToCheck) {
+        if (recipeToCheck.recipe.tags == null) { //Checking for null pointer
+            return false;
+        }
+
         List<String> tagsToCheck = recipeToCheck.recipe.tags;
         boolean exists = false;
 
