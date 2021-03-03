@@ -24,7 +24,6 @@ import fi.group6.dessertrecipeapp.classes.AppDatabase;
 import fi.group6.dessertrecipeapp.classes.Ingredient;
 import fi.group6.dessertrecipeapp.classes.Recipe;
 
-//TODO - add recipe tag selection to the UI and the code
 //TODO - figure out how to work with photos
 
 public class ActivityAddRecipe extends AppCompatActivity implements AdapterView.OnItemSelectedListener, View.OnClickListener {
@@ -33,6 +32,7 @@ public class ActivityAddRecipe extends AppCompatActivity implements AdapterView.
     LinearLayout instructionListLayout;
 
     TextView tagSelectorTv;
+    TextView ingredient;
 
     EditText name;
     EditText author;
@@ -86,6 +86,7 @@ public class ActivityAddRecipe extends AppCompatActivity implements AdapterView.
         author = findViewById(R.id.author);
         portions = findViewById(R.id.portionSize);
         prepTime = findViewById(R.id.prepTime);
+        ingredient = findViewById(R.id.ingredient);
 
         addIngredientButton.setOnClickListener(this);
         addInstructionButton.setOnClickListener(this);
@@ -188,7 +189,7 @@ public class ActivityAddRecipe extends AppCompatActivity implements AdapterView.
                 addInstructionRow();
                 break;
             case R.id.addRecipeButton:
-                if(checkdataValidity()){
+                if(checkDataValidity()){
                     addNewRecipeWithIngredients();
                 }
                 break;
@@ -242,13 +243,22 @@ public class ActivityAddRecipe extends AppCompatActivity implements AdapterView.
                 "Congrats, you've created a new recipe!", Toast.LENGTH_LONG).show();
     }
 
-    private boolean checkdataValidity() {
+    private boolean checkDataValidity() {
         boolean result = true;
 
-        if(name.getText().toString().equals("") || name.length() < 3){
+        if(name.getText().toString().trim().length() < 3){
             Toast.makeText(ActivityAddRecipe.this,
                     "Please enter a recipe name, minimum 3 letters needed", Toast.LENGTH_LONG).show();
+            name.setError("Please enter a recipe name, minimum 3 letters needed");
             result = false;
+            return result;
+        }
+
+        if(ingredientListLayout.getChildCount() == 0){
+            Toast.makeText(ActivityAddRecipe.this,
+                    "Please add at least one ingredient", Toast.LENGTH_LONG).show();
+            result = false;
+            return result;
         }
 
         for(int i = 0; i < ingredientListLayout.getChildCount(); i++){
@@ -258,32 +268,38 @@ public class ActivityAddRecipe extends AppCompatActivity implements AdapterView.
             EditText ingredientAmount = (EditText)ingredientStepLayout.findViewById(R.id.ingredientAmount);
             EditText ingredientMeasure = (EditText)ingredientStepLayout.findViewById(R.id.ingredientMeasure);
 
-            if(ingredientName.getText().toString().equals("") || ingredientAmount.getText().toString().equals("") ||
-                    ingredientMeasure.getText().toString().equals("")) {
+            if(ingredientName.getText().toString().trim().length() == 0 || ingredientAmount.getText().toString().trim().length() == 0 ||
+                    ingredientMeasure.getText().toString().trim().length() == 0) {
                 Toast.makeText(ActivityAddRecipe.this,
                         "Please fill out or delete the the empty ingredient text", Toast.LENGTH_LONG).show();
                 result = false;
+                return result;
             }
         }
 
-        if(portions.getText().toString().equals("0") || portions.getText().toString().equals("00") ||
-                portions.getText().toString().equals("000") || portions.getText().toString().equals("")){
+        if(portions.getText().toString().trim().length() == 0 || portions.getText().toString().equals("00") ||
+                portions.getText().toString().equals("000") || portions.getText().toString().equals("0") ){
             Toast.makeText(ActivityAddRecipe.this,
                     "Please enter a correct portion size", Toast.LENGTH_LONG).show();
+            portions.setError("Please enter a correct portion size");
             result = false;
+            return result;
         }
 
         if(prepTime.getText().toString().equals("0") || prepTime.getText().toString().equals("00") ||
-                prepTime.getText().toString().equals("000") || prepTime.getText().toString().equals("")){
+                prepTime.getText().toString().equals("000") || prepTime.getText().toString().trim().length() == 0){
             Toast.makeText(ActivityAddRecipe.this,
                     "Please enter a correct preparation time", Toast.LENGTH_LONG).show();
+            prepTime.setError("Please enter a correct preparation time");
             result = false;
+            return result;
         }
 
         if(instructionListLayout.getChildCount() == 0){
             Toast.makeText(ActivityAddRecipe.this,
                     "Please add at least one instruction step", Toast.LENGTH_LONG).show();
             result = false;
+            return result;
         }
 
         for(int i = 0; i < instructionListLayout.getChildCount(); i++){
@@ -295,12 +311,16 @@ public class ActivityAddRecipe extends AppCompatActivity implements AdapterView.
                 Toast.makeText(ActivityAddRecipe.this,
                         "Please fill out or delete the the empty instruction texts", Toast.LENGTH_LONG).show();
                 result = false;
+                return result;
             }
         }
 
-        if(author.getText().toString().equals("")){
+        if(author.getText().toString().trim().length() == 0){
             Toast.makeText(ActivityAddRecipe.this,
                     "Please enter an author name", Toast.LENGTH_LONG).show();
+            author.setError("Please enter an author name");
+            result = false;
+            return result;
         }
 
         return result;
