@@ -24,6 +24,7 @@ import java.util.List;
 
 import fi.group6.dessertrecipeapp.classes.AppDatabase;
 import fi.group6.dessertrecipeapp.classes.Recipe;
+import fi.group6.dessertrecipeapp.classes.RecipeWithIngredients;
 
 public class ActivitySearch extends AppCompatActivity {
 
@@ -93,14 +94,14 @@ public class ActivitySearch extends AppCompatActivity {
                 EditText searchBar = (EditText) findViewById(R.id.searchBar);
 
 
-                List<Recipe> recipesList = db.recipeDao().getAllRecipes();
-                List<Recipe> searchResults = searchInRecipesList(recipesList,searchBar.getText().toString().trim(), onlyExact);
+                List<RecipeWithIngredients> recipesList = db.recipeDao().getRecipeWithIngredients();
+                List<RecipeWithIngredients> searchResults = searchInRecipesList(recipesList,searchBar.getText().toString().trim(), onlyExact);
 
                 //For Testing:
                 Log.d(SEARCH_TAG, Integer.toString(searchResults.size()) + " results found");
                 int i;
                 for (i = 0; i < searchResults.size(); i++) {
-                    Log.d(SEARCH_TAG, Integer.toString(i+1) + ".\n" + searchResults.get(i).toString());
+                    Log.d(SEARCH_TAG, Integer.toString(i+1) + ".\n" + searchResults.get(i).recipe.toString());
                 }
 
             }
@@ -112,13 +113,13 @@ public class ActivitySearch extends AppCompatActivity {
      * @param toFind
      * Recipe name String
      */
-    private List<Recipe> searchInRecipesList (List<Recipe> recipesList,String toFind, boolean onlyExact) {
-        List<Recipe> resultRecipesList = new ArrayList<>();
+    private List<RecipeWithIngredients> searchInRecipesList (List<RecipeWithIngredients> recipesList, String toFind, boolean onlyExact) {
+        List<RecipeWithIngredients> resultRecipesList = new ArrayList<>();
 
         //Searching for exact matches --> Fast
         if(onlyExact){
-            for (Recipe recipe : recipesList) {
-                if (recipe.name.equals(toFind)) {
+            for (RecipeWithIngredients recipe : recipesList) {
+                if (recipe.recipe.name.equals(toFind)) {
                     resultRecipesList.add(recipe);
                 }
             }
@@ -134,8 +135,8 @@ public class ActivitySearch extends AppCompatActivity {
             List<String> toFindList = Arrays.asList(toFind.split(" "));
             int requiredNumberOfMatches = toFindList.size(); // in order to sort them by number of matches
             while (requiredNumberOfMatches > 0) { // looping until we will have 0 required amount of matches
-                for (Recipe recipe: recipesList) {
-                    if (countWordMatchesInLists(toFindList, Arrays.asList(recipe.name.split(" "))) == requiredNumberOfMatches) { // if we get exactly needed amount of matches
+                for (RecipeWithIngredients recipe: recipesList) {
+                    if (countWordMatchesInLists(toFindList, Arrays.asList(recipe.recipe.name.split(" "))) == requiredNumberOfMatches) { // if we get exactly needed amount of matches
                         resultRecipesList.add(recipe);                                                                                 // add it to the results array
                     }
                 }
