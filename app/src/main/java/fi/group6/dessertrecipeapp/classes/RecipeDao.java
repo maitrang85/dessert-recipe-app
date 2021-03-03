@@ -19,6 +19,12 @@ public abstract class RecipeDao {
     @Query("SELECT count(*) FROM recipe")
     abstract public int countRecipes();
 
+    @Query("SELECT count(*) FROM recipe WHERE is_custom = 1")
+    abstract public int countLocalRecipes();
+
+    @Query("SELECT count(*) FROM recipe WHERE is_favourite = 1")
+    abstract public int countFavoriteRecipes();
+
     @Query("SELECT * FROM recipe")
     abstract public List<Recipe> getAllRecipes();
 
@@ -29,6 +35,18 @@ public abstract class RecipeDao {
     @Transaction
     @Query("SELECT * FROM recipe")
     abstract public List<RecipeWithIngredients> getRecipeWithIngredients();
+
+    @Transaction
+    @Query("SELECT * FROM recipe WHERE is_custom = 0")
+    abstract public List<RecipeWithIngredients> getPremadeRecipeWithIngredients();
+
+    @Transaction
+    @Query("SELECT * FROM recipe WHERE is_custom = 1")
+    abstract public List<RecipeWithIngredients> getLocalRecipeWithIngredients();
+
+    @Transaction
+    @Query("SELECT * FROM recipe WHERE is_favourite = 1")
+    abstract public List<RecipeWithIngredients> getFavoriteRecipeWithIngredients();
 
     @Query("SELECT * FROM ingredient")
     abstract public List<Ingredient> getAllIngredients();

@@ -30,6 +30,8 @@
     <string name="from">From</string>
     <string name="to">to</string>
     <string name="search_by_difficulty_level">Difficulty level</string>
+    <string name="add_your_own_recipes">ADD A RECIPE</string>
+    <string name="you_haven_t_added_any_favorites_yet">You haven\'t added any favorites yet</string>
     <integer-array name="ratingLevels">
         <item>1</item>
         <item>2</item>

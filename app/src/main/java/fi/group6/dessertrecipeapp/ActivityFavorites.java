@@ -2,16 +2,26 @@ package fi.group6.dessertrecipeapp;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.TextView;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
+import fi.group6.dessertrecipeapp.classes.AppDatabase;
+
 public class ActivityFavorites extends AppCompatActivity {
+
+    TextView emptyText;
+
+    public static final String TAG = "indexOfRecipe";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -19,11 +29,11 @@ public class ActivityFavorites extends AppCompatActivity {
         setContentView(R.layout.activity_favorites);
 
         //Change title for the top title bar
-        getSupportActionBar().setTitle("Favorites");
+        getSupportActionBar().setTitle("FAVORITES");
 
-        //Basic textView to test the bottom navigation
-        TextView title = (TextView) findViewById(R.id.testTextFavorites);
-        title.setText("THIS IS THE FAVORITES ACTIVITY");
+        emptyText = findViewById(R.id.emptyActivityText);
+
+        AppDatabase db = AppDatabase.getDbInstance(this.getApplicationContext());
 
         //Set up the bottom navigation bar
         BottomNavigationView bottomNavigationView = (BottomNavigationView) findViewById(R.id.bottomNav_ViewBar);
@@ -65,5 +75,19 @@ public class ActivityFavorites extends AppCompatActivity {
                 return false;
             }
         });
+        initRecyclerView();
+
+        if(db.recipeDao().countFavoriteRecipes() == 0){
+            emptyText.setVisibility(View.VISIBLE);
+        }
+    }
+
+    private void initRecyclerView() {
+        Log.d(TAG, "initRecyclerView: init recyclerView");
+        RecyclerView recyclerView = findViewById(R.id.recycler_view);
+        AppDatabase db = AppDatabase.getDbInstance(this.getApplicationContext());
+        RecyclerViewAdapter adapter = new RecyclerViewAdapter(db.recipeDao().getFavoriteRecipeWithIngredients(), this);
+        recyclerView.setAdapter(adapter);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
     }
 }

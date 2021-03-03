@@ -203,7 +203,7 @@ public class MainActivity extends AppCompatActivity {
         Log.d(TAG, "initRecyclerView: init recyclerView");
         RecyclerView recyclerView = findViewById(R.id.recycler_view);
         AppDatabase db = AppDatabase.getDbInstance(this.getApplicationContext());
-        RecyclerViewAdapter adapter = new RecyclerViewAdapter(db.recipeDao().getRecipeWithIngredients(), this);
+        RecyclerViewAdapter adapter = new RecyclerViewAdapter(db.recipeDao().getPremadeRecipeWithIngredients(), this);
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
     }

@@ -26,7 +26,7 @@ import androidx.room.PrimaryKey;
 public class Recipe {
 
     @PrimaryKey(autoGenerate = true)
-    public long recipeId;
+    public int recipeId;
 
     @ColumnInfo(name = "name")
     public String name;

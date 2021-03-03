@@ -1,17 +1,40 @@
 package fi.group6.dessertrecipeapp;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.lang.reflect.Type;
+import java.util.ArrayList;
+import java.util.List;
+
+import fi.group6.dessertrecipeapp.classes.AppDatabase;
+import fi.group6.dessertrecipeapp.classes.RecipeWithIngredients;
 
 public class ActivityMyRecipes extends AppCompatActivity {
+
+    public static final String TAG = "indexOfRecipe";
+
+    Button emptyButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -19,11 +42,11 @@ public class ActivityMyRecipes extends AppCompatActivity {
         setContentView(R.layout.activity_my_recipes);
 
         //Change title for the top title bar
-        getSupportActionBar().setTitle("My recipes");
+        getSupportActionBar().setTitle("MY RECIPES");
 
-        //Basic textView to test the bottom navigation
-        TextView title = (TextView) findViewById(R.id.testTextMyRecipes);
-        title.setText("THIS IS THE MY RECIPES ACTIVITY");
+        emptyButton = findViewById(R.id.emptyActivityButton);
+
+        AppDatabase db = AppDatabase.getDbInstance(this.getApplicationContext());
 
         //Set up the bottom navigation bar
         BottomNavigationView bottomNavigationView = (BottomNavigationView) findViewById(R.id.bottomNav_ViewBar);
@@ -65,5 +88,23 @@ public class ActivityMyRecipes extends AppCompatActivity {
                 return false;
             }
         });
+        initRecyclerView();
+
+        if(db.recipeDao().countLocalRecipes() == 0){
+            emptyButton.setVisibility(View.VISIBLE);
+            emptyButton.setOnClickListener(v -> {
+                Intent intent_add_recipe = new Intent(ActivityMyRecipes.this, ActivityAddRecipe.class);
+                startActivity(intent_add_recipe);
+            });
+        }
+    }
+
+    private void initRecyclerView() {
+        Log.d(TAG, "initRecyclerView: init recyclerView");
+        RecyclerView recyclerView = findViewById(R.id.recycler_view);
+        AppDatabase db = AppDatabase.getDbInstance(this.getApplicationContext());
+        RecyclerViewAdapter adapter = new RecyclerViewAdapter(db.recipeDao().getLocalRecipeWithIngredients(), this);
+        recyclerView.setAdapter(adapter);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
     }
 }

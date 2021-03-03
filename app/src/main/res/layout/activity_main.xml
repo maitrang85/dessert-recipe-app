@@ -13,21 +13,12 @@
         tools:context=".MainActivity">
 
         <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recycler_view"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:id="@+id/recycler_view"/>
+            android:layout_marginBottom="50dp"/>
 
     </RelativeLayout>
-
-    <view
-        android:id="@+id/recycleViewRecipes"
-        class="androidx.appcompat.app.AlertController$RecycleListView"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginBottom="50dp"
-        app:layout_constraintBottom_toTopOf="@+id/bottomBar"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
 
     <RelativeLayout
         android:id="@+id/bottomBar"

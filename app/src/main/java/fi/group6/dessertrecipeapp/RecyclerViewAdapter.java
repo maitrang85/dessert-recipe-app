@@ -1,6 +1,7 @@
 package fi.group6.dessertrecipeapp;
 
 import android.content.Context;
+import android.content.Intent;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -19,11 +20,13 @@ import java.util.List;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 import de.hdodenhof.circleimageview.CircleImageView;
+import fi.group6.dessertrecipeapp.classes.AppDatabase;
 import fi.group6.dessertrecipeapp.classes.RecipeWithIngredients;
 
 public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapter.ViewHolder> {
     // log t for debug
     private static final String TAG = "RecyclerViewAdapter";
+    private static final String CLICKED_ITEM = "indexOfRecipe";
 
     private List<RecipeWithIngredients> recipeWithIngredients = new ArrayList<>();
     private Context mContext;
@@ -50,13 +53,14 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         //get recipe name
         holder.recipeName.setText(recipeWithIngredients.get(position).recipe.name);
 
-        holder.parentLayout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Log.d(TAG, "onClick: clicked on: " + recipeWithIngredients.get(position).recipe.name);
-                //This toast is a pop up when we click the view, it will print out the name of recipe
-                Toast.makeText(mContext, recipeWithIngredients.get(position).recipe.name, Toast.LENGTH_SHORT).show();
-            }
+        holder.parentLayout.setOnClickListener((view) -> {
+            Log.d(TAG, "onClick: clicked on: " + recipeWithIngredients.get(position).recipe.name);
+            //This toast is a pop up when we click the view, it will print out the name of recipe
+            //Toast.makeText(mContext, recipeWithIngredients.get(position).recipe.name, Toast.LENGTH_SHORT).show();
+
+            Intent intent = new Intent(mContext, ActivityRecipe.class);
+            intent.putExtra(CLICKED_ITEM, recipeWithIngredients.get(position).recipe.recipeId);
+            mContext.startActivity(intent);
         });
     }
 

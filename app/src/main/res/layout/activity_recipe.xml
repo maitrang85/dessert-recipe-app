@@ -6,17 +6,16 @@
     android:layout_height="match_parent"
     tools:context=".ActivityRecipe">
 
+
     <TextView
-        android:id="@+id/testTextAddRecipe"
+        android:id="@+id/name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="30dp"
+        android:text="@string/name"
+        android:textSize="24sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-
-    </TextView>
-
+        app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
