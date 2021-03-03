@@ -59,8 +59,8 @@ public class ActivityAddRecipe extends AppCompatActivity implements AdapterView.
     List<Ingredient> ingredients = new ArrayList<>();
     Recipe myOwnRecipe = new Recipe();
 
-    String[] tagArray = {"Lactose intolerant", "Keto diet", "Paleo diet", "Vegan",
-            "Low calorie", "Low fat", "Plant based", "Sweet"};
+    String[] tagArray = {"Dairy-free", "Gluten-free", "Nut-free", "Keto diet", "Paleo diet", "Vegan",
+            "Low-calorie", "Low-fat", "Low-carb", "Plant based", "Sweet", "No cooking needed", "Frozen dessert"};
     ArrayList<String> tagList = new ArrayList<>();
     boolean[] selectedTag;
     List<String> tagInput;
@@ -71,7 +71,7 @@ public class ActivityAddRecipe extends AppCompatActivity implements AdapterView.
         setContentView(R.layout.activity_add_recipe);
 
         //Change title for the action bar
-        getSupportActionBar().setTitle("Add recipe");
+        getSupportActionBar().setTitle("Add your own recipe");
         //Add back button to the action bar
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
@@ -245,9 +245,10 @@ public class ActivityAddRecipe extends AppCompatActivity implements AdapterView.
     private boolean checkdataValidity() {
         boolean result = true;
 
-        if(name.getText().toString().equals("")){
+        if(name.getText().toString().equals("") || name.length() < 3){
             Toast.makeText(ActivityAddRecipe.this,
-                    "Please enter a recipe name", Toast.LENGTH_LONG).show();
+                    "Please enter a recipe name, minimum 3 letters needed", Toast.LENGTH_LONG).show();
+            result = false;
         }
 
         for(int i = 0; i < ingredientListLayout.getChildCount(); i++){
