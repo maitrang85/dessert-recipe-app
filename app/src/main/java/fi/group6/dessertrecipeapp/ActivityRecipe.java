@@ -1,9 +1,11 @@
 package fi.group6.dessertrecipeapp;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -45,6 +47,7 @@ public class ActivityRecipe extends AppCompatActivity {
     List<String> tagList;
 
     Button editRecipeButton;
+    Button deleteRecipeButton;
 
     ImageView photoView;
     ImageView favorites;
@@ -90,13 +93,13 @@ public class ActivityRecipe extends AppCompatActivity {
             if(isFavorite){
                 db.recipeDao().deleteRecipeFromFavorites(indexOfRecipe);
                 Toast.makeText(ActivityRecipe.this,
-                        "Recipe removed from favorites", Toast.LENGTH_LONG).show();
+                        "Recipe removed from favorites", Toast.LENGTH_SHORT).show();
                 favorites.setImageResource(R.drawable.ic_baseline_favorite_border_color_24);
                 isFavorite = false;
             }else{
                 db.recipeDao().addRecipeToFavorites(indexOfRecipe);
                 Toast.makeText(ActivityRecipe.this,
-                        "Recipe added to favorites", Toast.LENGTH_LONG).show();
+                        "Recipe added to favorites", Toast.LENGTH_SHORT).show();
                 favorites.setImageResource(R.drawable.ic_baseline_favorite_full_color24);
                 isFavorite = true;
             }
@@ -168,22 +171,47 @@ public class ActivityRecipe extends AppCompatActivity {
                 tags.append(", ");
             }
         }
+        buttonsForMyRecipes(indexOfRecipe);
+    }
 
-        //Change title for the action bar to the recipe name
-        //getSupportActionBar().setTitle(db.recipeDao().getRecipeById(indexOfRecipe).name);
-        //Add back button to the action bar
-        //getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+    private void buttonsForMyRecipes(int indexOfRecipe){
+        AppDatabase db = AppDatabase.getDbInstance(this.getApplicationContext());
 
         editRecipeButton = findViewById(R.id.editRecipeButton);
+        deleteRecipeButton=findViewById(R.id.deleteRecipeButton);
         if(db.recipeDao().getRecipeById(indexOfRecipe).isCustom){
             editRecipeButton.setVisibility(View.VISIBLE);
+            deleteRecipeButton.setVisibility(View.VISIBLE);
 
             editRecipeButton.setOnClickListener(v -> {
                 Intent intent = new Intent(ActivityRecipe.this, ActivityAddRecipe.class);
                 intent.putExtra(EDIT_RECIPE_ID_KEY, indexOfRecipe);
                 startActivity(intent);
             });
+
+            deleteRecipeButton.setOnClickListener(v -> {
+                new AlertDialog.Builder(this)
+                        .setTitle("Delete " + db.recipeDao().getRecipeById(indexOfRecipe).name)
+                        .setMessage("Are you sure you want to delete this recipe?")
+
+                        .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int which) {
+                                Recipe recipeToDelete = db.recipeDao().getRecipeById(indexOfRecipe);
+                                List<Ingredient> ingredientsToDelete = db.recipeDao().getIngredientsById(indexOfRecipe);
+
+                                db.recipeDao().deleteRecipeWithIngredients(recipeToDelete, ingredientsToDelete);
+                                Intent intent = new Intent(ActivityRecipe.this, ActivityMyRecipes.class);
+                                startActivity(intent);
+
+                                Toast.makeText(ActivityRecipe.this,
+                                        "Recipe deleted successfully", Toast.LENGTH_SHORT).show();
+                            }
+                        })
+                        .setNegativeButton(android.R.string.cancel, null)
+                        .show();
+            });
         }
+
     }
 
     //Pressing the back button on the action bar will take the user back to the previous activity
