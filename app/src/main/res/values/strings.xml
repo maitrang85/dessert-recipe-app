@@ -34,6 +34,8 @@
     <string name="you_haven_t_added_any_favorites_yet">You haven\'t added any favorites yet</string>
     <string name="edit">Edit</string>
     <string name="difficulty">Difficulty</string>
+    <string name="for_small">For</string>
+    <string name="amount_of_servings">Amount of servings</string>
     <integer-array name="ratingLevels">
         <item>1</item>
         <item>2</item>

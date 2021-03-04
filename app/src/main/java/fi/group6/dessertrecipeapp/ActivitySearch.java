@@ -66,10 +66,6 @@ public class ActivitySearch extends AppCompatActivity {
         //Change title for the top title bar
         getSupportActionBar().setTitle("SEARCH");
 
-        //Basic textView to test the bottom navigation
-        TextView title = (TextView) findViewById(R.id.testTextSearch);
-        title.setText("Test here");
-
         //CODE FOR THE TAG SELECTOR
         tagSelectorTv = findViewById(R.id.tagSelectorTv);
         selectedTag = new boolean[tagArray.length];
@@ -240,6 +236,10 @@ public class ActivitySearch extends AppCompatActivity {
                 EditText prepTimeFromView = (EditText) findViewById(R.id.prepTimeFrom);
                 //Preparation time to view
                 EditText prepTimeToView = (EditText) findViewById(R.id.prepTimeTo);
+                //People from view
+                EditText peopleFromView = (EditText) findViewById(R.id.peopleFrom);
+                //People to view
+                EditText peopleToView = (EditText) findViewById(R.id.peopleTo);
                 //Checkbox for the exact search
                 CheckBox exactNameCheckBox = (CheckBox)findViewById(R.id.exactNameCheckBox);
                 //Boolean, determined by the checkbox for the exact name search
@@ -247,12 +247,22 @@ public class ActivitySearch extends AppCompatActivity {
                 //Filtering from this time
                 int prepTimeFrom = -1;
                 if(!prepTimeFromView.getText().toString().equals("")) { //Validating input
-                    prepTimeFrom = Integer.valueOf(prepTimeFromView.getText().toString().trim());
+                    prepTimeFrom = Integer.parseInt(prepTimeFromView.getText().toString().trim());
                 }
                 //Filtering until this time
                 int prepTimeTo = -1;
                 if(!prepTimeToView.getText().toString().equals("")) { //Validating input
-                    prepTimeTo = Integer.valueOf(prepTimeToView.getText().toString().trim());
+                    prepTimeTo = Integer.parseInt(prepTimeToView.getText().toString().trim());
+                }
+                //Filtering from this amount of people
+                int peopleFrom = -1;
+                if(!peopleFromView.getText().toString().equals("")) { //Validating input
+                    peopleFrom = Integer.parseInt(peopleFromView.getText().toString().trim());
+                }
+                //Filtering to this amount of people
+                int peopleTo = -1;
+                if(!peopleToView.getText().toString().equals("")) { //Validating input
+                    peopleTo = Integer.parseInt(peopleToView.getText().toString().trim());
                 }
                 //
                 List<String> filteringTags = new ArrayList<>();
@@ -268,7 +278,8 @@ public class ActivitySearch extends AppCompatActivity {
                 String searchingFor = searchBar.getText().toString().trim();
 
                 // There is no point to search for recipes if we aren't searching for anything. Home page exists for that purpose.
-                if(searchingFor.equals("") && prepTimeFrom == -1 && prepTimeTo == -1 && filteringTags.size() == 0 && filteringDifficulty.size() == 0) {
+                if(searchingFor.equals("") && prepTimeFrom == -1 && prepTimeTo == -1 &&
+                        filteringTags.size() == 0 && filteringDifficulty.size() == 0 && peopleFrom == -1 && peopleTo == -1) {
                     Log.e(SEARCH_TAG, "No searching filters or name provided");
                     return;
                 }
@@ -279,7 +290,7 @@ public class ActivitySearch extends AppCompatActivity {
                 List<RecipeWithIngredients> filteredRecipesList = new ArrayList<>();
 
                 // Filtering recipes
-                filteredRecipesList = filterRecipes(allRecipesList, filteringTags, filteringDifficulty, prepTimeFrom, prepTimeTo);
+                filteredRecipesList = filterRecipes(allRecipesList, filteringTags, filteringDifficulty, prepTimeFrom, prepTimeTo, peopleFrom, peopleTo);
 
                 if(searchingFor.equals("")) { //If we have no name input - means we want to get filtered results without specified name
                     searchResults = filteredRecipesList;
@@ -394,13 +405,19 @@ public class ActivitySearch extends AppCompatActivity {
      * Minimal time of preparation
      * @param timeTo
      * Maximum time of preparation
+     * @param peopleFrom
+     *Minimal number of people
+     *@param peopleTo
+     * Maximum umber of people
      * @return
      * Accepted by filter recipes list
      */
-    private List<RecipeWithIngredients> filterRecipes(List<RecipeWithIngredients> recipes, List<String> filteringTags, List<String> filteringDifficulty, int timeFrom, int timeTo) {
+    private List<RecipeWithIngredients> filterRecipes(List<RecipeWithIngredients> recipes, List<String> filteringTags,
+                                                      List<String> filteringDifficulty, int timeFrom, int timeTo, int peopleFrom, int peopleTo) {
         List<RecipeWithIngredients> filteredByTags = new ArrayList(); // 1st level
         List<RecipeWithIngredients> filteredByTagsAndDifficulty = new ArrayList<>(); // 2nd level
-        List<RecipeWithIngredients> filteredResultList = new ArrayList<>(); // 3rd level
+        List<RecipeWithIngredients> filteredByTagsDifficultyTime = new ArrayList<>(); // 3rd level
+        List<RecipeWithIngredients> filteredResultList = new ArrayList<>(); // 4th level
 
         // 1st level. Tags
         if (filteringTags.size() == 0) { //No preferred tags
@@ -428,7 +445,7 @@ public class ActivitySearch extends AppCompatActivity {
 
         // 3rd level. Time
         if (timeFrom < 0 && timeTo < 0) { //No preferred time of preparation
-            filteredResultList = filteredByTagsAndDifficulty;
+            filteredByTagsDifficultyTime = filteredByTagsAndDifficulty;
         } else if (timeFrom >= 0 && timeTo < 0) { //Time limited only from below. ( "I'm planning to cook for an hour!" )
             for (RecipeWithIngredients recipe: filteredByTagsAndDifficulty) {
                 if (recipe.recipe.prepareTime >= timeFrom) { // If preparation is longer or the same as needed
@@ -440,6 +457,25 @@ public class ActivitySearch extends AppCompatActivity {
                 // If preparation time is between minimum and maximum or equals to one of them
                 // - accept recipe
                 if (recipe.recipe.prepareTime >= timeFrom && recipe.recipe.prepareTime <= timeTo) {
+                    filteredResultList.add(recipe);
+                }
+            }
+        }
+
+        // 4th level. People
+        if (peopleFrom < 0 && peopleTo < 0) { //No preferred amount of people
+            filteredResultList = filteredByTagsDifficultyTime;
+        } else if (peopleFrom >= 0 && peopleTo < 0) { //People limited only from below. ( "I'm planning to cook for at least 3 people" )
+            for (RecipeWithIngredients recipe: filteredByTagsDifficultyTime) {
+                if (recipe.recipe.numberOfServings >= peopleFrom) {
+                    filteredResultList.add(recipe);          // - accept recipe
+                }
+            }
+        } else { //Other two combinations are handled in normal way
+            for (RecipeWithIngredients recipe: filteredByTagsDifficultyTime) {
+                // If number of people is between minimum and maximum or equals to one of them
+                // - accept recipe
+                if (recipe.recipe.numberOfServings >= peopleFrom && recipe.recipe.numberOfServings <= peopleTo) {
                     filteredResultList.add(recipe);
                 }
             }
