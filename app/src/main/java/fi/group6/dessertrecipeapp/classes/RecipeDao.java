@@ -25,6 +25,9 @@ public abstract class RecipeDao {
     @Query("SELECT count(*) FROM recipe WHERE is_favourite = 1")
     abstract public int countFavoriteRecipes();
 
+    @Query("SELECT count(*) FROM ingredient WHERE recipeId=:uid")
+    abstract public int countIngredients(int uid);
+
     @Query("SELECT * FROM recipe")
     abstract public List<Recipe> getAllRecipes();
 
@@ -50,6 +53,9 @@ public abstract class RecipeDao {
 
     @Query("SELECT * FROM ingredient")
     abstract public List<Ingredient> getAllIngredients();
+
+    @Query("SELECT * FROM ingredient WHERE recipeId=:uid")
+    abstract public List<Ingredient> getIngredientsById(int uid);
 
     @Insert
     abstract public long insertRecipe(Recipe recipe);

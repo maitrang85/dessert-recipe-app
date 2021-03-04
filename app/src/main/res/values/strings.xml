@@ -33,6 +33,7 @@
     <string name="add_your_own_recipes">ADD A RECIPE</string>
     <string name="you_haven_t_added_any_favorites_yet">You haven\'t added any favorites yet</string>
     <string name="edit">Edit</string>
+    <string name="difficulty">Difficulty</string>
     <integer-array name="ratingLevels">
         <item>1</item>
         <item>2</item>

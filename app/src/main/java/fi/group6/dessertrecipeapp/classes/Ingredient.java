@@ -37,7 +37,7 @@ public class Ingredient {
         this.measure = measure;
     }
 
-    public Ingredient(String name, double amount, String measure, long recipeId) {
+    public Ingredient(String name, double amount, String measure, int recipeId) {
         this.name = name;
         this.amount = amount;
         this.measure = measure;
