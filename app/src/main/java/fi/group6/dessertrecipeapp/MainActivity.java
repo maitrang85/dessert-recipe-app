@@ -41,8 +41,6 @@ public class MainActivity extends AppCompatActivity {
     private static final boolean DEBUG_RECIPE_EXAMPLE = false; //Just an example for recipe debug prints //temporary
 
     public static final String TAG = "indexOfRecipe";
-    private ArrayList<String> mRecipeNames = new ArrayList<>();
-    private ArrayList<String> mImageUrls = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,9 +49,6 @@ public class MainActivity extends AppCompatActivity {
 
         //Change title for the top title bar
         getSupportActionBar().setTitle("DailyDesserts");
-
-        //Connect the listView in the xml to the MainActivity
-        //ListView lv = findViewById(R.id.recycleViewRecipes);
 
         AppDatabase db = AppDatabase.getDbInstance(this.getApplicationContext());
 
