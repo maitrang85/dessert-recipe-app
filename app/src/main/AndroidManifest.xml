@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="fi.group6.dessertrecipeapp">
-    <uses-permission android:name="android.permission.INTERNET"/>
+
+    <uses-permission android:name="android.permission.INTERNET" />
 
     <application
         android:allowBackup="true"
@@ -10,11 +11,15 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.DessertRecipeApp">
-        <activity android:name=".ActivityRecipe"></activity>
+        <activity android:name=".ActivitySearchResults"></activity>
+        <activity android:name=".ActivityRecipe" />
         <activity android:name=".ActivityMyRecipes" />
         <activity android:name=".ActivityFavorites" />
         <activity android:name=".ActivityAddRecipe" />
-        <activity android:name=".ActivitySearch" />
+        <activity
+            android:name=".ActivitySearch"
+            android:windowSoftInputMode="adjustPan">
+        </activity>
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

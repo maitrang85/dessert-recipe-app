@@ -76,7 +76,18 @@ public class ActivityFavorites extends AppCompatActivity {
             }
         });
         initRecyclerView();
+        checkIfEmpty();
+    }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        initRecyclerView();
+        checkIfEmpty();
+    }
+
+    private void checkIfEmpty(){
+        AppDatabase db = AppDatabase.getDbInstance(this.getApplicationContext());
         if(db.recipeDao().countFavoriteRecipes() == 0){
             emptyText.setVisibility(View.VISIBLE);
         }

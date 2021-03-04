@@ -24,7 +24,7 @@
             android:layout_height="wrap_content"
             android:text="@string/you_haven_t_added_any_favorites_yet"
             android:layout_centerHorizontal="true"
-            android:visibility = "gone"
+            android:visibility="gone"
             android:layout_centerVertical="true"
             android:textSize="18sp"/>
 
