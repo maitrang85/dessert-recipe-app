@@ -87,7 +87,7 @@ public abstract class RecipeDao {
     abstract public List<RecipeWithIngredients> searchRecipeWithIngredientsByName(String search);
 
     @Query("SELECT * FROM recipe WHERE recipeId =:recipeId")
-    abstract public List<RecipeWithIngredients> getRecipeWithIngredientsByRecipeId(String recipeId);
+    abstract public RecipeWithIngredients getRecipeWithIngredientsByRecipeId(int recipeId);
 
     @Update
     abstract public void updateRecipe(Recipe recipe);

@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -23,10 +24,16 @@ import java.util.List;
 import fi.group6.dessertrecipeapp.classes.AppDatabase;
 import fi.group6.dessertrecipeapp.classes.Ingredient;
 import fi.group6.dessertrecipeapp.classes.Recipe;
+import fi.group6.dessertrecipeapp.classes.RecipeWithIngredients;
 
 //TODO - figure out how to work with photos
 
 public class ActivityAddRecipe extends AppCompatActivity implements AdapterView.OnItemSelectedListener, View.OnClickListener {
+
+    private static final String ACTIVITY_ADD_RECIPE = "ACTIVITY_ADD_RECIPE";
+    // Recipe editing
+    private static final String EDIT_RECIPE_ID_KEY = "editRecipeId";
+    // Recipe editing
 
     LinearLayout ingredientListLayout;
     LinearLayout instructionListLayout;
@@ -70,6 +77,8 @@ public class ActivityAddRecipe extends AppCompatActivity implements AdapterView.
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_recipe);
 
+        AppDatabase db = AppDatabase.getDbInstance(this.getApplicationContext());
+
         //Change title for the action bar
         getSupportActionBar().setTitle("Add your own recipe");
         //Add back button to the action bar
@@ -106,6 +115,21 @@ public class ActivityAddRecipe extends AppCompatActivity implements AdapterView.
 
         tagSelectorTv = findViewById(R.id.tagSelectorTv);
         selectedTag = new boolean[tagArray.length];
+
+        //***** Edit recipe variables *****//
+        Bundle b = getIntent().getExtras();
+        int editRecipeId = -1;
+        if( b != null ) editRecipeId = b.getInt(EDIT_RECIPE_ID_KEY, -1);
+
+        RecipeWithIngredients editedRecipe = null;
+        if( editRecipeId != -1 ) {
+            editedRecipe = db.recipeDao().getRecipeWithIngredientsByRecipeId(editRecipeId);
+        }
+
+        if (editedRecipe != null) Log.d(ACTIVITY_ADD_RECIPE, "Received:\n" + editedRecipe.recipe.toString());
+        else Log.d(ACTIVITY_ADD_RECIPE, "Not editing any recipe.");
+        //***** Edit recipe variables *****//
+
 
         tagSelectorTv.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -195,7 +219,7 @@ public class ActivityAddRecipe extends AppCompatActivity implements AdapterView.
                 break;
         }
     }
-
+    //TODO: Refactor it
     private void addNewRecipeWithIngredients() {
 
         nameInput = name.getText().toString();
@@ -376,5 +400,18 @@ public class ActivityAddRecipe extends AppCompatActivity implements AdapterView.
         instructionListLayout.removeView(view);
     }
 
+    //*********************//
+    //*EDIT RECIPE METHODS*//
+    //*********************//
+
+    private void fillInContents(RecipeWithIngredients recipe) {
+        if (recipe == null) {
+            Log.e(ACTIVITY_ADD_RECIPE, "No recipe received. Fields left empty.");
+            return;
+        }
+
+
+
+    }
 
 }

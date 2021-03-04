@@ -2,8 +2,12 @@ package fi.group6.dessertrecipeapp;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 
 import fi.group6.dessertrecipeapp.classes.AppDatabase;
@@ -11,6 +15,7 @@ import fi.group6.dessertrecipeapp.classes.AppDatabase;
 public class ActivityRecipe extends AppCompatActivity {
 
     public static final String CLICKED_ITEM = "indexOfRecipe";
+    private static final String EDIT_RECIPE_ID_KEY = "editRecipeId";
 
     TextView name;
 
@@ -32,6 +37,18 @@ public class ActivityRecipe extends AppCompatActivity {
         //getSupportActionBar().setTitle(db.recipeDao().getRecipeById(indexOfRecipe).name);
         //Add back button to the action bar
         //getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+        Button editRecipeButton = (Button) findViewById(R.id.editRecipeButton);
+
+        editRecipeButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(ActivityRecipe.this, ActivityAddRecipe.class);
+                intent.putExtra(EDIT_RECIPE_ID_KEY, indexOfRecipe);
+                startActivity(intent);
+            }
+        });
+
     }
 
     //Pressing the back button on the action bar will take the user back to the previous activity
