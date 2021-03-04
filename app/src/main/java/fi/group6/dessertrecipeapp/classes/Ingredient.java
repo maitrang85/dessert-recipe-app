@@ -54,4 +54,27 @@ public class Ingredient {
                 ", recipeId=" + recipeId +
                 '}';
     }
+
+    /**
+     * Compares Ingredients without taking in account uid and recipeId
+     * @param o
+     * Object to compare with
+     * @return
+     * name, amount, measure - are the same
+     */
+    @Override
+    public boolean equals (Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+
+        Ingredient ingredient = (Ingredient) o;
+        return this.name.equals(ingredient.name) &&
+                this.amount == ingredient.amount &&
+                this.measure.equals(ingredient.measure);
+
+    }
 }

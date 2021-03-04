@@ -23,6 +23,7 @@
     <string name="_1_easy_5_difficult">(1 easy, 5 difficult)</string>
     <string name="author">Author</string>
     <string name="add_recipe_caps">ADD RECIPE</string>
+    <string name="modify_recipe_caps">MODIFY RECIPE</string>
     <string name="add_instruction_step">ADD INSTRUCTION STEP</string>
     <string name="add_tags_here">Add tags here</string>
     <string name="search_by_tags">Tags</string>
