@@ -55,9 +55,6 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
         holder.parentLayout.setOnClickListener((view) -> {
             Log.d(TAG, "onClick: clicked on: " + recipeWithIngredients.get(position).recipe.name);
-            //This toast is a pop up when we click the view, it will print out the name of recipe
-            //Toast.makeText(mContext, recipeWithIngredients.get(position).recipe.name, Toast.LENGTH_SHORT).show();
-
             Intent intent = new Intent(mContext, ActivityRecipe.class);
             intent.putExtra(CLICKED_ITEM, recipeWithIngredients.get(position).recipe.recipeId);
             mContext.startActivity(intent);
