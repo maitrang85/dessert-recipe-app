@@ -23,6 +23,7 @@
     <string name="_1_easy_5_difficult">(1 easy, 5 difficult)</string>
     <string name="author">Author</string>
     <string name="add_recipe_caps">ADD RECIPE</string>
+    <string name="modify_recipe_caps">MODIFY RECIPE</string>
     <string name="add_instruction_step">ADD INSTRUCTION STEP</string>
     <string name="add_tags_here">Add tags here</string>
     <string name="search_by_tags">Tags</string>
@@ -32,11 +33,8 @@
     <string name="search_by_difficulty_level">Difficulty level</string>
     <string name="add_your_own_recipes">ADD A RECIPE</string>
     <string name="you_haven_t_added_any_favorites_yet">You haven\'t added any favorites yet</string>
-    <integer-array name="ratingLevels">
-        <item>1</item>
-        <item>2</item>
-        <item>3</item>
-        <item>4</item>
-        <item>5</item>
-    </integer-array>
+    <string name="edit">Edit</string>
+    <string name="difficulty">Difficulty</string>
+    <string name="for_small">For</string>
+    <string name="amount_of_servings">Amount of servings</string>
 </resources>

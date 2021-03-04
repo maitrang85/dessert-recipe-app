@@ -5,7 +5,9 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -23,10 +25,20 @@ import java.util.List;
 import fi.group6.dessertrecipeapp.classes.AppDatabase;
 import fi.group6.dessertrecipeapp.classes.Ingredient;
 import fi.group6.dessertrecipeapp.classes.Recipe;
+import fi.group6.dessertrecipeapp.classes.RecipeWithIngredients;
 
 //TODO - figure out how to work with photos
 
 public class ActivityAddRecipe extends AppCompatActivity implements AdapterView.OnItemSelectedListener, View.OnClickListener {
+
+    private static final String ACTIVITY_ADD_RECIPE = "ACTIVITY_ADD_RECIPE";
+    // Recipe editing
+    private static final String EDIT_RECIPE_ID_KEY = "editRecipeId";
+
+    RecipeWithIngredients editedRecipe = null;
+
+    boolean editing = false;
+    // Recipe editing end
 
     LinearLayout ingredientListLayout;
     LinearLayout instructionListLayout;
@@ -70,6 +82,8 @@ public class ActivityAddRecipe extends AppCompatActivity implements AdapterView.
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_recipe);
 
+        AppDatabase db = AppDatabase.getDbInstance(this.getApplicationContext());
+
         //Change title for the action bar
         getSupportActionBar().setTitle("Add your own recipe");
         //Add back button to the action bar
@@ -106,6 +120,60 @@ public class ActivityAddRecipe extends AppCompatActivity implements AdapterView.
 
         tagSelectorTv = findViewById(R.id.tagSelectorTv);
         selectedTag = new boolean[tagArray.length];
+
+        //****** Edit recipe variables ******//
+        Bundle b = getIntent().getExtras();
+        int editRecipeId = -1;
+        editing = false;
+        if( b != null ) editRecipeId = b.getInt(EDIT_RECIPE_ID_KEY, -1);
+
+        if( editRecipeId != -1 ) {
+            editedRecipe = db.recipeDao().getRecipeWithIngredientsByRecipeId(editRecipeId);
+            editing = true;
+        }
+
+        if (editing) Log.d(ACTIVITY_ADD_RECIPE, "Received:\n" + editedRecipe.recipe.toString()); //debug
+        else Log.d(ACTIVITY_ADD_RECIPE, "Not editing any recipe."); //debug
+
+        //****** Edit recipe variables end ******//
+        //****** Edit recipe setup ******//
+        if (editing) {
+
+            //Renaming some adding stuff
+            getSupportActionBar().setTitle("Modify recipe");
+            addRecipeButton.setText(R.string.modify_recipe_caps);
+
+            //Filling in contents from the received recipe
+            fillInContents(editedRecipe);
+
+            //Tags handling
+            if (editedRecipe.recipe.tags != null) { //1. Only if recipe has tags
+                for (String tag : editedRecipe.recipe.tags) { //2. For each tag in a recipe
+                    for (int i = 0; i < tagArray.length; i++) { //3. Go for every possible tag
+                        if (tag.equals(tagArray[i])) { //4. Check on which place this tag is found
+                            selectedTag[i] = true; //5. Select that tag
+                            tagList.add(tag);
+
+                        }
+                    }
+                }
+                //Fill tagInput here, because user can omit using the ui.
+                tagInput = new ArrayList<>();
+                String items = "";
+
+                for(int element = 0; element < tagList.size(); element++){
+
+                    items = items + tagList.get(element);
+                    tagInput.add(tagList.get(element).toString());
+
+                    if(element != tagList.size() - 1){
+                        items += ", ";
+                    }
+                }
+                tagSelectorTv.setText(items);
+            }
+        }
+        //****** Edit recipe setup end ******//
 
         tagSelectorTv.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -189,7 +257,7 @@ public class ActivityAddRecipe extends AppCompatActivity implements AdapterView.
                 addInstructionRow();
                 break;
             case R.id.addRecipeButton:
-                if(checkDataValidity()){
+                if (checkDataValidity()){
                     addNewRecipeWithIngredients();
                 }
                 break;
@@ -197,6 +265,8 @@ public class ActivityAddRecipe extends AppCompatActivity implements AdapterView.
     }
 
     private void addNewRecipeWithIngredients() {
+        instructions = new ArrayList<>();
+        ingredients = new ArrayList<>();
 
         nameInput = name.getText().toString();
         authorInput = author.getText().toString();
@@ -230,35 +300,99 @@ public class ActivityAddRecipe extends AppCompatActivity implements AdapterView.
             ingredients.add(new Ingredient(ingredientNameInput, ingredientAmountInput, ingredientMeasureInput));
         }
 
+        AppDatabase db = AppDatabase.getDbInstance(this.getApplicationContext());
         myOwnRecipe = new Recipe(nameInput, instructions, tagInput, "Photo 1",
                 true, false, portionInput, prepTimeInput, authorInput, levelOfDifficultyInput);
 
-        AppDatabase db = AppDatabase.getDbInstance(this.getApplicationContext());
-        db.recipeDao().insertRecipeWithIngredients(myOwnRecipe, ingredients);
+        if (editing) { //Editing a recipe
+            //Data must not be the same
+            myOwnRecipe.photo = editedRecipe.recipe.photo; //to be removed
+            if (!modified(editedRecipe, new RecipeWithIngredients(myOwnRecipe, ingredients))) {
+                Log.d(ACTIVITY_ADD_RECIPE, "Recipe wasn't modified");
+                return; //Should start all over if they are the same
+            }
 
-        Intent intent = new Intent(ActivityAddRecipe.this, ActivityMyRecipes.class);
-        startActivity(intent);
+            //DEBUG // Do not remove it until photo will be added
+            /*
+            if(editedRecipe.ingredients.equals(ingredients)) Log.e("ERROR", "ingredients - same");
+            else Log.e("ERROR", "ingredients - not same");
+            if(editedRecipe.recipe.name.equals(myOwnRecipe.name)) Log.e("ERROR", "name - same");
+            else Log.e("ERROR", "name - not same");
+            if(editedRecipe.recipe.author.equals(myOwnRecipe.author)) Log.e("ERROR", "author - same");
+            else Log.e("ERROR", "author - not same");
+            if(editedRecipe.recipe.levelOfDifficulty.equals(myOwnRecipe.levelOfDifficulty)) Log.e("ERROR", "difficulty - same");
+            else Log.e("ERROR", "difficulty - not same");
+            if(editedRecipe.recipe.prepareTime == myOwnRecipe.prepareTime) Log.e("ERROR", "prepareTime - same");
+            else Log.e("ERROR", "prepareTime - not same");
+            if(editedRecipe.recipe.numberOfServings == myOwnRecipe.numberOfServings) Log.e("ERROR", "servings - same");
+            else Log.e("ERROR", "servings - not same");
+            if(editedRecipe.recipe.photo.equals(myOwnRecipe.photo)) Log.e("ERROR", "photo - same");
+            else Log.e("ERROR", "photo - not same");
+            if(editedRecipe.recipe.instructions.equals(myOwnRecipe.instructions)) Log.e("ERROR", "instructions - same");
+            else Log.e("ERROR", "instructions - not same");
+            if(editedRecipe.recipe.tags.equals(myOwnRecipe.tags)) Log.e("ERROR", "tags - same");
+            else Log.e("ERROR", "tags - not same");
+            */
+            //DEBUG
 
-        Toast.makeText(ActivityAddRecipe.this,
-                "Congrats, you've created a new recipe!", Toast.LENGTH_LONG).show();
+            //Rebuilding a recipe
+            editedRecipe.recipe.name = nameInput;
+            editedRecipe.recipe.instructions = instructions;
+            editedRecipe.recipe.tags = tagInput;
+            editedRecipe.recipe.photo = editedRecipe.recipe.photo; //to be done later
+            editedRecipe.recipe.isCustom = true;
+            editedRecipe.recipe.numberOfServings = portionInput;
+            editedRecipe.recipe.prepareTime = prepTimeInput;
+            editedRecipe.recipe.author = authorInput;
+            editedRecipe.recipe.levelOfDifficulty = levelOfDifficultyInput;
+
+            //Handling ingredients
+            //Deleting all previous ingredients from the database
+            for (int i = 0; i < editedRecipe.ingredients.size(); i++) {
+                db.recipeDao().deleteIngredient(editedRecipe.ingredients.get(i));
+            }
+
+            //Changing the ingredients list
+            editedRecipe.ingredients = ingredients;
+            //Giving ingredients correct recipeId
+            for (int i = 0; i < editedRecipe.ingredients.size(); i++) {
+                editedRecipe.ingredients.get(i).recipeId = editedRecipe.recipe.recipeId;
+            }
+
+            //Adding new ingredients to the database
+            db.recipeDao().insertAllIngredients(editedRecipe.ingredients);
+            //Giving recipe back to the database
+            db.recipeDao().updateIngredientWithRecipe(editedRecipe.recipe, editedRecipe.ingredients);
+
+            Intent intent = new Intent(ActivityAddRecipe.this, ActivityMyRecipes.class);
+            startActivity(intent);
+
+            Toast.makeText(ActivityAddRecipe.this,
+                    "Congrats, you've modified a recipe!", Toast.LENGTH_LONG).show();
+        } else { //Creating new recipe
+            db.recipeDao().insertRecipeWithIngredients(myOwnRecipe, ingredients);
+
+            Intent intent = new Intent(ActivityAddRecipe.this, ActivityMyRecipes.class);
+            startActivity(intent);
+
+            Toast.makeText(ActivityAddRecipe.this,
+                    "Congrats, you've created a new recipe!", Toast.LENGTH_LONG).show();
+        }
     }
 
     private boolean checkDataValidity() {
-        boolean result = true;
 
         if(name.getText().toString().trim().length() < 3){
             Toast.makeText(ActivityAddRecipe.this,
                     "Please enter a recipe name, minimum 3 letters needed", Toast.LENGTH_LONG).show();
             name.setError("Please enter a recipe name, minimum 3 letters needed");
-            result = false;
-            return result;
+            return false;
         }
 
         if(ingredientListLayout.getChildCount() == 0){
             Toast.makeText(ActivityAddRecipe.this,
                     "Please add at least one ingredient", Toast.LENGTH_LONG).show();
-            result = false;
-            return result;
+            return false;
         }
 
         for(int i = 0; i < ingredientListLayout.getChildCount(); i++){
@@ -272,8 +406,7 @@ public class ActivityAddRecipe extends AppCompatActivity implements AdapterView.
                     ingredientMeasure.getText().toString().trim().length() == 0) {
                 Toast.makeText(ActivityAddRecipe.this,
                         "Please fill out or delete the the empty ingredient text", Toast.LENGTH_LONG).show();
-                result = false;
-                return result;
+                return false;
             }
         }
 
@@ -282,8 +415,7 @@ public class ActivityAddRecipe extends AppCompatActivity implements AdapterView.
             Toast.makeText(ActivityAddRecipe.this,
                     "Please enter a correct portion size", Toast.LENGTH_LONG).show();
             portions.setError("Please enter a correct portion size");
-            result = false;
-            return result;
+            return false;
         }
 
         if(prepTime.getText().toString().equals("0") || prepTime.getText().toString().equals("00") ||
@@ -291,15 +423,13 @@ public class ActivityAddRecipe extends AppCompatActivity implements AdapterView.
             Toast.makeText(ActivityAddRecipe.this,
                     "Please enter a correct preparation time", Toast.LENGTH_LONG).show();
             prepTime.setError("Please enter a correct preparation time");
-            result = false;
-            return result;
+            return false;
         }
 
         if(instructionListLayout.getChildCount() == 0){
             Toast.makeText(ActivityAddRecipe.this,
                     "Please add at least one instruction step", Toast.LENGTH_LONG).show();
-            result = false;
-            return result;
+            return false;
         }
 
         for(int i = 0; i < instructionListLayout.getChildCount(); i++){
@@ -310,8 +440,7 @@ public class ActivityAddRecipe extends AppCompatActivity implements AdapterView.
             if(instructionStep.getText().toString().equals("")) {
                 Toast.makeText(ActivityAddRecipe.this,
                         "Please fill out or delete the the empty instruction texts", Toast.LENGTH_LONG).show();
-                result = false;
-                return result;
+                return false;
             }
         }
 
@@ -319,11 +448,28 @@ public class ActivityAddRecipe extends AppCompatActivity implements AdapterView.
             Toast.makeText(ActivityAddRecipe.this,
                     "Please enter an author name", Toast.LENGTH_LONG).show();
             author.setError("Please enter an author name");
-            result = false;
-            return result;
+            return false;
         }
 
-        return result;
+        return true;
+    }
+
+    /**
+     * Checks whether recipe was modified
+     * @param recipeToModify
+     * Recipe chosen to modify
+     * @param modifiedRecipe
+     * Recipe created from fields
+     * @return
+     * true - something was modified, false - nothing was modified
+     */
+    private boolean modified(RecipeWithIngredients recipeToModify, RecipeWithIngredients modifiedRecipe) {
+        if (!recipeToModify.equals(modifiedRecipe)) {
+            return true;
+        }
+        Toast.makeText(ActivityAddRecipe.this,
+                "Nothing was changed, recipe haven't been modified", Toast.LENGTH_LONG).show();
+        return false;
     }
 
     private void addIngredientRow() {
@@ -376,5 +522,138 @@ public class ActivityAddRecipe extends AppCompatActivity implements AdapterView.
         instructionListLayout.removeView(view);
     }
 
+    //*********************//
+    //*EDIT RECIPE METHODS*//
+    //*********************//
 
+    /**
+     * Fills all fields of the AddRecipeActivity with the data of the recipe to be edited.
+     * @param recipe
+     * Recipe to edit
+     */
+    private void fillInContents(RecipeWithIngredients recipe) {
+        if (recipe == null) {
+            Log.e(ACTIVITY_ADD_RECIPE, "No recipe received. Fields left empty.");
+            return;
+        }
+
+        name = findViewById(R.id.editTextTextPersonName);
+        author = findViewById(R.id.author);
+        portions = findViewById(R.id.portionSize);
+        prepTime = findViewById(R.id.prepTime);
+
+        //Filling in fields
+        //name
+        name.setText(recipe.recipe.name);
+        //author
+        author.setText(recipe.recipe.author);
+        //portions
+        portions.setText(Integer.toString(recipe.recipe.numberOfServings));
+        //Preparation time
+        prepTime.setText(Integer.toString(recipe.recipe.prepareTime));
+        //difficulty
+        presetDifficulty(recipe.recipe.levelOfDifficulty);
+        //instructions
+        presetAddFilledInstructionRows(recipe.recipe.instructions);
+        //ingredients
+        presetAddFilledIngredientRows(recipe.ingredients);
+        //photo //TODO: handle photo
+
+        // tags are omitted here, because it is handled separately.
+
+
+    }
+
+    /**
+     * Fills rows of instructions with the data of the recipe to be edited.
+     * @param instructions
+     * Instructions to fill in.
+     */
+    private void presetAddFilledInstructionRows(List<String> instructions) {
+        for(String instruction: instructions) {
+            //Inflate the instructions row by one
+            View instructionRow = getLayoutInflater().inflate(R.layout.add_instruction_row, null, false);
+
+            //Connect the widgets inside the add_instructions_row.xml with the code
+            EditText instructionStep = (EditText) instructionRow.findViewById(R.id.instructions);
+            ImageView deleteInstructionRow = (ImageView) instructionRow.findViewById(R.id.image_delete_ins);
+
+            //Fill in the field with instruction from a recipe
+            instructionStep.setText(instruction);
+
+            //If the user clicks the delete button, that specific row will be deleted
+            deleteInstructionRow.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    removeInstructionRow(instructionRow);
+                }
+            });
+            instructionListLayout.addView(instructionRow);
+        }
+    }
+
+    /**
+     * Fills ingredient rows with ingredients of the recipe to be edited.
+     * @param ingredients
+     * Ingredients to fill in
+     */
+    private void presetAddFilledIngredientRows(List<Ingredient> ingredients) {
+
+        for (Ingredient ingredient: ingredients) {
+            //Inflate the ingredients row by one
+            View ingredientRow = getLayoutInflater().inflate(R.layout.add_ingredient_row, null, false);
+
+            //Connect the widgets inside the add_ingredient_row.xml with the code
+            EditText ingredientAmount = (EditText) ingredientRow.findViewById(R.id.ingredientAmount);
+            EditText ingredientMeasure = (EditText) ingredientRow.findViewById(R.id.ingredientMeasure);
+            EditText ingredientName = (EditText) ingredientRow.findViewById(R.id.ingredientName);
+            ImageView deleteIngredientRow = (ImageView) ingredientRow.findViewById(R.id.image_delete);
+
+            //Filling in contents
+            ingredientAmount.setText(Double.toString(ingredient.amount));
+            ingredientMeasure.setText(ingredient.measure);
+            ingredientName.setText(ingredient.name);
+
+            //If the user clicks the delete button, that specific row will be deleted //TODO: Great place to add check?
+            deleteIngredientRow.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    removeIngredientRow(ingredientRow);
+                }
+            });
+            ingredientListLayout.addView(ingredientRow);
+        }
+    }
+
+    /**
+     * Sets difficulty from the recipe to be edited.
+     * @param levelOfDifficulty
+     * difficulty to set
+     */
+    private void presetDifficulty(String levelOfDifficulty) {
+        Spinner ratingMenu = (Spinner) findViewById(R.id.levelOfDifficultyMenu);
+        int index;
+
+        switch (levelOfDifficulty) {
+            case "easy":
+                index = 0;
+                break;
+            case "medium":
+                index = 1;
+                break;
+            case "hard":
+                index = 2;
+                break;
+            default:
+                index = -1;
+                break;
+        }
+        //Check if a recipe doesn't have right info for difficulty
+        if (index == -1) {
+            Log.e(ACTIVITY_ADD_RECIPE, "Index for difficulty isn't set");
+            return;
+        }
+        //Select right difficulty
+        ratingMenu.setSelection(index);
+    }
 }

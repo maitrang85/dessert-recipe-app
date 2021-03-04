@@ -22,4 +22,38 @@ public class RecipeWithIngredients {
         this.recipe = recipe;
         this.ingredients = ingredients;
     }
+
+    /**
+     * Special RecipeWithIngredients comparison
+     * Do not takes in account:
+     * isCustom
+     * isFavourite
+     * recipeId
+     * @param o
+     * Object to compare with
+     * @return
+     * Ingredients, name, author, levelOfDifficulty, prepareTime, numberOfServings,
+     * photo, instructions, tags - are the same
+     */
+    @Override
+    public boolean equals (Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+
+        RecipeWithIngredients recipeWithIngredients = (RecipeWithIngredients) o;
+        return this.ingredients.equals(recipeWithIngredients.ingredients) &&
+                this.recipe.name.equals(recipeWithIngredients.recipe.name) &&
+                this.recipe.author.equals(recipeWithIngredients.recipe.author) &&
+                this.recipe.levelOfDifficulty.equals(recipeWithIngredients.recipe.levelOfDifficulty) &&
+                this.recipe.prepareTime == recipeWithIngredients.recipe.prepareTime &&
+                this.recipe.numberOfServings == recipeWithIngredients.recipe.numberOfServings &&
+                this.recipe.photo.equals(recipeWithIngredients.recipe.photo) &&
+                this.recipe.instructions.equals(recipeWithIngredients.recipe.instructions) &&
+                this.recipe.tags.equals(recipeWithIngredients.recipe.tags);
+
+    }
 }

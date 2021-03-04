@@ -5,161 +5,249 @@
     android:id="@+id/relativeLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="MainActivity">
+    tools:context=".ActivitySearch">
 
-    <EditText
-        android:id="@+id/searchBar"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="16dp"
-        android:layout_marginTop="32dp"
-        android:layout_marginRight="16dp"
-        android:autofillHints="@string/search"
-        android:hint="@string/searchByName"
-        android:inputType="text"
-        android:textSize="18sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
+    <RelativeLayout
+        android:id="@+id/helperForScrollView"
+        android:layout_width="0dp"
+        android:layout_height="1dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <CheckBox
-        android:id="@+id/exactNameCheckBox"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="8dp"
-        android:text="@string/exact_name"
-        android:textSize="18sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/searchBar" />
+    <ScrollView
+        android:id="@+id/relativeLayout2"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginBottom="50dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/helperForScrollView">
 
-    <TextView
-        android:id="@+id/tagSelectorTv"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="32dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="32dp"
-        android:background="@android:drawable/editbox_background"
-        android:hint="@string/search_by_tags"
-        android:textAlignment="center"
-        android:textSize="18sp"
-        app:drawableEndCompat="@android:drawable/arrow_down_float"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/exactNameCheckBox" />
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
 
-    <TextView
-        android:id="@+id/prepTimeText1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="32dp"
-        android:text="@string/preparation_time"
-        android:textSize="18sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tagSelectorTv" />
+        <EditText
+            android:id="@+id/searchBar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="16dp"
+            android:layout_marginTop="32dp"
+            android:layout_marginRight="16dp"
+            android:autofillHints="@string/search"
+            android:hint="@string/searchByName"
+            android:inputType="text"
+            android:textSize="18sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
-    <TextView
-        android:id="@+id/prepTimeText2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="27dp"
-        android:text="@string/from"
-        android:textSize="18sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/prepTimeText1" />
+        <CheckBox
+            android:id="@+id/exactNameCheckBox"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="8dp"
+            android:text="@string/exact_name"
+            android:textSize="18sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/searchBar" />
 
-    <EditText
-        android:id="@+id/prepTimeFrom"
-        android:layout_width="40dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="14dp"
-        android:ems="10"
-        android:inputType="number"
-        android:maxLength="3"
-        android:textAlignment="center"
-        android:textSize="18sp"
-        app:layout_constraintStart_toEndOf="@+id/prepTimeText2"
-        app:layout_constraintTop_toBottomOf="@+id/prepTimeText1" />
+        <TextView
+            android:id="@+id/tagSelectorTv"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="32dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="32dp"
+            android:background="@android:drawable/editbox_background"
+            android:hint="@string/search_by_tags"
+            android:textAlignment="center"
+            android:textSize="18sp"
+            app:drawableEndCompat="@android:drawable/arrow_down_float"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/exactNameCheckBox" />
 
-    <TextView
-        android:id="@+id/prepTimeText3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="27dp"
-        android:text="@string/to"
-        android:textSize="18sp"
-        app:layout_constraintStart_toEndOf="@+id/prepTimeFrom"
-        app:layout_constraintTop_toBottomOf="@+id/prepTimeText1" />
+        <TextView
+            android:id="@+id/prepTimeText1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="32dp"
+            android:text="@string/preparation_time"
+            android:textSize="18sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tagSelectorTv" />
 
-    <EditText
-        android:id="@+id/prepTimeTo"
-        android:layout_width="40dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="14dp"
-        android:ems="10"
-        android:inputType="number"
-        android:maxLength="3"
-        android:textAlignment="center"
-        android:textSize="18sp"
-        app:layout_constraintStart_toEndOf="@+id/prepTimeText3"
-        app:layout_constraintTop_toBottomOf="@+id/prepTimeText1" />
+        <TextView
+            android:id="@+id/prepTimeText2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="27dp"
+            android:text="@string/from"
+            android:textSize="18sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/prepTimeText1" />
 
-    <TextView
-        android:id="@+id/prepTimeText4"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="27dp"
-        android:text="@string/minutes"
-        android:textSize="18sp"
-        app:layout_constraintStart_toEndOf="@+id/prepTimeTo"
-        app:layout_constraintTop_toBottomOf="@+id/prepTimeText1" />
+        <EditText
+            android:id="@+id/prepTimeFrom"
+            android:layout_width="40dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="14dp"
+            android:ems="10"
+            android:inputType="number"
+            android:maxLength="3"
+            android:textAlignment="center"
+            android:textSize="18sp"
+            app:layout_constraintStart_toEndOf="@+id/prepTimeText2"
+            app:layout_constraintTop_toBottomOf="@+id/prepTimeText1" />
 
-    <TextView
-        android:id="@+id/difficultySelectorTv"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="32dp"
-        android:layout_marginTop="30dp"
-        android:layout_marginEnd="32dp"
-        android:background="@android:drawable/editbox_background"
-        android:hint="@string/search_by_difficulty_level"
-        android:textAlignment="center"
-        android:textSize="18sp"
-        app:drawableEndCompat="@android:drawable/arrow_down_float"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/prepTimeTo" />
+        <TextView
+            android:id="@+id/prepTimeText3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="27dp"
+            android:text="@string/to"
+            android:textSize="18sp"
+            app:layout_constraintStart_toEndOf="@+id/prepTimeFrom"
+            app:layout_constraintTop_toBottomOf="@+id/prepTimeText1" />
 
-    <Button
-        android:id="@+id/searchButton"
-        android:layout_width="150dp"
-        android:layout_height="60dp"
-        android:layout_marginTop="34dp"
-        android:text="@string/search"
-        android:textSize="18sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/difficultySelectorTv" />
+        <EditText
+            android:id="@+id/prepTimeTo"
+            android:layout_width="40dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="14dp"
+            android:ems="10"
+            android:inputType="number"
+            android:maxLength="3"
+            android:textAlignment="center"
+            android:textSize="18sp"
+            app:layout_constraintStart_toEndOf="@+id/prepTimeText3"
+            app:layout_constraintTop_toBottomOf="@+id/prepTimeText1" />
 
-    <TextView
-        android:id="@+id/testTextSearch"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
-        android:textSize="18sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/searchButton" />
+        <TextView
+            android:id="@+id/prepTimeText4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="27dp"
+            android:text="@string/minutes"
+            android:textSize="18sp"
+            app:layout_constraintStart_toEndOf="@+id/prepTimeTo"
+            app:layout_constraintTop_toBottomOf="@+id/prepTimeText1" />
+
+        <TextView
+            android:id="@+id/difficultySelectorTv"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="32dp"
+            android:layout_marginTop="30dp"
+            android:layout_marginEnd="32dp"
+            android:background="@android:drawable/editbox_background"
+            android:hint="@string/search_by_difficulty_level"
+            android:textAlignment="center"
+            android:textSize="18sp"
+            app:drawableEndCompat="@android:drawable/arrow_down_float"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/prepTimeTo" />
+
+            <TextView
+                android:id="@+id/peopleText1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="32dp"
+                android:textSize="18sp"
+                android:text="@string/amount_of_servings"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/difficultySelectorTv" />
+
+            <TextView
+                android:id="@+id/peopleText2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="24dp"
+                android:text="@string/for_small"
+                android:textSize="18sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/peopleText1" />
+
+        <EditText
+            android:id="@+id/peopleFrom"
+            android:layout_width="40dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="14dp"
+            android:ems="10"
+            android:inputType="number"
+            android:maxLength="3"
+            android:textAlignment="center"
+            android:textSize="18sp"
+            app:layout_constraintStart_toEndOf="@+id/peopleText2"
+            app:layout_constraintTop_toBottomOf="@+id/peopleText1" />
+
+        <TextView
+            android:id="@+id/peopleText3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="27dp"
+            android:text="@string/to"
+            android:textSize="18sp"
+            app:layout_constraintStart_toEndOf="@+id/peopleFrom"
+            app:layout_constraintTop_toBottomOf="@+id/peopleText1" />
+
+        <EditText
+            android:id="@+id/peopleTo"
+            android:layout_width="40dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="14dp"
+            android:ems="10"
+            android:inputType="number"
+            android:maxLength="3"
+            android:textAlignment="center"
+            android:textSize="18sp"
+            app:layout_constraintStart_toEndOf="@+id/peopleText3"
+            app:layout_constraintTop_toBottomOf="@+id/peopleText1" />
+
+            <TextView
+                android:id="@+id/peopleText4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="27dp"
+                android:text="@string/people"
+                android:textSize="18sp"
+                app:layout_constraintStart_toEndOf="@+id/peopleTo"
+                app:layout_constraintTop_toBottomOf="@+id/peopleText1" />
+
+            <Button
+                android:id="@+id/searchButton"
+                android:layout_width="150dp"
+                android:layout_height="60dp"
+                android:layout_marginTop="36dp"
+                android:layout_marginBottom="36dp"
+                android:text="@string/search"
+                android:textSize="18sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.498"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/peopleText4" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </ScrollView>
 
     <RelativeLayout
         android:id="@+id/bottomBar"
