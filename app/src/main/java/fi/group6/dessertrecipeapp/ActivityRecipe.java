@@ -17,6 +17,7 @@ import android.widget.Toast;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import fi.group6.dessertrecipeapp.classes.AppDatabase;
@@ -38,6 +39,8 @@ public class ActivityRecipe extends AppCompatActivity {
     TextView author;
 
     List<Ingredient> ingredientList;
+    List<String> ingredientAmountList = new ArrayList<>();
+    List<String> newAmountList = new ArrayList<>();
     List<String> instructionList;
     List<String> tagList;
 
@@ -113,11 +116,28 @@ public class ActivityRecipe extends AppCompatActivity {
         difficulty.setText(db.recipeDao().getRecipeById(indexOfRecipe).levelOfDifficulty);
 
         ingredients = findViewById(R.id.ingredientList);
-        ingredientList = db.recipeDao().getIngredientsById(indexOfRecipe);
         ingredientCount = db.recipeDao().countIngredients(indexOfRecipe);
+        ingredientList = db.recipeDao().getIngredientsById(indexOfRecipe);
+
+        for(int i = 0; i < ingredientCount; i++) {
+            ingredientAmountList.add(String.valueOf(ingredientList.get(i).amount));
+            if(ingredientAmountList.get(i).endsWith(".0")){
+                String newAmount = ingredientAmountList.get(i);
+                newAmount = newAmount.replace(".0", "");
+                Log.d("NEW AMOUNT", newAmount);
+                newAmountList.add(newAmount);
+            }
+        }
+
+        int k = 0;
         for(int i = 0; i < ingredientCount; i++) {
             ingredients.append(" • ");
-            ingredients.append(String.format("%.0f", ingredientList.get(i).amount));
+            if(ingredientAmountList.get(i).endsWith(".0")){
+                ingredients.append(newAmountList.get(k));
+                k++;
+            }else{
+                ingredients.append(ingredientAmountList.get(i));
+            }
             ingredients.append(" ");
             ingredients.append(ingredientList.get(i).measure);
             ingredients.append(" ");
