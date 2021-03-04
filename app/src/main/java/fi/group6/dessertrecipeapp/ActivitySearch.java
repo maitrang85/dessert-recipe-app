@@ -7,6 +7,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -15,11 +16,13 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import org.w3c.dom.Text;
 
+import java.io.Serializable;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -32,6 +35,7 @@ import fi.group6.dessertrecipeapp.classes.RecipeWithIngredients;
 public class ActivitySearch extends AppCompatActivity {
 
     private static final String SEARCH_TAG = "SEARCH";
+    private static final String RESULTS = "SEARCH_RESULTS";
     private static final boolean DEBUG_PRINTS = true;
 
     //Variables for the tag selector
@@ -281,13 +285,15 @@ public class ActivitySearch extends AppCompatActivity {
                 if(searchingFor.equals("") && prepTimeFrom == -1 && prepTimeTo == -1 &&
                         filteringTags.size() == 0 && filteringDifficulty.size() == 0 && peopleFrom == -1 && peopleTo == -1) {
                     Log.e(SEARCH_TAG, "No searching filters or name provided");
+                    Toast.makeText(ActivitySearch.this,
+                            "No search filters added, please fill out at least one field", Toast.LENGTH_LONG).show();
                     return;
                 }
 
                 //List with all recipes from the database to be filtered
                 List<RecipeWithIngredients> allRecipesList = db.recipeDao().getRecipeWithIngredients();
                 //List, to be used for search
-                List<RecipeWithIngredients> filteredRecipesList = new ArrayList<>();
+                List<RecipeWithIngredients> filteredRecipesList = new ArrayList<RecipeWithIngredients>();
 
                 // Filtering recipes
                 filteredRecipesList = filterRecipes(allRecipesList, filteringTags, filteringDifficulty, prepTimeFrom, prepTimeTo, peopleFrom, peopleTo);
@@ -307,12 +313,18 @@ public class ActivitySearch extends AppCompatActivity {
                     Log.d(SEARCH_TAG, "Time From=" + Integer.toString(prepTimeFrom));
                     Log.d(SEARCH_TAG, "Time To  =" + Integer.toString(prepTimeTo));
                     Log.d(SEARCH_TAG, Integer.toString(searchResults.size()) + " results found");
-                    int i;
-                    for (i = 0; i < searchResults.size(); i++) {
-                        Log.d(SEARCH_TAG, Integer.toString(i + 1) + ".\n" + searchResults.get(i).recipe.toString());
-                    }
                 }
 
+                List<Integer> resultsRecipeId = new ArrayList<>();
+
+                for (int i = 0; i < searchResults.size(); i++) {
+                    resultsRecipeId.add(searchResults.get(i).recipe.recipeId);
+                }
+
+                Intent intent = new Intent(ActivitySearch.this, ActivitySearchResults.class);
+                intent.putIntegerArrayListExtra(RESULTS, (ArrayList<Integer>) resultsRecipeId );
+                Log.d("ZSA", String.valueOf(resultsRecipeId));
+                startActivity(intent);
             }
         });
     }
