@@ -133,7 +133,7 @@ public class ActivitySearch extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 AlertDialog.Builder builder = new AlertDialog.Builder(ActivitySearch.this);
-                builder.setTitle("Select tags for your recipe");
+                builder.setTitle("Select recipe difficulties");
                 builder.setCancelable(false);
 
                 builder.setMultiChoiceItems(difficultyArray, selectedDifficulty, new DialogInterface.OnMultiChoiceClickListener() {

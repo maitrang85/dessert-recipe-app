@@ -89,6 +89,12 @@ public abstract class RecipeDao {
     @Query("SELECT * FROM recipe WHERE recipeId =:recipeId")
     abstract public RecipeWithIngredients getRecipeWithIngredientsByRecipeId(int recipeId);
 
+    @Query("UPDATE recipe SET is_favourite = 1 WHERE recipeId=:recipeId")
+    public abstract void addRecipeToFavorites(int recipeId);
+
+    @Query("UPDATE recipe SET is_favourite = 0 WHERE recipeId=:recipeId")
+    public abstract void deleteRecipeFromFavorites(int recipeId);
+
     @Update
     abstract public void updateRecipe(Recipe recipe);
 
@@ -97,5 +103,6 @@ public abstract class RecipeDao {
 
     @Update
     abstract public void updateIngredientWithRecipe(Recipe recipe, List<Ingredient> ingredients);
+
 }
 
