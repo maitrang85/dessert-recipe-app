@@ -313,6 +313,14 @@ public class ActivitySearch extends AppCompatActivity {
                     Log.d(SEARCH_TAG, "Time From=" + Integer.toString(prepTimeFrom));
                     Log.d(SEARCH_TAG, "Time To  =" + Integer.toString(prepTimeTo));
                     Log.d(SEARCH_TAG, Integer.toString(searchResults.size()) + " results found");
+
+                    //DEBUG
+                    int i;
+                    for (i = 0; i < searchResults.size(); i++) {
+                        Log.d(SEARCH_TAG, Integer.toString(i + 1) + ".\n" + searchResults.get(i).recipe.toString());
+                    }
+                    //DEBUG
+
                 }
 
                 List<Integer> resultsRecipeId = new ArrayList<>();

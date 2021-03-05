@@ -44,13 +44,14 @@ import fi.group6.dessertrecipeapp.classes.RecipeWithIngredients;
 public class ActivityAddRecipe extends AppCompatActivity implements AdapterView.OnItemSelectedListener, View.OnClickListener {
 
     private static final String ACTIVITY_ADD_RECIPE = "ACTIVITY_ADD_RECIPE";
-    // Recipe editing
-    private static final String EDIT_RECIPE_ID_KEY = "editRecipeId";
     static final int REQUEST_IMAGE_CAPTURE = 1;
     static final int REQUEST_GALLERY_PICKER = 2;
 
+    // Recipe editing
+    private static final String EDIT_RECIPE_ID_KEY = "editRecipeId";
+        //Recipe to be edited
     RecipeWithIngredients editedRecipe = null;
-
+        //Flag set to true if editedRecipe is determined.
     boolean editing = false;
     // Recipe editing end
 
@@ -406,13 +407,12 @@ public class ActivityAddRecipe extends AppCompatActivity implements AdapterView.
 
         if (editing) { //Editing a recipe
             //Data must not be the same
-            myOwnRecipe.photo = editedRecipe.recipe.photo; //to be removed
             if (!modified(editedRecipe, new RecipeWithIngredients(myOwnRecipe, ingredients))) {
                 Log.d(ACTIVITY_ADD_RECIPE, "Recipe wasn't modified");
                 return; //Should start all over if they are the same
             }
 
-            //DEBUG // Do not remove it until photo will be added
+            //DEBUG // Do not remove it until photo will be added and no mistakes will be encountered
             /*
             if(editedRecipe.ingredients.equals(ingredients)) Log.e("ERROR", "ingredients - same");
             else Log.e("ERROR", "ingredients - not same");
@@ -439,7 +439,7 @@ public class ActivityAddRecipe extends AppCompatActivity implements AdapterView.
             editedRecipe.recipe.name = nameInput;
             editedRecipe.recipe.instructions = instructions;
             editedRecipe.recipe.tags = tagInput;
-            editedRecipe.recipe.photo = editedRecipe.recipe.photo; //to be done later
+            editedRecipe.recipe.photo = photoInput;
             editedRecipe.recipe.isCustom = true;
             editedRecipe.recipe.numberOfServings = portionInput;
             editedRecipe.recipe.prepareTime = prepTimeInput;
@@ -658,6 +658,11 @@ public class ActivityAddRecipe extends AppCompatActivity implements AdapterView.
         //ingredients
         presetAddFilledIngredientRows(recipe.ingredients);
         //photo //TODO: handle photo
+        if (editedRecipe.recipe.photo != null){
+            ImageButton addPhotoPlaceholder = (ImageButton) findViewById(R.id.addPhotoPlaceholder);
+            photoInput = editedRecipe.recipe.photo;
+            addPhotoPlaceholder.setImageURI(Uri.parse(editedRecipe.recipe.photo));
+        }
 
         // tags are omitted here, because it is handled separately.
 

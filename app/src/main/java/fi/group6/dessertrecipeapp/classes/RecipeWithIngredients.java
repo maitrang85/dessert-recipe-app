@@ -45,13 +45,24 @@ public class RecipeWithIngredients {
         }
 
         RecipeWithIngredients recipeWithIngredients = (RecipeWithIngredients) o;
+
+        //Must take null into account, so handled separately
+        boolean photoCheck;
+        if (this.recipe.photo != null && recipeWithIngredients.recipe.photo != null) {
+            photoCheck = this.recipe.photo.equals(recipeWithIngredients.recipe.photo);
+        } else if( this.recipe.photo == null && recipeWithIngredients.recipe.photo == null ) {
+            photoCheck = true;
+        } else {
+            photoCheck = false;
+        }
+
         return this.ingredients.equals(recipeWithIngredients.ingredients) &&
                 this.recipe.name.equals(recipeWithIngredients.recipe.name) &&
                 this.recipe.author.equals(recipeWithIngredients.recipe.author) &&
                 this.recipe.levelOfDifficulty.equals(recipeWithIngredients.recipe.levelOfDifficulty) &&
                 this.recipe.prepareTime == recipeWithIngredients.recipe.prepareTime &&
                 this.recipe.numberOfServings == recipeWithIngredients.recipe.numberOfServings &&
-                this.recipe.photo.equals(recipeWithIngredients.recipe.photo) &&
+                photoCheck &&
                 this.recipe.instructions.equals(recipeWithIngredients.recipe.instructions) &&
                 this.recipe.tags.equals(recipeWithIngredients.recipe.tags);
 
