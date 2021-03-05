@@ -2,7 +2,7 @@
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/editButton"
+    android:id="@+id/scrollView"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ActivityRecipe">
@@ -51,11 +51,29 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
+            android:backgroundTint="@color/primaryOrange"
+            android:drawableLeft="@drawable/ic_baseline_edit_color_24"
             android:text="@string/edit"
             android:textSize="18sp"
             android:visibility="gone"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/guideline2"
+            app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/name" />
+
+        <Button
+            android:id="@+id/deleteRecipeButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:drawableLeft="@drawable/ic_baseline_delete_outline_24"
+            android:text="@string/delete"
+            android:textSize="18sp"
+            android:visibility="gone"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="@+id/guideline2"
             app:layout_constraintTop_toBottomOf="@+id/name" />
 
         <androidx.constraintlayout.widget.Guideline
@@ -122,9 +140,9 @@
             android:id="@+id/difficultyText1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="18sp"
             android:layout_marginTop="30dp"
             android:text="@string/difficulty"
+            android:textSize="18sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
@@ -134,9 +152,9 @@
             android:id="@+id/difficultyText2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="18sp"
             android:layout_marginTop="2dp"
             android:text="easy"
+            android:textSize="18sp"
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
@@ -148,13 +166,13 @@
             android:layout_width="match_parent"
             android:layout_height="1dp"
             android:layout_marginStart="16dp"
+            android:layout_marginTop="18dp"
             android:layout_marginEnd="16dp"
             android:background="@android:color/darker_gray"
-            android:layout_marginTop="18dp"
             app:layout_constraintEnd_toStartOf="@+id/favorites"
             app:layout_constraintHorizontal_bias="0.465"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/difficultyText2"/>
+            app:layout_constraintTop_toBottomOf="@+id/difficultyText2" />
 
         <TextView
             android:id="@+id/ingredients"
@@ -188,13 +206,13 @@
             android:layout_width="match_parent"
             android:layout_height="1dp"
             android:layout_marginStart="16dp"
+            android:layout_marginTop="12dp"
             android:layout_marginEnd="16dp"
             android:background="@android:color/darker_gray"
-            android:layout_marginTop="12dp"
             app:layout_constraintEnd_toStartOf="@+id/favorites"
             app:layout_constraintHorizontal_bias="0.465"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/ingredientList"/>
+            app:layout_constraintTop_toBottomOf="@+id/ingredientList" />
 
         <TextView
             android:id="@+id/instructions"
@@ -228,13 +246,13 @@
             android:layout_width="match_parent"
             android:layout_height="1dp"
             android:layout_marginStart="16dp"
+            android:layout_marginTop="12dp"
             android:layout_marginEnd="16dp"
             android:background="@android:color/darker_gray"
-            android:layout_marginTop="12dp"
             app:layout_constraintEnd_toStartOf="@+id/favorites"
             app:layout_constraintHorizontal_bias="0.465"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/instructionList"/>
+            app:layout_constraintTop_toBottomOf="@+id/instructionList" />
 
         <TextView
             android:id="@+id/authorText"

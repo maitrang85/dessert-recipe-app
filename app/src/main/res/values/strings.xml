@@ -37,4 +37,5 @@
     <string name="difficulty">Difficulty</string>
     <string name="for_small">For</string>
     <string name="amount_of_servings">Amount of servings</string>
+    <string name="delete">Delete</string>
 </resources>

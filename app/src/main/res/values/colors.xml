@@ -10,4 +10,7 @@
     <color name="redPrimary">#C8553D</color>
     <color name="brightGray">#EFEFEF</color>
     <color name="primaryOrange">#F28F3B</color>
+    <color name="blueish">#588B8B</color>
+    <color name="lightPink">#FFD5C2</color>
+    <color name="grey">#515151</color>
 </resources>

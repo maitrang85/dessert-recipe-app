@@ -3,25 +3,37 @@ package fi.group6.dessertrecipeapp;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.Manifest;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.util.Log;
+import android.view.Menu;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.io.ByteArrayOutputStream;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 import fi.group6.dessertrecipeapp.classes.AppDatabase;
 import fi.group6.dessertrecipeapp.classes.Ingredient;
 import fi.group6.dessertrecipeapp.classes.Recipe;
@@ -34,6 +46,8 @@ public class ActivityAddRecipe extends AppCompatActivity implements AdapterView.
     private static final String ACTIVITY_ADD_RECIPE = "ACTIVITY_ADD_RECIPE";
     // Recipe editing
     private static final String EDIT_RECIPE_ID_KEY = "editRecipeId";
+    static final int REQUEST_IMAGE_CAPTURE = 1;
+    static final int REQUEST_GALLERY_PICKER = 2;
 
     RecipeWithIngredients editedRecipe = null;
 
@@ -54,6 +68,7 @@ public class ActivityAddRecipe extends AppCompatActivity implements AdapterView.
     Button addIngredientButton;
     Button addInstructionButton;
     Button addRecipeButton;
+    ImageButton addPhotoPlaceholder;
 
     String nameInput;
     String step;
@@ -61,6 +76,7 @@ public class ActivityAddRecipe extends AppCompatActivity implements AdapterView.
     String levelOfDifficultyInput;
     String ingredientNameInput;
     String ingredientMeasureInput;
+    String photoInput;
 
     Integer portionInput;
     Integer prepTimeInput;
@@ -91,6 +107,7 @@ public class ActivityAddRecipe extends AppCompatActivity implements AdapterView.
 
         ingredientListLayout = findViewById(R.id.ingredient_list);
         addIngredientButton = findViewById(R.id.addIngredientButton);
+        addPhotoPlaceholder = findViewById(R.id.addPhotoPlaceholder);
 
         instructionListLayout = findViewById(R.id.instruction_list);
         addInstructionButton = findViewById(R.id.addInstructionsButton);
@@ -105,6 +122,7 @@ public class ActivityAddRecipe extends AppCompatActivity implements AdapterView.
         addIngredientButton.setOnClickListener(this);
         addInstructionButton.setOnClickListener(this);
         addRecipeButton.setOnClickListener(this);
+        addPhotoPlaceholder.setOnClickListener(this);
 
         //Set the rating spinner to show numbers from 1-5
         Spinner ratingMenu = (Spinner) findViewById(R.id.levelOfDifficultyMenu);
@@ -261,7 +279,89 @@ public class ActivityAddRecipe extends AppCompatActivity implements AdapterView.
                     addNewRecipeWithIngredients();
                 }
                 break;
+            case R.id.addPhotoPlaceholder:
+                selectPhoto();
+                break;
+
         }
+    }
+
+    /**
+     * This function is called when user click imageButton in order to choose photo.
+     * User can choose to take photo with camera(with permission) or select photo from Gallery, or
+     * Cancel selecting photo.
+     */
+    private void selectPhoto() {
+        final CharSequence[] options = {"Use camera", "Photo from Gallery", "Cancel"};
+        android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(ActivityAddRecipe.this);
+        builder.setTitle("Add Photo!");
+        builder.setItems(options, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int item) {
+                if (options[item].equals("Use camera")) {
+                    // Request for camera Persmission
+                    if (ContextCompat.checkSelfPermission(ActivityAddRecipe.this,
+                            Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
+                        ActivityCompat.requestPermissions(ActivityAddRecipe.this,
+                                new String[]{
+                                        Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE
+                                }, 0);
+                    } else {
+                        Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+                        startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE);
+                    }
+                } else if (options[item].equals("Photo from Gallery")) {
+                    Intent intent = new Intent(Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+                    startActivityForResult(intent, REQUEST_GALLERY_PICKER);
+                } else if (options[item].equals("Cancel")) {
+                    dialog.dismiss();
+                }
+            }
+        });
+        builder.show();
+    }
+
+    /**
+     * This function is the result after user selects photo. Photos are saved as bitmap, then be converted
+     * into String by function getImageUri.
+     * @param requestCode
+     * @param resultCode
+     * @param imageReturnedIntent
+     */
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent imageReturnedIntent) {
+        super.onActivityResult(requestCode, resultCode, imageReturnedIntent);
+        Uri selectedImage = null;
+        if (resultCode == RESULT_OK) {
+            switch (requestCode) {
+                case REQUEST_IMAGE_CAPTURE:
+                    Bundle extras = imageReturnedIntent.getExtras();
+                    Bitmap imageBitmap = (Bitmap) extras.get("data");
+                    selectedImage = getImageUri(this,imageBitmap);
+                    photoInput = selectedImage.toString();
+                    addPhotoPlaceholder.setImageURI(selectedImage);
+                    break;
+                case REQUEST_GALLERY_PICKER:
+                    selectedImage = imageReturnedIntent.getData();
+                    photoInput = selectedImage.toString();
+                    addPhotoPlaceholder.setImageURI(selectedImage);
+                    break;
+            }
+        }
+    }
+
+    /**
+     * This getImageUri function first changes Bitmap image into Stream bytes. Then compress image into
+     * JPEG format. Finally it returns the String of the Uri.
+     * @param context
+     * @param inImage
+     * @return
+     */
+    public Uri getImageUri(Context context, Bitmap inImage) {
+        ByteArrayOutputStream bytes = new ByteArrayOutputStream();
+        inImage.compress(Bitmap.CompressFormat.JPEG, 100, bytes);
+        String path = MediaStore.Images.Media.insertImage(context.getContentResolver(), inImage, UUID.randomUUID().toString() , null);
+        return Uri.parse(path);
     }
 
     private void addNewRecipeWithIngredients() {
@@ -301,7 +401,7 @@ public class ActivityAddRecipe extends AppCompatActivity implements AdapterView.
         }
 
         AppDatabase db = AppDatabase.getDbInstance(this.getApplicationContext());
-        myOwnRecipe = new Recipe(nameInput, instructions, tagInput, "Photo 1",
+        myOwnRecipe = new Recipe(nameInput, instructions, tagInput, photoInput,
                 true, false, portionInput, prepTimeInput, authorInput, levelOfDifficultyInput);
 
         if (editing) { //Editing a recipe
