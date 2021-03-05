@@ -13,11 +13,11 @@
 
         <ImageButton
             android:id="@+id/addPhotoPlaceholder"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="4dp"
+            android:layout_width="match_parent"
+            android:layout_height="350dp"
             android:background="@null"
             android:src="@drawable/ic_add_photo_placeholder"
+            android:scaleType="centerCrop"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
