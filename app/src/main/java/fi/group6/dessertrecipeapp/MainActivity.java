@@ -92,7 +92,6 @@ public class MainActivity extends AppCompatActivity {
                 return false;
             }
         });
-        initRecyclerView();
     }
 
 
@@ -102,6 +101,7 @@ public class MainActivity extends AppCompatActivity {
         //loadRecipeList();
         initDatabase();
         loadRecipeList();
+        initRecyclerView();
     }
 
     //TESTING ROOM DATABASE
