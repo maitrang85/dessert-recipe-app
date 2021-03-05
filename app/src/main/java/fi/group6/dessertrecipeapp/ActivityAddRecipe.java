@@ -293,13 +293,13 @@ public class ActivityAddRecipe extends AppCompatActivity implements AdapterView.
      * Cancel selecting photo.
      */
     private void selectPhoto() {
-        final CharSequence[] options = {"Use camera", "Photo from Gallery", "Cancel"};
+        final CharSequence[] options = {"Use your camera", "Choose a photo from  your gallery", "Cancel"};
         android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(ActivityAddRecipe.this);
-        builder.setTitle("Add Photo!");
+        builder.setTitle("Add Photo");
         builder.setItems(options, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int item) {
-                if (options[item].equals("Use camera")) {
+                if (options[item].equals("Use your camera")) {
                     // Request for camera Persmission
                     if (ContextCompat.checkSelfPermission(ActivityAddRecipe.this,
                             Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
@@ -311,7 +311,7 @@ public class ActivityAddRecipe extends AppCompatActivity implements AdapterView.
                         Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
                         startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE);
                     }
-                } else if (options[item].equals("Photo from Gallery")) {
+                } else if (options[item].equals("Choose a photo from  your gallery")) {
                     Intent intent = new Intent(Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
                     startActivityForResult(intent, REQUEST_GALLERY_PICKER);
                 } else if (options[item].equals("Cancel")) {
@@ -482,16 +482,22 @@ public class ActivityAddRecipe extends AppCompatActivity implements AdapterView.
 
     private boolean checkDataValidity() {
 
+        if(photoInput == null){
+            Toast.makeText(ActivityAddRecipe.this,
+                    "Please add a photo to the recipe", Toast.LENGTH_SHORT).show();
+            return false;
+        }
+
         if(name.getText().toString().trim().length() < 3){
             Toast.makeText(ActivityAddRecipe.this,
-                    "Please enter a recipe name, minimum 3 letters needed", Toast.LENGTH_LONG).show();
+                    "Please enter a recipe name, minimum 3 letters needed", Toast.LENGTH_SHORT).show();
             name.setError("Please enter a recipe name, minimum 3 letters needed");
             return false;
         }
 
         if(ingredientListLayout.getChildCount() == 0){
             Toast.makeText(ActivityAddRecipe.this,
-                    "Please add at least one ingredient", Toast.LENGTH_LONG).show();
+                    "Please add at least one ingredient", Toast.LENGTH_SHORT).show();
             return false;
         }
 
@@ -505,7 +511,7 @@ public class ActivityAddRecipe extends AppCompatActivity implements AdapterView.
             if(ingredientName.getText().toString().trim().length() == 0 || ingredientAmount.getText().toString().trim().length() == 0 ||
                     ingredientMeasure.getText().toString().trim().length() == 0) {
                 Toast.makeText(ActivityAddRecipe.this,
-                        "Please fill out or delete the the empty ingredient text", Toast.LENGTH_LONG).show();
+                        "Please fill out or delete the the empty ingredient text", Toast.LENGTH_SHORT).show();
                 return false;
             }
         }
@@ -513,7 +519,7 @@ public class ActivityAddRecipe extends AppCompatActivity implements AdapterView.
         if(portions.getText().toString().trim().length() == 0 || portions.getText().toString().equals("00") ||
                 portions.getText().toString().equals("000") || portions.getText().toString().equals("0") ){
             Toast.makeText(ActivityAddRecipe.this,
-                    "Please enter a correct portion size", Toast.LENGTH_LONG).show();
+                    "Please enter a correct portion size", Toast.LENGTH_SHORT).show();
             portions.setError("Please enter a correct portion size");
             return false;
         }
@@ -521,14 +527,14 @@ public class ActivityAddRecipe extends AppCompatActivity implements AdapterView.
         if(prepTime.getText().toString().equals("0") || prepTime.getText().toString().equals("00") ||
                 prepTime.getText().toString().equals("000") || prepTime.getText().toString().trim().length() == 0){
             Toast.makeText(ActivityAddRecipe.this,
-                    "Please enter a correct preparation time", Toast.LENGTH_LONG).show();
+                    "Please enter a correct preparation time", Toast.LENGTH_SHORT).show();
             prepTime.setError("Please enter a correct preparation time");
             return false;
         }
 
         if(instructionListLayout.getChildCount() == 0){
             Toast.makeText(ActivityAddRecipe.this,
-                    "Please add at least one instruction step", Toast.LENGTH_LONG).show();
+                    "Please add at least one instruction step", Toast.LENGTH_SHORT).show();
             return false;
         }
 
@@ -539,14 +545,14 @@ public class ActivityAddRecipe extends AppCompatActivity implements AdapterView.
 
             if(instructionStep.getText().toString().equals("")) {
                 Toast.makeText(ActivityAddRecipe.this,
-                        "Please fill out or delete the the empty instruction texts", Toast.LENGTH_LONG).show();
+                        "Please fill out or delete the the empty instruction texts", Toast.LENGTH_SHORT).show();
                 return false;
             }
         }
 
         if(author.getText().toString().trim().length() == 0){
             Toast.makeText(ActivityAddRecipe.this,
-                    "Please enter an author name", Toast.LENGTH_LONG).show();
+                    "Please enter an author name", Toast.LENGTH_SHORT).show();
             author.setError("Please enter an author name");
             return false;
         }
