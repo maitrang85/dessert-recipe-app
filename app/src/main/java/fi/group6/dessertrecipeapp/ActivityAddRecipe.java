@@ -482,12 +482,6 @@ public class ActivityAddRecipe extends AppCompatActivity implements AdapterView.
 
     private boolean checkDataValidity() {
 
-        if(photoInput == null){
-            Toast.makeText(ActivityAddRecipe.this,
-                    "Please add a photo to the recipe", Toast.LENGTH_SHORT).show();
-            return false;
-        }
-
         if(name.getText().toString().trim().length() < 3){
             Toast.makeText(ActivityAddRecipe.this,
                     "Please enter a recipe name, minimum 3 letters needed", Toast.LENGTH_SHORT).show();
@@ -511,7 +505,7 @@ public class ActivityAddRecipe extends AppCompatActivity implements AdapterView.
             if(ingredientName.getText().toString().trim().length() == 0 || ingredientAmount.getText().toString().trim().length() == 0 ||
                     ingredientMeasure.getText().toString().trim().length() == 0) {
                 Toast.makeText(ActivityAddRecipe.this,
-                        "Please fill out or delete the the empty ingredient text", Toast.LENGTH_SHORT).show();
+                        "Please fill in or delete the the empty ingredient text", Toast.LENGTH_SHORT).show();
                 return false;
             }
         }
@@ -545,7 +539,7 @@ public class ActivityAddRecipe extends AppCompatActivity implements AdapterView.
 
             if(instructionStep.getText().toString().equals("")) {
                 Toast.makeText(ActivityAddRecipe.this,
-                        "Please fill out or delete the the empty instruction texts", Toast.LENGTH_SHORT).show();
+                        "Please fill in or delete the the empty instruction texts", Toast.LENGTH_SHORT).show();
                 return false;
             }
         }

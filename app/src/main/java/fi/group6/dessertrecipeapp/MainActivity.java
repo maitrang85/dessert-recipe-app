@@ -4,7 +4,10 @@ import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.annotation.SuppressLint;
+import android.app.ActionBar;
 import android.content.Intent;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
@@ -15,6 +18,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toolbar;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.gson.Gson;
@@ -42,13 +46,18 @@ public class MainActivity extends AppCompatActivity {
 
     public static final String TAG = "indexOfRecipe";
 
+    private Toolbar ActionBarToolbar;
+
+    @SuppressLint("WrongConstant")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
         //Change title for the top title bar
-        getSupportActionBar().setTitle("DailyDesserts");
+        getSupportActionBar().setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
+        getSupportActionBar().setCustomView(R.layout.action_bar);
+        getSupportActionBar().setBackgroundDrawable(new ColorDrawable(0xffffff));
 
         AppDatabase db = AppDatabase.getDbInstance(this.getApplicationContext());
 

@@ -6,6 +6,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -19,7 +20,7 @@ import java.util.List;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
-import de.hdodenhof.circleimageview.CircleImageView;
+//import de.hdodenhof.circleimageview.CircleImageView;
 import fi.group6.dessertrecipeapp.classes.AppDatabase;
 import fi.group6.dessertrecipeapp.classes.RecipeWithIngredients;
 
@@ -67,7 +68,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
-        CircleImageView image;
+        ImageView image;
         TextView recipeName;
         RelativeLayout parentLayout;
 
