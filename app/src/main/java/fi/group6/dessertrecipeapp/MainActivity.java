@@ -7,6 +7,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.annotation.SuppressLint;
 import android.app.ActionBar;
 import android.content.Intent;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
@@ -56,6 +57,7 @@ public class MainActivity extends AppCompatActivity {
         //Change title for the top title bar
         getSupportActionBar().setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
         getSupportActionBar().setCustomView(R.layout.action_bar);
+        getSupportActionBar().setBackgroundDrawable(new ColorDrawable(0xffffff));
 
         AppDatabase db = AppDatabase.getDbInstance(this.getApplicationContext());
 
