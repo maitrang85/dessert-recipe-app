@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Dessert Recipe App</string>
+    <string name="app_name">Daily Desserts</string>
     <string name="home">Home</string>
     <string name="search">Search</string>
     <string name="searchByName">Search by name</string>
