@@ -10,30 +10,36 @@ import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
-import android.widget.CompoundButton;
-import android.widget.Switch;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import fi.group6.dessertrecipeapp.classes.AppDatabase;
 
+/**
+ * My recipes activity displays the user's own recipes
+ * @author Tamas
+ * @version 1.3
+ */
 public class ActivityMyRecipes extends AppCompatActivity {
 
-    public static final String TAG = "indexOfRecipe";
+    /**
+     * String containing tag for sharedPreferences
+     */
     protected static final String SHARED_PREF_FILE = "userTheme";
+
+    /**
+     * String containing parameter for selected user theme
+     */
     protected static final String THEME_KEY = "theme";
 
     Button emptyButton;
     @SuppressLint("UseSwitchCompatOrMaterialCode")
     CheckBox darkModeSwitch;
-
     String theme;
 
     @Override
@@ -46,10 +52,77 @@ public class ActivityMyRecipes extends AppCompatActivity {
         //Change title for the top title bar
         getSupportActionBar().setTitle("MY RECIPES");
 
-        emptyButton = findViewById(R.id.emptyActivityButton);
-
         AppDatabase db = AppDatabase.getDbInstance(this.getApplicationContext());
 
+        initRecyclerView();
+        checkIfEmpty();
+        initBottomNav();
+    }
+
+    /**
+     * This function is called in onCreate
+     * The method checks if there are any favorites in the app yet
+     * If no favorites are found, the placeholder text is shown
+     */
+    private void checkIfEmpty() {
+        emptyButton = findViewById(R.id.emptyActivityButton);
+        AppDatabase db = AppDatabase.getDbInstance(this.getApplicationContext());
+        if(db.recipeDao().countLocalRecipes() == 0){
+            emptyButton.setVisibility(View.VISIBLE);
+            emptyButton.setOnClickListener(v -> {
+                Intent intent_add_recipe = new Intent(ActivityMyRecipes.this, ActivityAddRecipe.class);
+                startActivity(intent_add_recipe);
+            });
+        }
+    }
+
+    /**
+     * This function is called in onCreate
+     * The method let's the user switch between dark and light mode
+     * The user preference is then saved to sharedPreferences
+     */
+    private void checkDarkMode() {
+        //Get the shared preferences data and update the switch because onStart already ran once
+        SharedPreferences sharedPreferences = getSharedPreferences(SHARED_PREF_FILE, ActivityMyRecipes.MODE_PRIVATE);
+        theme = sharedPreferences.getString(THEME_KEY, "light");
+
+        //Check or uncheck the checkbox based on the current theme of the app
+        darkModeSwitch = findViewById(R.id.darkModeSwitch);
+        if(AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_YES){
+            darkModeSwitch.setChecked(true);
+        }
+
+        //If the user clicks the checkbox, the theme will automatically be changed
+        darkModeSwitch.setOnClickListener(v -> {
+            if(theme.equals("dark")){
+                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+                theme = "light";
+                darkModeSwitch.setChecked(false);
+            }else{
+                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+                theme = "dark";
+                darkModeSwitch.setChecked(true);
+            }
+        });
+    }
+
+    /**
+     * This function is called in onCreate
+     * The method implements the recyclerView for the activity
+     */
+    private void initRecyclerView() {
+        RecyclerView recyclerView = findViewById(R.id.recycler_view);
+        AppDatabase db = AppDatabase.getDbInstance(this.getApplicationContext());
+        RecyclerViewAdapter adapter = new RecyclerViewAdapter(db.recipeDao().getLocalRecipeWithIngredients(), this);
+        recyclerView.setAdapter(adapter);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+    }
+
+    /**
+     * This function is called in onCreate
+     * The method implements the bottom navigation view for the activity
+     */
+    private void initBottomNav() {
         //Set up the bottom navigation bar
         BottomNavigationView bottomNavigationView = (BottomNavigationView) findViewById(R.id.bottomNav_ViewBar);
 
@@ -90,49 +163,11 @@ public class ActivityMyRecipes extends AppCompatActivity {
                 return false;
             }
         });
-        initRecyclerView();
-
-        if(db.recipeDao().countLocalRecipes() == 0){
-            emptyButton.setVisibility(View.VISIBLE);
-            emptyButton.setOnClickListener(v -> {
-                Intent intent_add_recipe = new Intent(ActivityMyRecipes.this, ActivityAddRecipe.class);
-                startActivity(intent_add_recipe);
-            });
-        }
     }
 
-    private void checkDarkMode() {
-        //Get the shared preferences data and update the switch because onStart already ran once
-        SharedPreferences sharedPreferences = getSharedPreferences(SHARED_PREF_FILE, ActivityMyRecipes.MODE_PRIVATE);
-        theme = sharedPreferences.getString(THEME_KEY, "light");
-
-        darkModeSwitch = findViewById(R.id.darkModeSwitch);
-        if(AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_YES){
-            darkModeSwitch.setChecked(true);
-        }
-
-        darkModeSwitch.setOnClickListener(v -> {
-            if(theme.equals("dark")){
-                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
-                theme = "light";
-                darkModeSwitch.setChecked(false);
-            }else{
-                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
-                theme = "dark";
-                darkModeSwitch.setChecked(true);
-            }
-        });
-    }
-
-    private void initRecyclerView() {
-        Log.d(TAG, "initRecyclerView: init recyclerView");
-        RecyclerView recyclerView = findViewById(R.id.recycler_view);
-        AppDatabase db = AppDatabase.getDbInstance(this.getApplicationContext());
-        RecyclerViewAdapter adapter = new RecyclerViewAdapter(db.recipeDao().getLocalRecipeWithIngredients(), this);
-        recyclerView.setAdapter(adapter);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
-    }
-
+    /**
+     * Shared preferences data is updated upon start
+     */
     @Override
     protected void onStart() {
         super.onStart();
@@ -141,6 +176,9 @@ public class ActivityMyRecipes extends AppCompatActivity {
         theme = sharedPreferences.getString(THEME_KEY, "light");
     }
 
+    /**
+     * Shared preferences data is saved upon exiting the activity
+     */
     @Override
     protected void onPause() {
         super.onPause();

@@ -10,14 +10,8 @@ import android.content.Intent;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Build;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
-import android.widget.ListView;
-import android.widget.TextView;
 import android.widget.Toolbar;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -28,25 +22,17 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.lang.reflect.Type;
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
-import androidx.appcompat.app.AppCompatDelegate;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import fi.group6.dessertrecipeapp.classes.AppDatabase;
-import fi.group6.dessertrecipeapp.classes.Ingredient;
-import fi.group6.dessertrecipeapp.classes.Recipe;
 import fi.group6.dessertrecipeapp.classes.RecipeWithIngredients;
+
 @RequiresApi(api = Build.VERSION_CODES.N)
 public class MainActivity extends AppCompatActivity {
 
-    private static final boolean DEBUG_RECIPE = true; //Recipe debug prints //temporary
-    private static final boolean DEBUG_RECIPE_EXAMPLE = false; //Just an example for recipe debug prints //temporary
-
     public static final String TAG = "indexOfRecipe";
-
     private Toolbar ActionBarToolbar;
 
     @SuppressLint("WrongConstant")
@@ -62,6 +48,44 @@ public class MainActivity extends AppCompatActivity {
 
         AppDatabase db = AppDatabase.getDbInstance(this.getApplicationContext());
 
+        initBottomNav();
+    }
+
+    /**
+     * Database and recyclerView are loaded in the onStart
+     */
+    @Override
+    protected void onStart() {
+        super.onStart();
+        initDatabase();
+        initRecyclerView();
+    }
+
+    /**
+     * This function is called in onStart
+     * The method loads the database and loads the raw json data into the database
+     */
+    private void initDatabase (){
+        AppDatabase db = AppDatabase.getDbInstance(this.getApplicationContext());
+
+        if(db.recipeDao().countRecipes()<=0){ //Data is empty
+            Gson gson = new Gson();
+            InputStream recipeJsonInputStream = getResources().openRawResource(R.raw.recipe); // getting recipe.jsonfile
+            String recipeJson = readTextFile(recipeJsonInputStream);
+            Type listType = new TypeToken<List<RecipeWithIngredients>>() {}.getType();
+            List<RecipeWithIngredients> recipeWithIngredientsList = gson.fromJson(recipeJson, listType);
+            //Insert data into database
+            recipeWithIngredientsList.forEach(recipeWithIngredient -> {
+                db.recipeDao().insertRecipeWithIngredients(recipeWithIngredient.recipe, recipeWithIngredient.ingredients);
+            });
+        }
+    }
+
+    /**
+     * This function is called in onCreate
+     * The method implements the bottom navigation view for the activity
+     */
+    private void initBottomNav(){
         //Set up the bottom navigation bar
         BottomNavigationView bottomNavigationView = (BottomNavigationView) findViewById(R.id.bottomNav_ViewBar);
 
@@ -104,73 +128,11 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-
-    @Override
-    protected void onStart() {
-        super.onStart();
-        //loadRecipeList();
-        initDatabase();
-        loadRecipeList();
-        initRecyclerView();
-    }
-
-    //TESTING ROOM DATABASE
-    private void loadRecipeList() {
-        AppDatabase db = AppDatabase.getDbInstance(this.getApplicationContext());
-
-        // GET ALL RECIPES LIST if you don't need to have ingredients inside
-        List<Recipe> recipes = db.recipeDao().getAllRecipes();
-        recipes.forEach(recipe -> {
-            Log.d("Log to see how to use", recipe.name + "------" + recipe.photo);
-        });
-
-        // GET ALL RECIPES LIST and Ingredients inside recipe.
-        List<RecipeWithIngredients> recipeWithIngredientsList = db.recipeDao().getRecipeWithIngredients();
-        recipeWithIngredientsList.forEach(recipeWithIngredient -> {
-            Log.d("Log to see how to use", recipeWithIngredient.recipe.name + "------" + recipeWithIngredient.recipe.photo);
-            recipeWithIngredient.ingredients.forEach(ingredient -> {
-                Log.d("Log to see how to use", ingredient.name  + "----" + ingredient.measure);
-            });
-        });
-
-        //Get Specific Recipe by ID example, in specific recipe Activity.
-        Recipe recipe=  db.recipeDao().getRecipeById(1);
-
-        //You can delete Recipe by this function
-        if(recipe!=null)
-            db.recipeDao().deleteRecipe(recipe);
-
-        //If your recipe has ingredient you should use this function to delete recipe and ingredients
-        /**
-        if(recipe!=null)
-        db.recipeDao().deleteRecipeWithIngredients(recipeWithIngredient.recipe, recipeWithIngredient.ingredients);
-        */
-        //Example get all Ingredients inside database
-        List<Ingredient> allIngredients = db.recipeDao().getAllIngredients();
-
-        //Search Recipe by Name
-        List<Recipe> recipeListSearch = db.recipeDao().searchRecipeByName("el");
-
-        //Search Recipe and ingredients belong to recipe by Name
-        List<RecipeWithIngredients> recipeWithIngredientsBySearch = db.recipeDao().searchRecipeWithIngredientsByName("el");
-
-    }
-    private void initDatabase (){
-        AppDatabase db = AppDatabase.getDbInstance(this.getApplicationContext());
-        if(db.recipeDao().countRecipes()<=0){ //Data is empty
-            Gson gson = new Gson();
-            InputStream recipeJsonInputStream = getResources().openRawResource(R.raw.recipe); // getting recipe.jsonfile
-            String recipeJson = readTextFile(recipeJsonInputStream);
-            Type listType = new TypeToken<List<RecipeWithIngredients>>() {}.getType();
-            List<RecipeWithIngredients> recipeWithIngredientsList = gson.fromJson(recipeJson, listType);
-            //Insert data into database
-            recipeWithIngredientsList.forEach(recipeWithIngredient -> {
-                db.recipeDao().insertRecipeWithIngredients(recipeWithIngredient.recipe, recipeWithIngredient.ingredients);
-                Log.d("Data", recipeWithIngredient.recipe.name + "------" + recipeWithIngredient.recipe.photo);
-            });
-        }
-    }
-
+    /**
+     * This function reads the data from the raw recipe json
+     * @param inputStream
+     * Recipe json file input data
+     */
     public String readTextFile(InputStream inputStream) {
         ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
 
@@ -186,14 +148,16 @@ public class MainActivity extends AppCompatActivity {
         }
         return outputStream.toString();
     }
-    // init Recycler view
+
+    /**
+     * This function is called in onStart
+     * The method implements the recyclerView for the activity
+     */
     private void initRecyclerView() {
-        Log.d(TAG, "initRecyclerView: init recyclerView");
         RecyclerView recyclerView = findViewById(R.id.recycler_view);
         AppDatabase db = AppDatabase.getDbInstance(this.getApplicationContext());
         RecyclerViewAdapter adapter = new RecyclerViewAdapter(db.recipeDao().getPremadeRecipeWithIngredients(), this);
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
     }
-
 }

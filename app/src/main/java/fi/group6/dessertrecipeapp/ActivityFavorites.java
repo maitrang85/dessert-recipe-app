@@ -7,7 +7,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -17,11 +16,14 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import fi.group6.dessertrecipeapp.classes.AppDatabase;
 
+/**
+ * Favorites activity displays the user's favorite recipes
+ * @author Tamas
+ * @version 1.2
+ */
 public class ActivityFavorites extends AppCompatActivity {
 
     TextView emptyText;
-
-    public static final String TAG = "indexOfRecipe";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,10 +33,53 @@ public class ActivityFavorites extends AppCompatActivity {
         //Change title for the top title bar
         getSupportActionBar().setTitle("FAVORITES");
 
-        emptyText = findViewById(R.id.emptyActivityText);
-
+        //Attach room database to the activity
         AppDatabase db = AppDatabase.getDbInstance(this.getApplicationContext());
 
+        //Calls methods to setup the UI
+        initRecyclerView();
+        checkIfEmpty();
+        initBottomNav();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        initRecyclerView();
+        checkIfEmpty();
+    }
+
+    /**
+     * This function is called in onCreate
+     * The method checks if there are any favorites in the app yet
+     * If no favorites are found, the placeholder text is shown
+     */
+    private void checkIfEmpty(){
+        emptyText = findViewById(R.id.emptyActivityText);
+        AppDatabase db = AppDatabase.getDbInstance(this.getApplicationContext());
+        //If there are no favorites, the text is set to visible
+        if(db.recipeDao().countFavoriteRecipes() == 0){
+            emptyText.setVisibility(View.VISIBLE);
+        }
+    }
+
+    /**
+     * This function is called in onCreate
+     * The method implements the recyclerView for the activity
+     */
+    private void initRecyclerView() {
+        RecyclerView recyclerView = findViewById(R.id.recycler_view);
+        AppDatabase db = AppDatabase.getDbInstance(this.getApplicationContext());
+        RecyclerViewAdapter adapter = new RecyclerViewAdapter(db.recipeDao().getFavoriteRecipeWithIngredients(), this);
+        recyclerView.setAdapter(adapter);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+    }
+
+    /**
+     * This function is called in onCreate
+     * The method implements the bottom navigation view for the activity
+     */
+    private void initBottomNav(){
         //Set up the bottom navigation bar
         BottomNavigationView bottomNavigationView = (BottomNavigationView) findViewById(R.id.bottomNav_ViewBar);
 
@@ -75,30 +120,5 @@ public class ActivityFavorites extends AppCompatActivity {
                 return false;
             }
         });
-        initRecyclerView();
-        checkIfEmpty();
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-        initRecyclerView();
-        checkIfEmpty();
-    }
-
-    private void checkIfEmpty(){
-        AppDatabase db = AppDatabase.getDbInstance(this.getApplicationContext());
-        if(db.recipeDao().countFavoriteRecipes() == 0){
-            emptyText.setVisibility(View.VISIBLE);
-        }
-    }
-
-    private void initRecyclerView() {
-        Log.d(TAG, "initRecyclerView: init recyclerView");
-        RecyclerView recyclerView = findViewById(R.id.recycler_view);
-        AppDatabase db = AppDatabase.getDbInstance(this.getApplicationContext());
-        RecyclerViewAdapter adapter = new RecyclerViewAdapter(db.recipeDao().getFavoriteRecipeWithIngredients(), this);
-        recyclerView.setAdapter(adapter);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
     }
 }

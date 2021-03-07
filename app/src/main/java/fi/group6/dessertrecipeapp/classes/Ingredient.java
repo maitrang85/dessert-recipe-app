@@ -56,11 +56,11 @@ public class Ingredient {
     }
 
     /**
-     * Compares Ingredients without taking in account uid and recipeId
+     * Compares Ingredients without taking in account uid
      * @param o
      * Object to compare with
      * @return
-     * name, amount, measure - are the same
+     * name, amount, measure, recipeId - are the same
      */
     @Override
     public boolean equals (Object o) {
@@ -74,7 +74,8 @@ public class Ingredient {
         Ingredient ingredient = (Ingredient) o;
         return this.name.equals(ingredient.name) &&
                 this.amount == ingredient.amount &&
-                this.measure.equals(ingredient.measure);
+                this.measure.equals(ingredient.measure) &&
+                this.recipeId == ingredient.recipeId;
 
     }
 }
