@@ -252,7 +252,6 @@
             android:layout_marginLeft="32dp"
             android:layout_marginTop="20dp"
             android:layout_marginRight="32dp"
-            android:background="@android:drawable/editbox_background"
             android:hint="@string/add_tags_here"
             android:textAlignment="center"
             android:textSize="20sp"

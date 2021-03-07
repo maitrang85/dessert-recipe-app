@@ -38,4 +38,6 @@
     <string name="for_small">For</string>
     <string name="amount_of_servings">Amount of servings</string>
     <string name="delete">Delete</string>
+    <string name="my_recipes_caps">MY RECIPES</string>
+    <string name="dark_mode">DARK MODE</string>
 </resources>

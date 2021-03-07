@@ -1,45 +1,47 @@
 package fi.group6.dessertrecipeapp;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatDelegate;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
-import android.os.Build;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
-import android.widget.TextView;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
+import android.widget.Switch;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
-import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
-
-import java.io.ByteArrayOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.lang.reflect.Type;
-import java.util.ArrayList;
-import java.util.List;
 
 import fi.group6.dessertrecipeapp.classes.AppDatabase;
-import fi.group6.dessertrecipeapp.classes.RecipeWithIngredients;
 
 public class ActivityMyRecipes extends AppCompatActivity {
 
     public static final String TAG = "indexOfRecipe";
+    protected static final String SHARED_PREF_FILE = "userTheme";
+    protected static final String THEME_KEY = "theme";
 
     Button emptyButton;
+    @SuppressLint("UseSwitchCompatOrMaterialCode")
+    CheckBox darkModeSwitch;
+
+    String theme;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my_recipes);
+
+        checkDarkMode();
 
         //Change title for the top title bar
         getSupportActionBar().setTitle("MY RECIPES");
@@ -99,6 +101,29 @@ public class ActivityMyRecipes extends AppCompatActivity {
         }
     }
 
+    private void checkDarkMode() {
+        //Get the shared preferences data and update the switch because onStart already ran once
+        SharedPreferences sharedPreferences = getSharedPreferences(SHARED_PREF_FILE, ActivityMyRecipes.MODE_PRIVATE);
+        theme = sharedPreferences.getString(THEME_KEY, "light");
+
+        darkModeSwitch = findViewById(R.id.darkModeSwitch);
+        if(AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_YES){
+            darkModeSwitch.setChecked(true);
+        }
+
+        darkModeSwitch.setOnClickListener(v -> {
+            if(theme.equals("dark")){
+                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+                theme = "light";
+                darkModeSwitch.setChecked(false);
+            }else{
+                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+                theme = "dark";
+                darkModeSwitch.setChecked(true);
+            }
+        });
+    }
+
     private void initRecyclerView() {
         Log.d(TAG, "initRecyclerView: init recyclerView");
         RecyclerView recyclerView = findViewById(R.id.recycler_view);
@@ -106,5 +131,26 @@ public class ActivityMyRecipes extends AppCompatActivity {
         RecyclerViewAdapter adapter = new RecyclerViewAdapter(db.recipeDao().getLocalRecipeWithIngredients(), this);
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        //Get the shared preferences data and update the switch because onStart already ran once
+        SharedPreferences sharedPreferences = getSharedPreferences(SHARED_PREF_FILE, ActivityMyRecipes.MODE_PRIVATE);
+        theme = sharedPreferences.getString(THEME_KEY, "light");
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        //Create new shared preferences and editor
+        SharedPreferences sharedPreferences = getSharedPreferences(SHARED_PREF_FILE, MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+
+        //Add the data from the theme string and save it
+        editor.clear();
+        editor.putString(THEME_KEY, theme);
+        editor.apply();
     }
 }
