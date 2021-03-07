@@ -5,12 +5,12 @@
     android:id="@+id/relativeLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="MainActivity">
+    tools:context=".ActivityFavorites">
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".MainActivity">
+        tools:context=".ActivityFavorites">
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recycler_view"
