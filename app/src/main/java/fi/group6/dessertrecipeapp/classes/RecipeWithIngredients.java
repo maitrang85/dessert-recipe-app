@@ -25,15 +25,12 @@ public class RecipeWithIngredients {
 
     /**
      * Special RecipeWithIngredients comparison
-     * Do not takes in account:
-     * isCustom
-     * isFavourite
-     * recipeId
+     * Not takes into account recipeId
      * @param o
      * Object to compare with
      * @return
      * Ingredients, name, author, levelOfDifficulty, prepareTime, numberOfServings,
-     * photo, instructions, tags - are the same
+     * photo, instructions, tags, isCustom, isFavourite - are the same
      */
     @Override
     public boolean equals (Object o) {
@@ -46,7 +43,7 @@ public class RecipeWithIngredients {
 
         RecipeWithIngredients recipeWithIngredients = (RecipeWithIngredients) o;
 
-        //Must take null into account, so handled separately
+        //Photo comparison must take null into account, so handled separately
         boolean photoCheck;
         if (this.recipe.photo != null && recipeWithIngredients.recipe.photo != null) {
             photoCheck = this.recipe.photo.equals(recipeWithIngredients.recipe.photo);
@@ -64,7 +61,8 @@ public class RecipeWithIngredients {
                 this.recipe.numberOfServings == recipeWithIngredients.recipe.numberOfServings &&
                 photoCheck &&
                 this.recipe.instructions.equals(recipeWithIngredients.recipe.instructions) &&
-                this.recipe.tags.equals(recipeWithIngredients.recipe.tags);
-
+                this.recipe.tags.equals(recipeWithIngredients.recipe.tags) &&
+                this.recipe.isCustom == recipeWithIngredients.recipe.isCustom &&
+                this.recipe.isFavourite == recipeWithIngredients.recipe.isFavourite;
     }
 }

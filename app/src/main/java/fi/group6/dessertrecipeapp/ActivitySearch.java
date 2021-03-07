@@ -440,7 +440,7 @@ public class ActivitySearch extends AppCompatActivity {
     }
 
     /**
-     * Filters given recipes by specified tags, difficulty and preparation time
+     * Filters given recipes by specified tags, difficulty preparation time and number of people
      * @param recipes
      * Recipe list to filter
      * @param filteringTags
@@ -452,9 +452,9 @@ public class ActivitySearch extends AppCompatActivity {
      * @param timeTo
      * Maximum time of preparation
      * @param peopleFrom
-     *Minimal number of people
+     * Minimal number of people
      *@param peopleTo
-     * Maximum umber of people
+     * Maximum number of people
      * @return
      * Accepted by filter recipes list
      */
@@ -495,7 +495,7 @@ public class ActivitySearch extends AppCompatActivity {
         } else if (timeFrom >= 0 && timeTo < 0) { //Time limited only from below. ( "I'm planning to cook for an hour!" )
             for (RecipeWithIngredients recipe: filteredByTagsAndDifficulty) {
                 if (recipe.recipe.prepareTime >= timeFrom) { // If preparation is longer or the same as needed
-                    filteredResultList.add(recipe);          // - accept recipe
+                    filteredByTagsDifficultyTime.add(recipe);          // - accept recipe
                 }
             }
         } else { //Other two combinations are handled in normal way
@@ -503,7 +503,7 @@ public class ActivitySearch extends AppCompatActivity {
                 // If preparation time is between minimum and maximum or equals to one of them
                 // - accept recipe
                 if (recipe.recipe.prepareTime >= timeFrom && recipe.recipe.prepareTime <= timeTo) {
-                    filteredResultList.add(recipe);
+                    filteredByTagsDifficultyTime.add(recipe);
                 }
             }
         }
@@ -549,15 +549,15 @@ public class ActivitySearch extends AppCompatActivity {
 
         for (String tagToFind: tagsToFind) {
             for (String tagToCheck: tagsToCheck) {
-                if (tagToFind.equals(tagToCheck)) {
+                if (tagToFind.equals(tagToCheck)) { //Found tag in the recipe
                     exists = true;
                 }
             }
-            if (!exists) {
+            if (!exists) { //Haven't found tag in the list - so it doesn't exist in the recipe
                 return false;
             }
-            exists = false;
+            exists = false; //Setting boolean for the next tag
         }
-        return true;
+        return true; //Found all tags
     }
 }

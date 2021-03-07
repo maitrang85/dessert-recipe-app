@@ -43,15 +43,18 @@ public class ActivityAddRecipe extends AppCompatActivity implements AdapterView.
     private static final String ACTIVITY_ADD_RECIPE = "ACTIVITY_ADD_RECIPE";
     static final int REQUEST_IMAGE_CAPTURE = 1;
     static final int REQUEST_GALLERY_PICKER = 2;
-
-    // Recipe editing
+    /*
+    * RECIPE EDITING // - all code here, which is responsible for recipe editing will be marked.
+    */
+    // Used to get EXTRA from intent. ( Receives it from ActivityRecipe.java )
     private static final String EDIT_RECIPE_ID_KEY = "editRecipeId";
     //Recipe to be edited
     RecipeWithIngredients editedRecipe = null;
-    //Flag set to true if editedRecipe is determined.
+    //Flag set to true if editedRecipe is determined ( when the user actually edits a recipe, not creates a new one ).
     boolean editing = false;
-    // Recipe editing end
-
+    /*
+    * RECIPE EDITING END
+    */
     LinearLayout ingredientListLayout;
     LinearLayout instructionListLayout;
 
@@ -120,6 +123,9 @@ public class ActivityAddRecipe extends AppCompatActivity implements AdapterView.
         tagSelectorTv = findViewById(R.id.tagSelectorTv);
         selectedTag = new boolean[tagArray.length];
 
+        /*
+        * RECIPE EDITING
+        */
         //****** Edit recipe variables ******//
         Bundle b = getIntent().getExtras();
         int editRecipeId = -1;
@@ -173,6 +179,9 @@ public class ActivityAddRecipe extends AppCompatActivity implements AdapterView.
             }
         }
         //****** Edit recipe setup end ******//
+        /*
+        * RECIPE EDITING END
+        */
         selectTags();
     }
 
@@ -386,7 +395,7 @@ public class ActivityAddRecipe extends AppCompatActivity implements AdapterView.
     }
 
     /**
-     * This function add a new recipe to the room database
+     * This function adds a new recipe to the room database or modifies an existing one
      */
     private void addNewRecipeWithIngredients() {
         //Two empty arraLists for the dinamically added TextViews
@@ -436,35 +445,15 @@ public class ActivityAddRecipe extends AppCompatActivity implements AdapterView.
         myOwnRecipe = new Recipe(nameInput, instructions, tagInput, photoInput,
                 true, false, portionInput, prepTimeInput, authorInput, levelOfDifficultyInput);
 
+        /*
+        * RECIPE EDITING
+        */
         if (editing) { //Editing a recipe
             //Data must not be the same
             if (!modified(editedRecipe, new RecipeWithIngredients(myOwnRecipe, ingredients))) {
                 Log.d(ACTIVITY_ADD_RECIPE, "Recipe wasn't modified");
                 return; //Should start all over if they are the same
             }
-
-            //DEBUG // Do not remove it until photo will be added and no mistakes will be encountered
-            /*
-            if(editedRecipe.ingredients.equals(ingredients)) Log.e("ERROR", "ingredients - same");
-            else Log.e("ERROR", "ingredients - not same");
-            if(editedRecipe.recipe.name.equals(myOwnRecipe.name)) Log.e("ERROR", "name - same");
-            else Log.e("ERROR", "name - not same");
-            if(editedRecipe.recipe.author.equals(myOwnRecipe.author)) Log.e("ERROR", "author - same");
-            else Log.e("ERROR", "author - not same");
-            if(editedRecipe.recipe.levelOfDifficulty.equals(myOwnRecipe.levelOfDifficulty)) Log.e("ERROR", "difficulty - same");
-            else Log.e("ERROR", "difficulty - not same");
-            if(editedRecipe.recipe.prepareTime == myOwnRecipe.prepareTime) Log.e("ERROR", "prepareTime - same");
-            else Log.e("ERROR", "prepareTime - not same");
-            if(editedRecipe.recipe.numberOfServings == myOwnRecipe.numberOfServings) Log.e("ERROR", "servings - same");
-            else Log.e("ERROR", "servings - not same");
-            if(editedRecipe.recipe.photo.equals(myOwnRecipe.photo)) Log.e("ERROR", "photo - same");
-            else Log.e("ERROR", "photo - not same");
-            if(editedRecipe.recipe.instructions.equals(myOwnRecipe.instructions)) Log.e("ERROR", "instructions - same");
-            else Log.e("ERROR", "instructions - not same");
-            if(editedRecipe.recipe.tags.equals(myOwnRecipe.tags)) Log.e("ERROR", "tags - same");
-            else Log.e("ERROR", "tags - not same");
-            */
-            //DEBUG
 
             //Rebuilding a recipe
             editedRecipe.recipe.name = nameInput;
@@ -477,32 +466,37 @@ public class ActivityAddRecipe extends AppCompatActivity implements AdapterView.
             editedRecipe.recipe.author = authorInput;
             editedRecipe.recipe.levelOfDifficulty = levelOfDifficultyInput;
 
-            //Handling ingredients
+            //HANDLING INGREDIENTS//
+
             //Deleting all previous ingredients from the database
             for (int i = 0; i < editedRecipe.ingredients.size(); i++) {
                 db.recipeDao().deleteIngredient(editedRecipe.ingredients.get(i));
             }
-
             //Changing the ingredients list
             editedRecipe.ingredients = ingredients;
             //Giving ingredients correct recipeId
             for (int i = 0; i < editedRecipe.ingredients.size(); i++) {
                 editedRecipe.ingredients.get(i).recipeId = editedRecipe.recipe.recipeId;
             }
-
             //Adding new ingredients to the database
             db.recipeDao().insertAllIngredients(editedRecipe.ingredients);
+
             //Giving recipe back to the database
             db.recipeDao().updateIngredientWithRecipe(editedRecipe.recipe, editedRecipe.ingredients);
 
+            //Sending user to the MyRecipes activity
             Intent intent = new Intent(ActivityAddRecipe.this, ActivityMyRecipes.class);
             startActivity(intent);
 
             Toast.makeText(ActivityAddRecipe.this,
                     "Congrats, you've modified a recipe!", Toast.LENGTH_LONG).show();
+            /*
+            * RECIPE EDITING END
+            */
         } else { //Creating new recipe
             db.recipeDao().insertRecipeWithIngredients(myOwnRecipe, ingredients);
 
+            //Sending user to the MyRecipes activity
             Intent intent = new Intent(ActivityAddRecipe.this, ActivityMyRecipes.class);
             startActivity(intent);
 
@@ -585,24 +579,6 @@ public class ActivityAddRecipe extends AppCompatActivity implements AdapterView.
         return true;
     }
 
-    /**
-     * Checks whether recipe was modified
-     * @param recipeToModify
-     * Recipe chosen to modify
-     * @param modifiedRecipe
-     * Recipe created from fields
-     * @return
-     * true - something was modified, false - nothing was modified
-     */
-    private boolean modified(RecipeWithIngredients recipeToModify, RecipeWithIngredients modifiedRecipe) {
-        if (!recipeToModify.equals(modifiedRecipe)) {
-            return true;
-        }
-        Toast.makeText(ActivityAddRecipe.this,
-                "Nothing was changed, recipe haven't been modified", Toast.LENGTH_LONG).show();
-        return false;
-    }
-
     private void addIngredientRow() {
         //Inflate the ingredients row by one
         View ingredientRow = getLayoutInflater().inflate(R.layout.add_ingredient_row, null, false);
@@ -651,10 +627,12 @@ public class ActivityAddRecipe extends AppCompatActivity implements AdapterView.
         instructionListLayout.removeView(view);
     }
 
+    /*
+    * RECIPE EDITING
+    */
     //*********************//
     //*EDIT RECIPE METHODS*//
     //*********************//
-
     /**
      * Fills all fields of the AddRecipeActivity with the data of the recipe to be edited.
      * @param recipe
@@ -686,16 +664,14 @@ public class ActivityAddRecipe extends AppCompatActivity implements AdapterView.
         presetAddFilledInstructionRows(recipe.recipe.instructions);
         //ingredients
         presetAddFilledIngredientRows(recipe.ingredients);
-        //photo //TODO: handle photo
-        if (editedRecipe.recipe.photo != null){
+        //photo
+        if (editedRecipe.recipe.photo != null) { //photo can be null, do nothing in case if it is
+            //filling in photo placeholder
             ImageButton addPhotoPlaceholder = (ImageButton) findViewById(R.id.addPhotoPlaceholder);
             photoInput = editedRecipe.recipe.photo;
             addPhotoPlaceholder.setImageURI(Uri.parse(editedRecipe.recipe.photo));
         }
-
-        // tags are omitted here, because it is handled separately.
-
-
+        //tags are omitted here, because it is handled separately.
     }
 
     /**
@@ -748,7 +724,7 @@ public class ActivityAddRecipe extends AppCompatActivity implements AdapterView.
             ingredientMeasure.setText(ingredient.measure);
             ingredientName.setText(ingredient.name);
 
-            //If the user clicks the delete button, that specific row will be deleted //TODO: Great place to add check?
+            //If the user clicks the delete button, that specific row will be deleted
             deleteIngredientRow.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -790,4 +766,73 @@ public class ActivityAddRecipe extends AppCompatActivity implements AdapterView.
         //Select right difficulty
         ratingMenu.setSelection(index);
     }
+
+    /**
+     * Checks whether recipe was modified
+     * @param recipeToModify
+     * Recipe chosen to modify
+     * @param modifiedRecipe
+     * Recipe created from fields
+     * @return
+     * true - something was modified, false - nothing was modified
+     */
+    private boolean modified(RecipeWithIngredients recipeToModify, RecipeWithIngredients modifiedRecipe) {
+        if (!recipeToModify.recipe.name.equals(modifiedRecipe.recipe.name)) {
+            return true;
+        }
+        if (!recipeToModify.recipe.author.equals(modifiedRecipe.recipe.author)) {
+            return true;
+        }
+        if (!recipeToModify.recipe.levelOfDifficulty.equals(modifiedRecipe.recipe.levelOfDifficulty)) {
+            return true;
+        }
+        if (recipeToModify.recipe.prepareTime != modifiedRecipe.recipe.prepareTime) {
+            return true;
+        }
+        if (recipeToModify.recipe.numberOfServings != modifiedRecipe.recipe.numberOfServings) {
+            return true;
+        }
+        if (!recipeToModify.recipe.instructions.equals(modifiedRecipe.recipe.instructions)) {
+            return true;
+        }
+        if (!recipeToModify.recipe.tags.equals(modifiedRecipe.recipe.tags)) {
+            return true;
+        }
+        //Photo check
+        boolean photoSame;
+        if (recipeToModify.recipe.photo != null && modifiedRecipe.recipe.photo != null) {
+            photoSame = recipeToModify.recipe.photo.equals(modifiedRecipe.recipe.photo);
+        } else if( recipeToModify.recipe.photo == null && modifiedRecipe.recipe.photo == null ) {
+            photoSame = true;
+        } else {
+            photoSame = false;
+        }
+
+        if (!photoSame) {
+            return true;
+        }
+        //Ingredients check
+        if (recipeToModify.ingredients.size() != modifiedRecipe.ingredients.size()) {
+            return true;
+        } else {
+            for (int i = 0; i < recipeToModify.ingredients.size(); i++) {
+                if (!recipeToModify.ingredients.get(i).name.equals(modifiedRecipe.ingredients.get(i).name)) {
+                    return true;
+                }
+                if (recipeToModify.ingredients.get(i).amount != modifiedRecipe.ingredients.get(i).amount) {
+                    return true;
+                }
+                if (!recipeToModify.ingredients.get(i).measure.equals(modifiedRecipe.ingredients.get(i).measure)) {
+                    return true;
+                }
+            }
+        }
+
+        Toast.makeText(ActivityAddRecipe.this,
+                "Nothing was changed, recipe haven't been modified", Toast.LENGTH_LONG).show();
+        return false;
+    }
+    /*
+    * RECIPE EDITING END
+    */
 }
