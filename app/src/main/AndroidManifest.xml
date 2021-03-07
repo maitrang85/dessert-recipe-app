@@ -20,7 +20,8 @@
         android:roundIcon="@mipmap/ic_icon"
         android:supportsRtl="true"
         android:theme="@style/Theme.DessertRecipeApp">
-        <activity android:name=".ActivitySplash">
+        <activity android:name=".ActivitySplash"
+            android:hardwareAccelerated="false" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

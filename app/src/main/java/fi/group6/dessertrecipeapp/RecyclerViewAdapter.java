@@ -46,12 +46,18 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     }
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        Log.d(TAG, "onBindViewholder called");
+        Log.d(TAG, "onBindViewholder called: " + recipeWithIngredients.get(position).recipe.photo);
         // get the Image
         Glide.with(mContext)
                 .asBitmap()
+                .centerCrop()
                 .load(recipeWithIngredients.get(position).recipe.photo)
+                .placeholder(R.drawable.ic_baseline_my_recipes_24)
                 .into(holder.image);
+
+//        Glide.with(mContext).load("http://goo.gl/gEgYUd").into(holder.image);
+
+
         //get recipe name
         holder.recipeName.setText(recipeWithIngredients.get(position).recipe.name);
 

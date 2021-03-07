@@ -33,7 +33,6 @@ import fi.group6.dessertrecipeapp.classes.RecipeWithIngredients;
 public class MainActivity extends AppCompatActivity {
 
     public static final String TAG = "indexOfRecipe";
-    private Toolbar ActionBarToolbar;
 
     @SuppressLint("WrongConstant")
     @Override
@@ -45,9 +44,6 @@ public class MainActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
         getSupportActionBar().setCustomView(R.layout.action_bar);
         getSupportActionBar().setBackgroundDrawable(new ColorDrawable(0xffffff));
-
-        AppDatabase db = AppDatabase.getDbInstance(this.getApplicationContext());
-
         initBottomNav();
     }
 
