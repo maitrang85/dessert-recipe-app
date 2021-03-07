@@ -13,8 +13,10 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.Switch;
 
@@ -30,7 +32,7 @@ public class ActivityMyRecipes extends AppCompatActivity {
 
     Button emptyButton;
     @SuppressLint("UseSwitchCompatOrMaterialCode")
-    Switch darkModeSwitch;
+    CheckBox darkModeSwitch;
 
     String theme;
 
@@ -109,17 +111,15 @@ public class ActivityMyRecipes extends AppCompatActivity {
             darkModeSwitch.setChecked(true);
         }
 
-        darkModeSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if(theme.equals("dark")){
-                    AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
-                    theme = "light";
-                    darkModeSwitch.setChecked(false);
-                }else{
-                    AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
-                    theme = "dark";
-                    darkModeSwitch.setChecked(true);
-                }
+        darkModeSwitch.setOnClickListener(v -> {
+            if(theme.equals("dark")){
+                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+                theme = "light";
+                darkModeSwitch.setChecked(false);
+            }else{
+                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+                theme = "dark";
+                darkModeSwitch.setChecked(true);
             }
         });
     }
