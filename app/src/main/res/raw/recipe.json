@@ -176,7 +176,7 @@
         "In a blender, blitz the frozen banana with the cocoa powder until smooth. Eat straight away."
       ],
       "isCustom":false,
-      "isFavourite": true,
+      "isFavourite": false,
       "name":"Vegan chocolate banana ice cream",
       "numberOfServings":1,
       "photo":"https://whatmollymade.com/wp-content/uploads/2019/07/vegan-chocolate-banana-ice-cream-13.jpg",
@@ -220,7 +220,7 @@
           "Remove the pan from the oven and let the cupcakes cool for at least 20 minutes, then carefully run a knife around the edges of each cupcake to remove. The cupcakes should be completely cool before frosting with the Fudgy Chocolate Frosting"
         ],
         "isCustom":false,
-        "isFavourite": true,
+        "isFavourite": false,
         "name":"Double Chocolate Cupcakes",
         "numberOfServings":6,
         "photo":"https://wildwildwhisk.com/wp-content/uploads/2015/04/Double-Chocolate-Cupcakes-1.jpg",
@@ -263,7 +263,7 @@
         "Bake the brownies for 16 to 18 minutes. Remove them from the oven and let cool completely. These taste especially good and fudgy after being refrigerated for a few hours."
       ],
       "isCustom":false,
-      "isFavourite": true,
+      "isFavourite": false,
       "name":"Raspberry Truffle Brownies",
       "numberOfServings":5,
       "photo":"https://www.forksoverknives.com/wp-content/uploads/Raspberry-Brownies-vertical.jpg",
@@ -305,7 +305,7 @@
         "Pulse in the chocolate chips. Serve immediately."
       ],
       "isCustom": false,
-      "isFavourite": true,
+      "isFavourite": false,
       "name": "Cherry Soft-Serve Ice Cream",
       "numberOfServings": 5,
       "photo": "https://www.forksoverknives.com/wp-content/uploads/cherry-garcia-WP.jpg",
@@ -353,7 +353,7 @@
         "Fill the cupcake liners about 2/3 way full. Bake for 19 minutes, or until a toothpick comes out with a few moist crumbs."
       ],
       "isCustom": false,
-      "isFavourite": true,
+      "isFavourite": false,
       "name": "Dairy Free Cupcakes",
       "numberOfServings": 3,
       "photo": "https://chelsweets.com/wp-content/uploads/2020/02/IMG_9215-2-1365x2048.jpg",
@@ -402,7 +402,7 @@
         "Bake for 15 minutes, then increase heat to 375 F (190 C) and bake for 5-10 minutes more, or until the edges are golden brown and there is some browning on the surface. Remove from oven and set aside to cool."
       ],
       "isCustom": false,
-      "isFavourite": true,
+      "isFavourite": false,
       "name": "Banana Cream Pie",
       "numberOfServings": 3,
       "photo": "https://minimalistbaker.com/wp-content/uploads/2016/04/AMAZING-Banana-Cream-Pie-thats-Vegan-and-Glutenfree-10-ingredients-creamy-SO-delicious-banana-pie-recipe-dessert-minimalistbaker.jpg",
@@ -455,7 +455,7 @@
         "Bake the rolls 25 to 30 minutes or until lightly golden on top. Remove and allow to cool for 10 minutes, then drizzle the glaze on top and serve."
       ],
       "isCustom": false,
-      "isFavourite": true,
+      "isFavourite": false,
       "name": "Cinnamon Rolls",
       "numberOfServings": 12,
       "photo": "https://cdn.loveandlemons.com/wp-content/uploads/2019/12/cinnamon-rolls.jpg",
@@ -506,7 +506,7 @@
         "Transfer batter to prepared pan. Bake cake until a tester inserted into the center comes out clean and the top springs back when gently pressed, 45–50 minutes. Let cool 10 minutes. Carefully run a knife around edges of pan, then invert cake onto a wire rack and let cool."
       ],
       "isCustom": false,
-      "isFavourite": true,
+      "isFavourite": false,
       "name": "Heartbeet Chocolate Cake",
       "numberOfServings": 8,
       "photo": "https://assets.bonappetit.com/photos/5c589c526c0b212cac36517b/1:1/w_2560%2Cc_limit/healthyish-heartbeet-cake-horizontal.jpg",
@@ -556,7 +556,7 @@
         "Just before serving, run a knife along edges of flan, set a plate on top of pie dish, and carefully invert flan onto plate. Top with coconut flakes."
       ],
       "isCustom": false,
-      "isFavourite": true,
+      "isFavourite": false,
       "name": "Coconut Flan",
       "numberOfServings": 5,
       "photo": "https://assets.bonappetit.com/photos/5a79eb8666ccf61a523d7eac/1:1/w_2560%2Cc_limit/coconut-flan.jpg",
@@ -606,7 +606,7 @@
         "Top with nectarines; drizzle with honey and oil."
       ],
       "isCustom": false,
-      "isFavourite": true,
+      "isFavourite": false,
       "name": "Ricotta Panna Cotta with Nectarines and Honey",
       "numberOfServings": 10,
       "photo": "https://assets.bonappetit.com/photos/5b3b9278a996665847a94335/1:1/w_2560%2Cc_limit/ricotta-panna-cotta-with-nectarines-and-honey.jpg",
@@ -673,7 +673,7 @@
         "Prepare the Glaze: Stir together all Glaze ingredients in a medium bowl. Pour over warm rolls, and serve immediately."
       ],
       "isCustom": false,
-      "isFavourite": true,
+      "isFavourite": false,
       "name": "Pink Lemonade Rolls",
       "numberOfServings": 10,
       "photo": "https://static.onecms.io/wp-content/uploads/sites/19/2017/04/24/pinklemonaderolls.jpg",
@@ -726,7 +726,7 @@
         "Remove pan from water bath and take off foil, then let chill in the fridge for at least five hours or overnight. Slice and garnish with strawberries."
       ],
       "isCustom": false,
-      "isFavourite": true,
+      "isFavourite": false,
       "name": "Copycat Milano Cookies",
       "numberOfServings": 18,
       "photo": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTO55QGsoYO5bODBbbdrEc22YUkUSYy4Xysug&usqp=CAU",
@@ -793,7 +793,7 @@
         "Prepare the Glaze: Stir together all Glaze ingredients in a medium bowl. Pour over warm rolls, and serve immediately."
       ],
       "isCustom": false,
-      "isFavourite": true,
+      "isFavourite": false,
       "name": "Keto Sugar-Free Cheesecake",
       "numberOfServings": 8,
       "photo": "https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/delish-sugar-free-cheesecake-190-1542820660.jpg?crop=0.564xw:1.00xh;0.341xw,0&resize=768:*",
@@ -849,7 +849,7 @@
         "Transfer to serving glasses and refrigerate 30 minutes and up to 1 hour. Garnish with chocolate curls if using."
       ],
       "isCustom": false,
-      "isFavourite": true,
+      "isFavourite": false,
       "name": "Keto Chocolate Mousse",
       "numberOfServings": 2,
       "photo": "https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/delish-chocolate-mousse-paleo-keto-horizontal-1544217515.jpg?crop=0.563xw:1.00xh;0.0969xw,0&resize=768:*",
@@ -1064,7 +1064,7 @@
         "Portion granita into small serving bowls to serve.\n\n"
       ],
       "isCustom": false,
-      "isFavourite": true,
+      "isFavourite": false,
       "name": "Fresh Strawberry Granita",
       "numberOfServings": 8,
       "photo": "https://imagesvc.meredithcorp.io/v3/mm/image?url=https%3A%2F%2Fimages.media-allrecipes.com%2Fuserphotos%2F1066524.jpg&w=596&h=596&c=sc&poi=face&q=85",
@@ -1123,7 +1123,7 @@
         "Serve with whipped cream and crushed gingersnaps. "
       ],
       "isCustom": false,
-      "isFavourite": true,
+      "isFavourite": false,
       "name": "No-Bake Pumpkin Cheesecake",
       "numberOfServings": 8,
       "photo": "https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/delish-191907-pumpkin-cheesecake-0021-landscape-pf-1564774176.png?crop=0.668xw:1.00xh;0.131xw,0&resize=768:*",
@@ -1173,7 +1173,7 @@
         "To serve: When firm, pipe dollops of whipped topping around the outside of the cheesecake. Top each dollop with a clementine segment, garnish with orange zest, and serve."
       ],
       "isCustom": false,
-      "isFavourite": true,
+      "isFavourite": false,
       "name": "Creamsicle Cheesecake",
       "numberOfServings": 8,
       "photo": "https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/190307-creamsicle-cheesecake-090-1553531258.jpg?crop=1.00xw:0.934xh;0,0&resize=768:*",
@@ -1220,7 +1220,7 @@
         "Drop tablespoonfuls of mixture onto prepared baking sheet and let set until cooled and hardened, about 30 minutes."
       ],
       "isCustom": false,
-      "isFavourite": true,
+      "isFavourite": false,
       "name": "Peanut Butter No-Bake Cookies",
       "numberOfServings": 24,
       "photo": "https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/delish-no-bake-peanut-butter-cookies-vertical-3-1539619868.jpg?crop=1xw:1xh;center,top&resize=768:*",
@@ -1279,7 +1279,7 @@
         "When firm, remove from freezer and slice into 9 bars. Top each bar with a dollop of whipped topping, a slice of banana, and a Nilla Wafer before serving. "
       ],
       "isCustom": false,
-      "isFavourite": true,
+      "isFavourite": false,
       "name": "Banana Pudding Bars",
       "numberOfServings": 8,
       "photo": "https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/banana-pudding-bars-horizontal-1536693077.png?crop=1xw:1xh;center,top&resize=768:*",
@@ -1341,7 +1341,7 @@
         "Reserve 1/2 cup peach mixture for topping; refrigerate, covered. Beat ice cream and remaining peach mixture just until blended. Pour into crust. Freeze, covered, overnight. To serve, top with caramel topping, reserved peach mixture and toffee bits."
       ],
       "isCustom": false,
-      "isFavourite": true,
+      "isFavourite": false,
       "name": "Toffee-Peach Ice Cream Pie",
       "numberOfServings": 8,
       "photo": "https://www.tasteofhome.com/wp-content/uploads/2018/01/Toffee-Peach-Ice-Cream-Pie_EXPS_THJJ17_146183_B02_02_10b.jpg?fit=696,1024",
@@ -1408,7 +1408,7 @@
         "Spoon into crusts. Cover and freeze for at least 4 hours or until firm. Remove from the freezer 15 minutes before serving. Top with whipped cream if desired."
       ],
       "isCustom": false,
-      "isFavourite": true,
+      "isFavourite": false,
       "name": "Frozen Peach Pies",
       "numberOfServings": 16,
       "photo": "https://www.tasteofhome.com/wp-content/uploads/2018/01/Frozen-Peach-Pies_exps37246_UFZ133197D04_23_3bC_RMS.jpg?fit=696,1024",
@@ -1457,7 +1457,7 @@
         "Freeze until solid, about 5 hours."
       ],
       "isCustom": false,
-      "isFavourite": true,
+      "isFavourite": false,
       "name": "Keto Ice Cream",
       "numberOfServings": 8,
       "photo": "https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/delish-keto-ice-cream-vertical-1540570792.jpg?crop=1xw:1xh;center,top&resize=768:*",
@@ -1510,7 +1510,7 @@
         "Place them back on the parchment paper and allow to full cool, another 20 to 30 minutes, before eating."
       ],
       "isCustom": false,
-      "isFavourite": true,
+      "isFavourite": false,
       "name": "Walnut Snowball Cookies",
       "numberOfServings": 15,
       "photo": "https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/20191125-walnut-snowballs-keto-cookies-delish-ehg-5364-jpg-1575664667.jpg?crop=1.00xw:0.715xh;0,0.152xh&resize=768:*",
@@ -1559,7 +1559,7 @@
         "Pipe frosting onto cooled cupcakes. Garnish with coarse salt, lime zest, and lime wedges and a cut decorative straw before serving."
       ],
       "isCustom": false,
-      "isFavourite": true,
+      "isFavourite": false,
       "name": "Margarita Cupcakes",
       "numberOfServings": 18,
       "photo": "https://hips.hearstapps.com/del.h-cdn.co/assets/17/17/640x958/gallery-1493061025-delish-margarita-cupcakes-pin-3.jpg?resize=768:*",
@@ -1608,7 +1608,7 @@
         "Refrigerate 1 hour, then break bark into pieces before serving."
       ],
       "isCustom": false,
-      "isFavourite": true,
+      "isFavourite": false,
       "name": "Unicorn Bark",
       "numberOfServings": 8,
       "photo": "https://hips.hearstapps.com/vidthumb/images/delish-unicorn-bark-1523565997.png",
