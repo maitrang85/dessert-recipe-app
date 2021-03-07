@@ -186,5 +186,1437 @@
         "Vegetarian"
       ]
     }
+  },
+    {
+      "ingredients":[
+        {
+          "amount":2,
+          "measure":"ounces",
+          "name":"unsweetened chocolate"
+        },
+        {
+          "amount":1,
+          "measure":"cup",
+          "name":"unsweetened plant-based milk"
+        },
+        {
+          "amount":1,
+          "measure":"cup",
+          "name":"whole wheat pastry flour"
+        },
+        {
+          "amount":40,
+          "measure":"gram",
+          "name":"cocoa powder"
+        }
+      ],
+      "recipe":{
+        "author":"Isa Chandra Moskowitz",
+        "instructions":[
+          "Preheat the oven to 350° F. Line a 12-cup muffin pan with silicone liners or have ready a nonstick or silicone muffin pan.",
+          "To melt the chocolate, use a double boiler or simply take a small sauce pan and fill half way with water. On top of that place a small sauté pan. Fill the sauté pan with chocolate and bring the water to a boil. Use a rubber spatula to mix the chocolate as it melts. Once melted, remove from heat and let cool for 5 more minutes, stirring occasionally. Set aside. (Alternatively, you can also melt the chocolate in a small bowl in the microwave.)",
+          "In a large bowl, whisk together the plant-based milk and vinegar. Let it sit for a few minutes, until curdled. Stir in the dry sweetener, applesauce, vanilla, and melted chocolate.",
+          "Scoop the batter into the prepared pan, filling each cup three-quarters full. Bake for 18 to 20 minutes, or until a toothpick inserted into the center comes out clean.",
+          "Remove the pan from the oven and let the cupcakes cool for at least 20 minutes, then carefully run a knife around the edges of each cupcake to remove. The cupcakes should be completely cool before frosting with the Fudgy Chocolate Frosting"
+        ],
+        "isCustom":false,
+        "isFavourite": true,
+        "name":"Double Chocolate Cupcakes",
+        "numberOfServings":6,
+        "photo":"https://wildwildwhisk.com/wp-content/uploads/2015/04/Double-Chocolate-Cupcakes-1.jpg",
+        "prepareTime":20,
+        "levelOfDifficulty":"medium",
+        "tags":[
+          "Plant based"
+        ]
+      }
+    },
+  {
+    "ingredients":[
+      {
+        "amount":1,
+        "measure":"cup",
+        "name":"raspberry jam"
+      },
+      {
+        "amount":2,
+        "measure":"tsp",
+        "name":"pure vanilla extract"
+      },
+      {
+        "amount":1,
+        "measure":"cup",
+        "name":"whole wheat pastry flour"
+      },
+      {
+        "amount":1,
+        "measure":"cup",
+        "name":"unsweetened applesauce"
+      }
+    ],
+    "recipe":{
+      "author":"Isa Moskowitz",
+      "instructions":[
+        "Melt the chocolate in either a double boiler or the microwave. Set aside.",
+        "Sift in the flour, cocoa powder, baking powder, baking soda, and salt. Mix very well until a stiff dough forms. Fold in the raspberries.",
+        "Spread the mixture into the prepared pan. It will be very thick; you’ll need to use your hands to even the batter out in the pan.",
+        "Bake the brownies for 16 to 18 minutes. Remove them from the oven and let cool completely. These taste especially good and fudgy after being refrigerated for a few hours."
+      ],
+      "isCustom":false,
+      "isFavourite": true,
+      "name":"Raspberry Truffle Brownies",
+      "numberOfServings":5,
+      "photo":"https://www.forksoverknives.com/wp-content/uploads/Raspberry-Brownies-vertical.jpg",
+      "prepareTime":20,
+      "levelOfDifficulty":"easy",
+      "tags":[
+        "Plant based"
+      ]
+    }
+  },
+  {
+    "ingredients": [
+      {
+        "amount": 4,
+        "measure": "pieces",
+        "name": "bananas, cut into 1-inch pieces and frozen"
+      },
+      {
+        "amount": 1,
+        "measure": "cup",
+        "name": "frozen cherries"
+      },
+      {
+        "amount": 1,
+        "measure": "cup",
+        "name": "unsweetened almond milk"
+      },
+      {
+        "amount": 2,
+        "measure": "tbsp",
+        "name": "vegan chocolate chips"
+      }
+    ],
+    "recipe": {
+      "author": "Somer McCowan",
+      "instructions": [
+        "In a food processor, combine the frozen banana pieces, cherries, and vanilla extract.",
+        "Process until creamy, adding almond milk one tablespoon at a time as necessary.",
+        "Pulse in the chocolate chips. Serve immediately."
+      ],
+      "isCustom": false,
+      "isFavourite": true,
+      "name": "Cherry Soft-Serve Ice Cream",
+      "numberOfServings": 5,
+      "photo": "https://www.forksoverknives.com/wp-content/uploads/cherry-garcia-WP.jpg",
+      "prepareTime": 10,
+      "levelOfDifficulty": "easy",
+      "tags": [
+        "Plant based"
+      ]
+    }
+  },
+  {
+    "ingredients": [
+      {
+        "amount": 1,
+        "measure": "cup",
+        "name": "all-purpose flour"
+      },
+      {
+        "amount": 1,
+        "measure": "cup",
+        "name": "sugar "
+      },
+      {
+        "amount": 1,
+        "measure": "tsp",
+        "name": "baking powder"
+      },
+      {
+        "amount": 1,
+        "measure": "large",
+        "name": "egg"
+      },
+      {
+        "amount": 1,
+        "measure": "cup",
+        "name": " vegan butter "
+      }
+    ],
+    "recipe": {
+      "author": "Chelsweets",
+      "instructions": [
+        "Begin by preheating oven to 350°F (175°C), and place cupcake liners in baking pans.",
+        "Sift the flour, sugar, baking powder and salt to a large bowl, and gently combine with a large spoon or whisk.",
+        "In a separate bowl, whisk together the alternative milk, vegetable oil, egg or apple sauce, vanilla extract and alternative yogurt. Mix until the batter comes together.\n",
+        "Fill the cupcake liners about 2/3 way full. Bake for 19 minutes, or until a toothpick comes out with a few moist crumbs."
+      ],
+      "isCustom": false,
+      "isFavourite": true,
+      "name": "Dairy Free Cupcakes",
+      "numberOfServings": 3,
+      "photo": "https://chelsweets.com/wp-content/uploads/2020/02/IMG_9215-2-1365x2048.jpg",
+      "prepareTime": 35,
+      "levelOfDifficulty": "easy",
+      "tags": [
+        "Dairy-free"
+      ]
+    }
+  },
+  {
+    "ingredients": [
+      {
+        "amount": 1,
+        "measure": "cup",
+        "name": " gluten-free rolled oats"
+      },
+      {
+        "amount": 1,
+        "measure": "cup",
+        "name": "raw almonds "
+      },
+      {
+        "amount": 2,
+        "measure": "tbsp",
+        "name": "organic cane sugar or coconut sugar"
+      },
+      {
+        "amount": 0.25,
+        "measure": "cup",
+        "name": " melted coconut oil"
+      },
+      {
+        "amount": 2,
+        "measure": "bananas",
+        "name": " just ripe banana, sliced "
+      }
+    ],
+    "recipe": {
+      "author": "Mary",
+      "instructions": [
+        "Preheat oven to 350 degrees F (176 C) and either line an 8×8-inch baking dish with parchment paper, or grease a standard pie dish. Set aside.",
+        "Add oats, almonds, sea salt (optional), and sugar to a high speed blender and mix/pulse on high until a fine meal is achieved.",
+        "Remove lid and add melted coconut oil (1/4 cup as original recipe is written // adjust if altering batch size), adding more if it’s too dry. Pulse/mix on low until a loose dough is formed, scraping down sides as needed. You should be able to squeeze the mixture between two fingers and form a dough instead of it crumbling. If too dry, add a bit more melted coconut oil.",
+        "Transfer mixture to pie pan or baking dish and spread evenly to distribute. Then place parchment paper on top and use a flat-bottomed object, such as a drinking glass, to press down firmly until it’s evenly distributed and well packed on the bottom and up the sides.",
+        "Bake for 15 minutes, then increase heat to 375 F (190 C) and bake for 5-10 minutes more, or until the edges are golden brown and there is some browning on the surface. Remove from oven and set aside to cool."
+      ],
+      "isCustom": false,
+      "isFavourite": true,
+      "name": "Banana Cream Pie",
+      "numberOfServings": 3,
+      "photo": "https://minimalistbaker.com/wp-content/uploads/2016/04/AMAZING-Banana-Cream-Pie-thats-Vegan-and-Glutenfree-10-ingredients-creamy-SO-delicious-banana-pie-recipe-dessert-minimalistbaker.jpg",
+      "prepareTime": 35,
+      "levelOfDifficulty": "easy",
+      "tags": [
+        "Dairy-free"
+      ]
+    }
+  },
+  {
+    "ingredients": [
+      {
+        "amount": 1,
+        "measure": "tsp",
+        "name": "cane sugar"
+      },
+      {
+        "amount": 0.3,
+        "measure": "cup",
+        "name": "melted coconut oil, plus more for brushing "
+      },
+      {
+        "amount": 3,
+        "measure": "cup",
+        "name": "all-purpose flour, plus more for kneading"
+      },
+      {
+        "amount": 5,
+        "measure": "tsp",
+        "name": "Almond Breeze Almondmilk"
+      },
+      {
+        "amount": 2,
+        "measure": "tsp",
+        "name": " vanilla extract"
+      }
+    ],
+    "recipe": {
+      "author": "John Cane",
+      "instructions": [
+        "In a small bowl, stir together the water, yeast, and sugar. Set aside for 5 minutes, or until the yeast is foamy.",
+        "Make the dough: In a medium bowl, combine the coconut oil, almond milk, sugar, and salt. Stir in the yeast mixture. Place the flour in a large bowl, then add the yeast mixture and stir until combined. The mixture will be sticky. Use your hands to roughly knead the mixture, then turn it out onto a floured surface. Knead 3 to 4 minutes until smooth, sprinkle with more flour if needed, and form into a ball.\n",
+        "Brush a large bowl with coconut oil and place the dough inside. Cover with plastic wrap and set aside in a warm place to rise until doubled in size, about 1 hour.",
+        "Make the filling: In a small bowl, mix the brown sugar and cinnamon.",
+        "Punch down dough and roll out on a floured surface into a 20x14-inch rectangle. Brush with 2 tablespoons melted coconut oil and sprinkle with the cinnamon sugar to within ½ inch of the edges.",
+        "Starting at one of the short 14-inch ends, roll tightly into a log, then slice into 12 rolls. Place the rolls into the baking dish cut-side up, cover, and let rise for 1 hour.",
+        "Preheat the oven to 350°F.",
+        "Make the glaze: In a medium bowl, whisk together the powdered sugar, 3 tablespoons almond milk, and vanilla until smooth. If it’s too thick, add more almond milk.",
+        "Bake the rolls 25 to 30 minutes or until lightly golden on top. Remove and allow to cool for 10 minutes, then drizzle the glaze on top and serve."
+      ],
+      "isCustom": false,
+      "isFavourite": true,
+      "name": "Cinnamon Rolls",
+      "numberOfServings": 12,
+      "photo": "https://cdn.loveandlemons.com/wp-content/uploads/2019/12/cinnamon-rolls.jpg",
+      "prepareTime": 50,
+      "levelOfDifficulty": "easy",
+      "tags": [
+        "Dairy-free"
+      ]
+    }
+  },
+  {
+    "ingredients": [
+      {
+        "amount": 4,
+        "measure": "beet",
+        "name": "beets, scrubbed"
+      },
+      {
+        "amount": 1,
+        "measure": "cup",
+        "name": "almond flour "
+      },
+      {
+        "amount": 4,
+        "measure": "egg",
+        "name": "eggs"
+      },
+      {
+        "amount": 1,
+        "measure": "cup",
+        "name": "light brown sugar"
+      },
+      {
+        "amount": 2,
+        "measure": "tsp",
+        "name": " vanilla extract"
+      }
+    ],
+    "recipe": {
+      "author": "Anna Stockwell",
+      "instructions": [
+        "Cook beets in a medium pot of boiling unsalted water until tender, 30–40 minutes, depending on size. Drain and rinse under cold water until cool enough to handle. Cut off stem end, then peel and cut beets into large pieces. Transfer to a blender and add 2 Tbsp. water. Blend, adding water 1 Tbsp. at a time as needed, until a smooth purée forms—it should be the consistency of applesauce. Measure out 1 cup purée (reserve remaining purée for another use, such as blending into a smoothie).",
+        "Preheat oven to 350°. Line bottom of an 8\" round cake pan with parchment. Grease with oil, then dust with cocoa powder, tapping out excess.",
+        "Whisk almond flour, baking soda, cinnamon, and remaining ½ cup cocoa powder in a medium bowl; set aside.",
+        "Heat chocolate and remaining 2 Tbsp. oil in a medium heatproof bowl set over a saucepan of barely simmering water, stirring often, until melted. Remove bowl from heat. Stir in vinegar, vanilla, and reserved 1 cup beet purée until smooth.",
+        "Beat eggs, brown sugar, and salt in the large bowl of a stand mixer fitted with the whisk attachment on medium-high speed (or use an electric mixer and large bowl) until more than tripled in volume and mixture holds a ribbon for several seconds when beater is lifted above batter, 5–7 minutes. Thoroughly beating the eggs is key to creating an aerated, light crumb and is a critical step when using gluten-free ingredients.",
+        "Pour chocolate-beet mixture into egg mixture and beat on medium-low speed until combined. Turn mixer off and gently tip in reserved dry ingredients. Beat on lowest speed, scraping down bowl as needed, until combined.",
+        "Transfer batter to prepared pan. Bake cake until a tester inserted into the center comes out clean and the top springs back when gently pressed, 45–50 minutes. Let cool 10 minutes. Carefully run a knife around edges of pan, then invert cake onto a wire rack and let cool."
+      ],
+      "isCustom": false,
+      "isFavourite": true,
+      "name": "Heartbeet Chocolate Cake",
+      "numberOfServings": 8,
+      "photo": "https://assets.bonappetit.com/photos/5c589c526c0b212cac36517b/1:1/w_2560%2Cc_limit/healthyish-heartbeet-cake-horizontal.jpg",
+      "prepareTime": 50,
+      "levelOfDifficulty": "medium",
+      "tags": [
+        "c"
+      ]
+    }
+  },
+  {
+    "ingredients": [
+      {
+        "amount": 1,
+        "measure": "cup",
+        "name": "sugar"
+      },
+      {
+        "amount": 3,
+        "measure": "eggs",
+        "name": "large eggs, room temperature "
+      },
+      {
+        "amount": 1,
+        "measure": "can",
+        "name": "sweetened condensed milk"
+      },
+      {
+        "amount": 1,
+        "measure": "can",
+        "name": "unsweetened coconut milk"
+      },
+      {
+        "amount":0.5,
+        "measure": "cup",
+        "name": "toasted unsweetened coconut flakes"
+      }
+    ],
+    "recipe": {
+      "author": "John Carry",
+      "instructions": [
+        "Place a rack in middle of oven and preheat to 325°. Set a 10”-diameter glass pie dish in a roasting pan.",
+        "Bring sugar and ¼ cup water to a boil in medium saucepan, stirring to dissolve sugar, about 3 minutes. Cook, swirling pan occasionally and brushing down sides with a wet pastry brush (do not stir), until sugar turns deep amber, 10–12 minutes. Immediately pour caramel into pie dish and swirl to coat to the bottom. Let sit 10 minutes to allow caramel to set.",
+        "Blend eggs, sweetened condensed milk, coconut milk, evaporated milk, vanilla, and salt in a blender until smooth. Skim off any thick foam that may have risen to the surface. Strain custard through a fine-mesh sieve lined with cheesecloth into pie dish.",
+        "Transfer roasting pan with pie dish to oven and carefully pour hot water into roasting pan to come halfway up sides of dish (if you have one, a tea kettle makes this easy).",
+        "Bake flan until just set in the center but still a little wobbly when gently jiggled and barely pale golden on top, 50–55 minutes. Carefully remove pie dish from roasting pan and transfer to a wire rack. Let cool 15 minutes. Chill until cold, 2–3 hours.",
+        "Just before serving, run a knife along edges of flan, set a plate on top of pie dish, and carefully invert flan onto plate. Top with coconut flakes."
+      ],
+      "isCustom": false,
+      "isFavourite": true,
+      "name": "Coconut Flan",
+      "numberOfServings": 5,
+      "photo": "https://assets.bonappetit.com/photos/5a79eb8666ccf61a523d7eac/1:1/w_2560%2Cc_limit/coconut-flan.jpg",
+      "prepareTime": 40,
+      "levelOfDifficulty": "medium",
+      "tags": [
+        "Gluten-free"
+      ]
+    }
+  },
+  {
+    "ingredients": [
+      {
+        "amount": 1,
+        "measure": "envelope",
+        "name": "unflavored powdered gelatin "
+      },
+      {
+        "amount": 2,
+        "measure": "cup",
+        "name": "whole-milk fresh ricotta"
+      },
+      {
+        "amount": 0.3,
+        "measure": "cup",
+        "name": "powdered sugar"
+      },
+      {
+        "amount": 5,
+        "measure": "tsp",
+        "name": "honey"
+      },
+      {
+        "amount": 2,
+        "measure": "tsp",
+        "name": " vanilla extract"
+      }
+    ],
+    "recipe": {
+      "author": "John Cane",
+      "instructions": [
+        "Pour ¼ cup cold water into a small saucepan and sprinkle gelatin evenly over; let sit 10 minutes to soften.",
+        "Meanwhile, coat a 9\"-diameter pie or cake pan with a thin film of oil; set aside. Combine ricotta, powdered sugar, vanilla, salt, and 1 cup half-and-half in a food processor.",
+        "When gelatin is softened, add remaining ½ cup half-and-half to saucepan and set over low heat. Cook, stirring with a heatproof spatula, until gelatin is completely dissolved (do not let mixture boil). Scrape mixture into food processor and process until completely smooth, about 30 seconds. Pour into prepared pan and chill until set, at least 4 hours (cover loosely with plastic wrap after 1 hour).",
+        "Fill a baking dish or similar vessel with hot water. Lower bottom of mold into water 5 seconds, then lift it back out.",
+        "Press a serving plate firmly over top. Quickly invert in one motion; set plate down. Use knife or spatula to gently lift up mold.",
+        "Top with nectarines; drizzle with honey and oil."
+      ],
+      "isCustom": false,
+      "isFavourite": true,
+      "name": "Ricotta Panna Cotta with Nectarines and Honey",
+      "numberOfServings": 10,
+      "photo": "https://assets.bonappetit.com/photos/5b3b9278a996665847a94335/1:1/w_2560%2Cc_limit/ricotta-panna-cotta-with-nectarines-and-honey.jpg",
+      "prepareTime": 30,
+      "levelOfDifficulty": "medium",
+      "tags": [
+        "Gluten-free"
+      ]
+    }
+  },
+  {
+    "ingredients": [
+      {
+        "amount": 1,
+        "measure": "cup",
+        "name": "whole milk"
+      },
+      {
+        "amount": 2,
+        "measure": "eggs",
+        "name": "large eggs, lightly beaten"
+      },
+      {
+        "amount": 3,
+        "measure": "cup",
+        "name": " all-purpose flour, divided, plus more for dusting work surface"
+      },
+      {
+        "amount": 0.5,
+        "measure": "cup",
+        "name": "granulated sugar"
+      },
+      {
+        "amount": 1,
+        "measure": "tsp",
+        "name": " salt"
+      },
+      {
+        "amount": 1,
+        "measure": "cup",
+        "name": " lemon marmalade"
+      },
+      {
+        "amount": 1,
+        "measure": "drop",
+        "name": " pink liquid food coloring"
+      },
+      {
+        "amount": 0.5,
+        "measure": "tsp",
+        "name": " vanilla extract"
+      }
+    ],
+    "recipe": {
+      "author": "Daniel Agee",
+      "instructions": [
+        "Prepare the Dough: Heat milk gently in a small saucepan to 100°F to 110°F (or microwave milk in a microwave-safe dish for 30 seconds on HIGH). Pour milk into a measuring cup, and stir in yeast and 1/2 teaspoon of the granulated sugar. Let stand until foamy, about 5 minutes.",
+        "Pour milk mixture into the bowl of a heavy-duty electric stand mixer fitted with a whisk attachment. Add melted butter, eggs, salt, and remaining 1/4 cup granulated sugar. Beat on low speed just until combined, about 30 seconds. Add 2 cups of the flour, and beat on low until dough comes together, about 30 seconds. Switch to the dough hook attachment, and add remaining 1 cup flour. Beat on low speed until dough is smooth but still sticky, about 1 minute.\n\n",
+        "Turn dough out onto a lightly floured surface, and knead until elastic and slightly sticky, about 1 minute, adding more flour to surface as necessary. Transfer dough to a bowl coated with cooking spray, and turn to coat dough. Cover with a damp towel or plastic wrap, and let stand in a warm place (about 85°F) until doubled in size, about 1 hour.",
+        "Prepare the Filling: Lightly grease a 13- x 9-inch baking dish. Stir together lemon marmalade, vanilla, and food coloring in a small bowl. Set aside.",
+        "Punch down dough, and turn out onto a lightly floured surface. Roll dough into a 20- x 13-inch rectangle (about 1/8 inch thick). Spread softened butter over dough, leaving a 1/2 –inch border. Spread marmalade mixture over butter; sprinkle evenly with granulated sugar.",
+        "Starting from 1 long side, roll dough up tightly, jelly-roll style. Place roll on work surface, seam side down. Using a sharp knife, cut dough crosswise into 20 rounds. (Rolls will be very soft; remold them as necessary.) Arrange rolls in a single layer in prepared baking dish. Cover with a damp towel or plastic wrap, and let stand in a warm place (about 85°F) until doubled in size, about 30 minutes. (Alternately, let dough rise in refrigerator, 8 to 12 hours, and let dough come to room temperature before baking, about 1 hour.)\n\n",
+        "Preheat oven to 375°F. Remove towel or plastic wrap, and bake rolls in preheated oven until lightly golden and cooked through, 15 to 20 minutes. Let stand about 2 minutes before glazing.",
+        "Prepare the Glaze: Stir together all Glaze ingredients in a medium bowl. Pour over warm rolls, and serve immediately."
+      ],
+      "isCustom": false,
+      "isFavourite": true,
+      "name": "Pink Lemonade Rolls",
+      "numberOfServings": 10,
+      "photo": "https://static.onecms.io/wp-content/uploads/sites/19/2017/04/24/pinklemonaderolls.jpg",
+      "prepareTime": 60,
+      "levelOfDifficulty": "medium",
+      "tags": [
+        "Nut-free"
+      ]
+    }
+  },
+  {
+    "ingredients": [
+      {
+        "amount": 100,
+        "measure": "gram",
+        "name": "almond flour"
+      },
+      {
+        "amount": 50,
+        "measure": "gram",
+        "name": "coconut flour"
+      },
+      {
+        "amount":30,
+        "measure": "gram",
+        "name": "  butter, melted"
+      },
+      {
+        "amount":3,
+        "measure": "blocks",
+        "name": " cream cheese, softened to room temperature"
+      },
+      {
+        "amount": 40,
+        "measure": "gram",
+        "name": "sour cream, at room temperature"
+      },
+      {
+        "amount": 3,
+        "measure": "eggs",
+        "name": "large eggs"
+      }
+    ],
+    "recipe": {
+      "author": "Aaron Kirk",
+      "instructions": [
+        "Preheat oven to 300°. Make the crust: Grease an 8\" or 9\" springform pan, and cover the bottom and edges with foil. In a medium bowl, mix together the flours, coconut, and butter. Press the crust into the bottom and a little up the sides of the prepared pan. Place the pan in the fridge while you make the filling.",
+        "Make the filling: In a large bowl, beat the cream cheese and sour cream together, then beat in the stevia and vanilla. Add the eggs one at a time, mixing after each addition. Spread the filling evenly over the crust. ",
+        "Place cheesecake in a deep roasting pan and set on middle rack of oven. Carefully pour enough boiling water into roasting pan to come halfway up sides of springform pan. Bake for 1 hour to 1 hour 20 minutes, until it only slightly jiggles in the center. Turn oven off, but leave the cake in the oven with the door slightly ajar to cool slowly for an hour.",
+        "Remove pan from water bath and take off foil, then let chill in the fridge for at least five hours or overnight. Slice and garnish with strawberries."
+      ],
+      "isCustom": false,
+      "isFavourite": true,
+      "name": "Copycat Milano Cookies",
+      "numberOfServings": 18,
+      "photo": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTO55QGsoYO5bODBbbdrEc22YUkUSYy4Xysug&usqp=CAU",
+      "prepareTime": 50,
+      "levelOfDifficulty": "medium",
+      "tags": [
+        "Nut-free"
+      ]
+    }
+  },
+  {
+    "ingredients": [
+      {
+        "amount": 1,
+        "measure": "cup",
+        "name": "whole milk"
+      },
+      {
+        "amount": 2,
+        "measure": "eggs",
+        "name": "large eggs, lightly beaten"
+      },
+      {
+        "amount": 3,
+        "measure": "cup",
+        "name": " all-purpose flour, divided, plus more for dusting work surface"
+      },
+      {
+        "amount": 0.5,
+        "measure": "cup",
+        "name": "granulated sugar"
+      },
+      {
+        "amount": 1,
+        "measure": "tsp",
+        "name": " salt"
+      },
+      {
+        "amount": 1,
+        "measure": "cup",
+        "name": " lemon marmalade"
+      },
+      {
+        "amount": 1,
+        "measure": "drop",
+        "name": " pink liquid food coloring"
+      },
+      {
+        "amount": 0.5,
+        "measure": "tsp",
+        "name": " vanilla extract"
+      }
+    ],
+    "recipe": {
+      "author": "Delish",
+      "instructions": [
+        "Prepare the Dough: Heat milk gently in a small saucepan to 100°F to 110°F (or microwave milk in a microwave-safe dish for 30 seconds on HIGH). Pour milk into a measuring cup, and stir in yeast and 1/2 teaspoon of the granulated sugar. Let stand until foamy, about 5 minutes.",
+        "Pour milk mixture into the bowl of a heavy-duty electric stand mixer fitted with a whisk attachment. Add melted butter, eggs, salt, and remaining 1/4 cup granulated sugar. Beat on low speed just until combined, about 30 seconds. Add 2 cups of the flour, and beat on low until dough comes together, about 30 seconds. Switch to the dough hook attachment, and add remaining 1 cup flour. Beat on low speed until dough is smooth but still sticky, about 1 minute.\n\n",
+        "Turn dough out onto a lightly floured surface, and knead until elastic and slightly sticky, about 1 minute, adding more flour to surface as necessary. Transfer dough to a bowl coated with cooking spray, and turn to coat dough. Cover with a damp towel or plastic wrap, and let stand in a warm place (about 85°F) until doubled in size, about 1 hour.",
+        "Prepare the Filling: Lightly grease a 13- x 9-inch baking dish. Stir together lemon marmalade, vanilla, and food coloring in a small bowl. Set aside.",
+        "Punch down dough, and turn out onto a lightly floured surface. Roll dough into a 20- x 13-inch rectangle (about 1/8 inch thick). Spread softened butter over dough, leaving a 1/2 –inch border. Spread marmalade mixture over butter; sprinkle evenly with granulated sugar.",
+        "Starting from 1 long side, roll dough up tightly, jelly-roll style. Place roll on work surface, seam side down. Using a sharp knife, cut dough crosswise into 20 rounds. (Rolls will be very soft; remold them as necessary.) Arrange rolls in a single layer in prepared baking dish. Cover with a damp towel or plastic wrap, and let stand in a warm place (about 85°F) until doubled in size, about 30 minutes. (Alternately, let dough rise in refrigerator, 8 to 12 hours, and let dough come to room temperature before baking, about 1 hour.)\n\n",
+        "Preheat oven to 375°F. Remove towel or plastic wrap, and bake rolls in preheated oven until lightly golden and cooked through, 15 to 20 minutes. Let stand about 2 minutes before glazing.",
+        "Prepare the Glaze: Stir together all Glaze ingredients in a medium bowl. Pour over warm rolls, and serve immediately."
+      ],
+      "isCustom": false,
+      "isFavourite": true,
+      "name": "Keto Sugar-Free Cheesecake",
+      "numberOfServings": 8,
+      "photo": "https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/delish-sugar-free-cheesecake-190-1542820660.jpg?crop=0.564xw:1.00xh;0.341xw,0&resize=768:*",
+      "prepareTime": 15,
+      "levelOfDifficulty": "medium",
+      "tags": [
+        "Keto diet"
+      ]
+    }
+  },
+  {
+    "ingredients": [
+      {
+        "amount": 2,
+        "measure": "",
+        "name": "ripe avocados"
+      },
+      {
+        "amount": 50,
+        "measure": "gram",
+        "name": "heavy cream"
+      },
+      {
+        "amount": 60,
+        "measure": "gram",
+        "name": "keto-approved chocolate chips (we love Lily's), melted"
+      },
+      {
+        "amount": 20,
+        "measure": "gram",
+        "name": "honey or your favorite keto sweetener"
+      },
+      {
+        "amount": 3,
+        "measure": "tsp",
+        "name": "unsweetened cocoa powder"
+      },
+      {
+        "amount": 1,
+        "measure": "tsp",
+        "name": " vanilla"
+      },
+      {
+        "amount": 1,
+        "measure": "tsp",
+        "name": " kosher salt"
+      }
+    ],
+    "recipe": {
+      "author": "Lindsay",
+      "instructions": [
+        "In a food processor or blender, blend all ingredients except chocolate curls until smooth. ",
+        "Transfer to serving glasses and refrigerate 30 minutes and up to 1 hour. Garnish with chocolate curls if using."
+      ],
+      "isCustom": false,
+      "isFavourite": true,
+      "name": "Keto Chocolate Mousse",
+      "numberOfServings": 2,
+      "photo": "https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/delish-chocolate-mousse-paleo-keto-horizontal-1544217515.jpg?crop=0.563xw:1.00xh;0.0969xw,0&resize=768:*",
+      "prepareTime": 20,
+      "levelOfDifficulty": "easy",
+      "tags": [
+        "Keto diet"
+      ]
+    }
+  },
+  {
+    "ingredients": [
+      {
+        "amount": 0.6,
+        "measure": "cup",
+        "name": "almond flour"
+      },
+      {
+        "amount": 1,
+        "measure": "tsp",
+        "name": "baking soda"
+      },
+      {
+        "amount": 50,
+        "measure": "gram",
+        "name": "almond butter"
+      },
+      {
+        "amount": 40,
+        "measure": "gram",
+        "name": "coconut sugar"
+      },
+      {
+        "amount": 3,
+        "measure": "tsp",
+        "name": "honey"
+      },
+      {
+        "amount": 3,
+        "measure": "tsp",
+        "name": " extra-virgin olive oil"
+      },
+      {
+        "amount": 1,
+        "measure": "tsp",
+        "name": "salt"
+      }
+    ],
+    "recipe": {
+      "author": "Makinze Gore",
+      "instructions": [
+        "Preheat oven to 350° and line a 8\"-x-8\" baking pan with parchment paper and grease with cooking spray. In a large bowl, whisk together cocoa powder, almond flour, baking soda, and salt. ",
+        "In a medium bowl, whisk together almond butter, coconut sugar, honey, oil, eggs, and vanilla until smooth. Add dry ingredients and stir until just combined. ",
+        "Pour into prepared pan and bake until a toothpick inserted in the middle comes out clean, 22 minutes.",
+        "Sprinkle with sea salt then let cool slightly before serving."
+      ],
+      "isCustom": false,
+      "isFavourite": true,
+      "name": "Fudgy Paleo Brownies",
+      "numberOfServings": 9,
+      "photo": "https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/delish-paleo-brownies-074-1544135384.jpg?crop=1xw:1xh;center,top&resize=768:*",
+      "prepareTime": 45,
+      "levelOfDifficulty": "easy",
+      "tags": [
+        "Paleo diet"
+      ]
+    }
+  },
+  {
+    "ingredients": [
+      {
+        "amount": 4,
+        "measure": "",
+        "name": "large eggs"
+      },
+      {
+        "amount": 2,
+        "measure": "",
+        "name": "ripe bananas, mashed"
+      },
+      {
+        "amount": 20,
+        "measure": "gram",
+        "name": "almond flour"
+      },
+      {
+        "amount": 30,
+        "measure": "gram",
+        "name": "coconut flour "
+      },
+      {
+        "amount": 0.5,
+        "measure": "tsp",
+        "name": "ground cinnamon (optional)"
+      },
+      {
+        "amount": 1,
+        "measure": "tsp",
+        "name": " vanilla"
+      },
+      {
+        "amount": 4,
+        "measure": "tsp",
+        "name": " Maple syrup"
+      },
+      {
+        "amount": 4,
+        "measure": "",
+        "name": " berries"
+      }
+    ],
+    "recipe": {
+      "author": "Lena Abraham",
+      "instructions": [
+        "In a large bowl, whisk together egg yolks, bananas, almond flour, coconut flour, baking powder, cinnamon, (if using) and salt. In a separate large bowl using a hand or standing mixer, whip egg whites until stiff peaks form, 4 to 5 minutes.",
+        "Gently fold whipped egg whites into batter until evenly combined.",
+        "Grease a large nonstick pan with cooking spray and place over medium-low heat. Pour about 1/4-cup pancake batter onto the pan, spreading it out evenly. Cook until both sides are lightly golden. Serve with butter, maple syrup, and berries."
+      ],
+      "isCustom": false,
+      "isFavourite": true,
+      "name": "Best Paleo Pancakes",
+      "numberOfServings": 2,
+      "photo": "https://www.jessicagavin.com/wp-content/uploads/2018/02/paleo-pancakes-1200.jpg",
+      "prepareTime": 20,
+      "levelOfDifficulty": "easy",
+      "tags": [
+        "Paleo diet"
+      ]
+    }
+  },
+  {
+    "ingredients": [
+      {
+        "amount": 1,
+        "measure": "can",
+        "name": "pear halves"
+      },
+      {
+        "amount": 2,
+        "measure": "cup",
+        "name": "vanilla yogurt"
+      },
+      {
+        "amount": 20,
+        "measure": "gram",
+        "name": "white sugar"
+      },
+      {
+        "amount": 0.5,
+        "measure": "tsp",
+        "name": "ground cinnamon"
+      },
+      {
+        "amount": 1,
+        "measure": "tsp",
+        "name": "ground allspice"
+      }
+    ],
+    "recipe": {
+      "author": "Marianne",
+      "instructions": [
+        "Drain pears, reserving 1/2 cup of juice. Puree pears in food processor or blender.",
+        "Combine pears, reserved juice, yogurt, sugar, cinnamon and allspice in canister of ice cream maker. Freeze according to manufacturers' directions."
+      ],
+      "isCustom": false,
+      "isFavourite": true,
+      "name": "Cinnamon Pear Frozen Yogurt",
+      "numberOfServings": 8,
+      "photo": "https://imagesvc.meredithcorp.io/v3/mm/image?url=https%3A%2F%2Fimages.media-allrecipes.com%2Fuserphotos%2F288111.jpg&w=596&h=596&c=sc&poi=face&q=85",
+      "prepareTime": 40,
+      "levelOfDifficulty": "easy",
+      "tags": [
+        "Low-fat"
+      ]
+    }
+  },
+  {
+    "ingredients": [
+      {
+        "amount": 200 ,
+        "measure": "gram",
+        "name": " ripe strawberries, hulled and halved"
+      },
+      {
+        "amount": 50,
+        "measure": "gram",
+        "name": "sugar"
+      },
+      {
+        "amount": 0.5,
+        "measure": "tsp",
+        "name": "lemon juice (Optional)"
+      },
+      {
+        "amount": 1,
+        "measure": "tsp",
+        "name": "balsamic vinegar (Optional)"
+      },
+      {
+        "amount": 1,
+        "measure": "tsp",
+        "name": "salt "
+      }
+    ],
+    "recipe": {
+      "author": "",
+      "instructions": [
+        "Rinse strawberries with cold water; let drain. Transfer berries to a blender and add sugar, water, lemon juice, balsamic vinegar, and salt.\n\n",
+        "Pulse several times to get the mixture moving, then blend until smooth, about 1 minute. Pour into a large baking dish. Puree should only be about 3/8 inch deep in the dish.",
+        "Place dish uncovered in the freezer until mixture barely begins to freeze around the edges, about 45 minutes. Mixture will still be slushy in the center.\n\n",
+        "Lightly stir the crystals from the edge of the granita mixture into the center, using a fork, and mix thoroughly. Close freezer and chill until granita is nearly frozen, 30 to 40 more minutes. Mix lightly with a fork as before, scraping the crystals loose. Repeat freezing and stirring with the fork 3 to 4 times until the granita is light, crystals are separate, and granita looks dry and fluffy.",
+        "Portion granita into small serving bowls to serve.\n\n"
+      ],
+      "isCustom": false,
+      "isFavourite": true,
+      "name": "Fresh Strawberry Granita",
+      "numberOfServings": 8,
+      "photo": "https://imagesvc.meredithcorp.io/v3/mm/image?url=https%3A%2F%2Fimages.media-allrecipes.com%2Fuserphotos%2F1066524.jpg&w=596&h=596&c=sc&poi=face&q=85",
+      "prepareTime": 10,
+      "levelOfDifficulty": "easy",
+      "tags": [
+        "Low fat"
+      ]
+    }
+  },
+  {
+    "ingredients": [
+      {
+        "amount": 20 ,
+        "measure": "gram",
+        "name": " finely crushed gingersnaps"
+      },
+      {
+        "amount": 20,
+        "measure": "gram",
+        "name": "granulated sugar"
+      },
+      {
+        "amount": 5,
+        "measure": "tsp",
+        "name": "butter, melted"
+      },
+      {
+        "amount": 3,
+        "measure": "tsp",
+        "name": "heavy cream"
+      },
+      {
+        "amount": 2,
+        "measure": "blocks",
+        "name": "cream cheese, softened "
+      },
+      {
+        "amount": 2,
+        "measure": "tsp",
+        "name": "cinnamon"
+      },
+      {
+        "amount": 1,
+        "measure": "can",
+        "name": "pumpkin puree "
+      }
+    ],
+    "recipe": {
+      "author": "Makinze",
+      "instructions": [
+        "In a medium bowl, combine crushed gingersnaps, sugar, and melted butter until mixture resembles wet sand. Pour into a 8” springform pan and pat into an even layer. ",
+        "In a medium bowl, beat heavy cream to stiff peaks. ",
+        "In a large bowl beat cream cheese until light and fluffy. Add pumpkin puree and beat until no lumps remain. Add powdered sugar and beat again until no lumps remain. Add vanilla, cinnamon, nutmeg, and salt and beat until incorporated. Add whipped cream and fold in until just combined. Pour batter over crust and smooth top with an offset spatula. ",
+        "Refrigerate until set, at least 4 hours and up to overnight. ",
+        "Serve with whipped cream and crushed gingersnaps. "
+      ],
+      "isCustom": false,
+      "isFavourite": true,
+      "name": "No-Bake Pumpkin Cheesecake",
+      "numberOfServings": 8,
+      "photo": "https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/delish-191907-pumpkin-cheesecake-0021-landscape-pf-1564774176.png?crop=0.668xw:1.00xh;0.131xw,0&resize=768:*",
+      "prepareTime": 50,
+      "levelOfDifficulty": "easy",
+      "tags": [
+        "No cooking needed"
+      ]
+    }
+  },
+  {
+    "ingredients": [
+      {
+        "amount": 24 ,
+        "measure": "pieces",
+        "name": "whole Golden Oreo cookies, crushed"
+      },
+      {
+        "amount": 6,
+        "measure": "tsp",
+        "name": " melted butter"
+      },
+      {
+        "amount": 0.5,
+        "measure": "cup",
+        "name": "whipped topping"
+      },
+      {
+        "amount": 2,
+        "measure": "blocks",
+        "name": " cream cheese, softened"
+      },
+      {
+        "amount": 30,
+        "measure": "gram",
+        "name": "powdered sugar "
+      }
+
+    ],
+    "recipe": {
+      "author": "David",
+      "instructions": [
+        "In a large bowl, whisk together orange Jell-O and boiling water until Jell-O is completely dissolved. Set aside to cool completely.",
+        "Make crust: In a medium bowl, mix together Oreo crumbs, butter, and salt. Press into the bottom of an 8\" springform pan and up the sides. ",
+        "Make filling: In another large bowl, beat cream cheese and sour cream until smooth, then add powdered sugar, vanilla, and salt. Fold whipped topping into cream cheese mixture, then pour half of mixture into cooled Jell-O. Whisk until smooth. ",
+        "Onto the crust, alternate pouring 1/4 cup dollops of cream cheese and Jell-O mixtures until both mixtures are used up. With a butter knife, gently swirl the layers. Cover and refrigerate for 6 hours, or until firm. \n",
+        "To serve: When firm, pipe dollops of whipped topping around the outside of the cheesecake. Top each dollop with a clementine segment, garnish with orange zest, and serve."
+      ],
+      "isCustom": false,
+      "isFavourite": true,
+      "name": "Creamsicle Cheesecake",
+      "numberOfServings": 8,
+      "photo": "https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/190307-creamsicle-cheesecake-090-1553531258.jpg?crop=1.00xw:0.934xh;0,0&resize=768:*",
+      "prepareTime": 20,
+      "levelOfDifficulty": "easy",
+      "tags": [
+        "No cooking needed"
+      ]
+    }
+  },
+  {
+    "ingredients": [
+      {
+        "amount": 30 ,
+        "measure": "gram",
+        "name": "granulated sugar"
+      },
+      {
+        "amount": 50,
+        "measure": "gram",
+        "name": "packed brown sugar"
+      },
+      {
+        "amount": 50,
+        "measure": "gram",
+        "name": "butter, cut into cubes"
+      },
+      {
+        "amount": 0.3,
+        "measure": "cup",
+        "name": "milk"
+      },
+      {
+        "amount": 4,
+        "measure": "tsp",
+        "name": "smooth peanut butter"
+      }
+    ],
+    "recipe": {
+      "author": "Mary Jane",
+      "instructions": [
+        "Line a large baking sheet with parchment paper. In a medium saucepan over medium heat, combine sugars, butter, and milk. Bring mixture to a boil and boil 1 minute.",
+        "Remove from heat and stir in peanut butter, vanilla, and salt until combined, then stir in oats. ",
+        "Drop tablespoonfuls of mixture onto prepared baking sheet and let set until cooled and hardened, about 30 minutes."
+      ],
+      "isCustom": false,
+      "isFavourite": true,
+      "name": "Peanut Butter No-Bake Cookies",
+      "numberOfServings": 24,
+      "photo": "https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/delish-no-bake-peanut-butter-cookies-vertical-3-1539619868.jpg?crop=1xw:1xh;center,top&resize=768:*",
+      "prepareTime": 10,
+      "levelOfDifficulty": "easy",
+      "tags": [
+        "No cooking needed"
+      ]
+    }
+  },
+  {
+    "ingredients": [
+      {
+        "amount": 100 ,
+        "measure": "gram",
+        "name": "crushed Nilla Wafers"
+      },
+      {
+        "amount": 2,
+        "measure": "blocks",
+        "name": " cream cheese"
+      },
+      {
+        "amount": 2,
+        "measure": "tsp",
+        "name": "sugar"
+      },
+      {
+        "amount": 5,
+        "measure": "tsp",
+        "name": " butter, melted"
+      },
+      {
+        "amount": 100,
+        "measure": "gram",
+        "name": "whipped topping "
+      },
+      {
+        "amount": 1,
+        "measure": "package",
+        "name": " instant banana pudding mix"
+      },
+      {
+        "amount": 100,
+        "measure": "gram",
+        "name": "whole milk"
+      }
+    ],
+    "recipe": {
+      "author": "Lena Abraham",
+      "instructions": [
+        "Line an 8\"-x-8\" pan with parchment paper. Make crust: In a medium bowl, combine crushed Nilla wafers with butter, sugar, and salt. Press in an even layer into the prepared pan. Place in freezer while making filling. ",
+        "Make cheesecake filling: In a large bowl using a hand mixer (or in a stand mixer), beat cream cheese until fluffy and no clumps remain. Add sugar and beat until combined. Fold in whipped topping and set aside. ",
+        "In a medium bowl, whisk together pudding mix and milk. Let pudding stand for 3 minutes in fridge, until thickened. Fold into cheesecake mixture until well combined. ",
+        "Pour filling into prepared crust and smooth into an even layer. Freeze until bars are firm, at least 6 hours and up to overnight. ",
+        "When firm, remove from freezer and slice into 9 bars. Top each bar with a dollop of whipped topping, a slice of banana, and a Nilla Wafer before serving. "
+      ],
+      "isCustom": false,
+      "isFavourite": true,
+      "name": "Banana Pudding Bars",
+      "numberOfServings": 8,
+      "photo": "https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/banana-pudding-bars-horizontal-1536693077.png?crop=1xw:1xh;center,top&resize=768:*",
+      "prepareTime": 10,
+      "levelOfDifficulty": "easy",
+      "tags": [
+        "No cooking needed"
+      ]
+    }
+  },
+  {
+    "ingredients": [
+      {
+        "amount": 6 ,
+        "measure": "",
+        "name": "ice cream sugar cones"
+      },
+      {
+        "amount": 100,
+        "measure": "gram",
+        "name": "brickle toffee bits"
+      },
+      {
+        "amount": 5,
+        "measure": "tsp",
+        "name": "butter, melted"
+      },
+      {
+        "amount": 2,
+        "measure": "cups",
+        "name": " finely chopped peeled fresh peaches (about 2 large), divided"
+      },
+      {
+        "amount": 0.5,
+        "measure": "cup",
+        "name": "sugar"
+      },
+      {
+        "amount": 1,
+        "measure": "tsp",
+        "name": "lemon juice "
+      },
+      {
+        "amount": 1,
+        "measure": "tsp",
+        "name": "cornstarch"
+      },
+      {
+        "amount": 4,
+        "measure": "cups",
+        "name": "vanilla ice cream, softened if necessary"
+      }
+    ],
+    "recipe": {
+      "author": "Mary Jane",
+      "instructions": [
+        "Pulse sugar cones and toffee bits in a food processor until coarsely ground. Drizzle with butter; pulse just until blended. Press onto bottom and up sides of an ungreased 9-in. pie plate. Freeze at least 30 minutes.",
+        "In a small saucepan, mix 1 cup peaches, sugar, lemon juice and cornstarch; cook and stir over medium heat until thickened and bubbly. Reduce heat to low; cook and stir 2 minutes longer. Remove from heat; cool slightly. Stir in remaining peaches; cool completely.",
+        "Reserve 1/2 cup peach mixture for topping; refrigerate, covered. Beat ice cream and remaining peach mixture just until blended. Pour into crust. Freeze, covered, overnight. To serve, top with caramel topping, reserved peach mixture and toffee bits."
+      ],
+      "isCustom": false,
+      "isFavourite": true,
+      "name": "Toffee-Peach Ice Cream Pie",
+      "numberOfServings": 8,
+      "photo": "https://www.tasteofhome.com/wp-content/uploads/2018/01/Toffee-Peach-Ice-Cream-Pie_EXPS_THJJ17_146183_B02_02_10b.jpg?fit=696,1024",
+      "prepareTime": 15,
+      "levelOfDifficulty": "easy",
+      "tags": [
+        "Frozen desserts"
+      ]
+    }
+  },
+  {
+    "ingredients": [
+      {
+        "amount": 2 ,
+        "measure": "cups",
+        "name": "graham cracker crumbs"
+      },
+      {
+        "amount": 0.5,
+        "measure": "cup",
+        "name": "butter, melted"
+      },
+      {
+        "amount": 50,
+        "measure": "gram",
+        "name": "sugar"
+      },
+      {
+        "amount": 1,
+        "measure": "can",
+        "name": "sweetened condensed milk"
+      },
+      {
+        "amount": 0.25,
+        "measure": "cup",
+        "name": "lemon juice"
+      },
+      {
+        "amount": 0.25,
+        "measure": "cup",
+        "name": "orange juice"
+      },
+      {
+        "amount": 0.25,
+        "measure": "cup",
+        "name": "frozen unsweetened sliced peaches"
+      },
+      {
+        "amount": 1,
+        "measure": "tsp",
+        "name": "grated lemon zest"
+      },
+      {
+        "amount": 0.5,
+        "measure": "cup",
+        "name": "heavy whipping cream"
+      }
+    ],
+    "recipe": {
+      "author": "Linda",
+      "instructions": [
+        "In a small bowl, combine the graham cracker crumbs, butter and sugar; press onto the bottom and up the sides of 2 greased 9-in. pie plates. Bake at 350° for 10-12 minutes or until lightly browned. Cool on wire racks.",
+        "In a blender, combine the milk, lemon juice, orange juice, peaches and lemon zest; cover and process until smooth. Transfer to a large bowl. In a large bowl, beat cream until stiff peaks form; fold into peach mixture.",
+        "Spoon into crusts. Cover and freeze for at least 4 hours or until firm. Remove from the freezer 15 minutes before serving. Top with whipped cream if desired."
+      ],
+      "isCustom": false,
+      "isFavourite": true,
+      "name": "Frozen Peach Pies",
+      "numberOfServings": 16,
+      "photo": "https://www.tasteofhome.com/wp-content/uploads/2018/01/Frozen-Peach-Pies_exps37246_UFZ133197D04_23_3bC_RMS.jpg?fit=696,1024",
+      "prepareTime": 30,
+      "levelOfDifficulty": "medium",
+      "tags": [
+        "Frozen desserts"
+      ]
+    }
+  },
+  {
+    "ingredients": [
+      {
+        "amount": 2 ,
+        "measure": "cans",
+        "name": " coconut milk "
+      },
+      {
+        "amount": 50,
+        "measure": "gram",
+        "name": "heavy cream "
+      },
+      {
+        "amount": 100,
+        "measure": "gram",
+        "name": "swerve confectioner's sweetener"
+      },
+      {
+        "amount": 1,
+        "measure": "tsp",
+        "name": "pure vanilla extract "
+      },
+      {
+        "amount": 1,
+        "measure": "tsp",
+        "name": "salt "
+      }
+    ],
+    "recipe": {
+      "author": "Minna Mikki",
+      "instructions": [
+        "Chill coconut milk in the fridge at least 3 hours, ideally overnight. ",
+        "Make whipped coconut: Spoon coconut cream into a large bowl, leaving liquid in can, and use a hand mixer to beat coconut cream until very creamy. Set aside.",
+        "Make whipped cream: In a separate large bowl using a hand mixer (or in a bowl of a stand mixer), beat heavy cream until soft peaks form. Beat in sweetener and vanilla.",
+        "Fold whipped coconut into whipped cream, then transfer mixture into a loaf pan. ",
+        "Freeze until solid, about 5 hours."
+      ],
+      "isCustom": false,
+      "isFavourite": true,
+      "name": "Keto Ice Cream",
+      "numberOfServings": 8,
+      "photo": "https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/delish-keto-ice-cream-vertical-1540570792.jpg?crop=1xw:1xh;center,top&resize=768:*",
+      "prepareTime": 10,
+      "levelOfDifficulty": "easy",
+      "tags": [
+        "Frozen desserts",
+        "Keto diet",
+        "No cooking needed"
+      ]
+    }
+  },
+  {
+    "ingredients": [
+      {
+        "amount": 1 ,
+        "measure": "stick",
+        "name": " melted butter"
+      },
+      {
+        "amount": 1,
+        "measure": "",
+        "name": "large egg"
+      },
+      {
+        "amount": 50,
+        "measure": "drops",
+        "name": " liquid stevia "
+      },
+      {
+        "amount": 100,
+        "measure": "gram",
+        "name": " walnuts"
+      },
+      {
+        "amount": 1,
+        "measure": "cup",
+        "name": "coconut flour "
+      }
+    ],
+    "recipe": {
+      "author": "David Kenley",
+      "instructions": [
+        "Preheat your oven to 300° and line a baking sheet with parchment paper. Combine melted butter, egg, stevia, and vanilla extract in a large bowl and set aside.",
+        "Add walnuts to a food processor and pulse until ground. Pour walnut flour into a medium bowl and add coconut flour and 1/4 cup Swerve and pulse until combined.",
+        "In two parts, add dry mixture to the wet and whisk to combine. At this point the dough should be soft but firm enough to form into balls by hand without it sticking to your palms. If it is not the right consistency add 1 to 2 tablespoons of additional coconut flour and combine.",
+        "Make 15 equal sized balls and arrange on prepared baking sheet. They will not spread in the oven.",
+        "Bake for 30 minutes. ",
+        "Allow to cool for 5 minutes, and then roll the (still warm) balls in the remaining 1/4 cup Swerve. ",
+        "Place them back on the parchment paper and allow to full cool, another 20 to 30 minutes, before eating."
+      ],
+      "isCustom": false,
+      "isFavourite": true,
+      "name": "Walnut Snowball Cookies",
+      "numberOfServings": 15,
+      "photo": "https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/20191125-walnut-snowballs-keto-cookies-delish-ehg-5364-jpg-1575664667.jpg?crop=1.00xw:0.715xh;0,0.152xh&resize=768:*",
+      "prepareTime": 10,
+      "levelOfDifficulty": "easy",
+      "tags": [
+        "Keto diet"
+      ]
+    }
+  },
+  {
+    "ingredients": [
+      {
+        "amount": 2 ,
+        "measure": "sticks",
+        "name": " butter, softened"
+      },
+      {
+        "amount": 400,
+        "measure": "gram",
+        "name": "sugar"
+      },
+      {
+        "amount": 3,
+        "measure": "",
+        "name": "large eggs"
+      },
+      {
+        "amount": 2,
+        "measure": "cup",
+        "name": "all-purpose flour"
+      },
+      {
+        "amount": 1,
+        "measure": "tsp",
+        "name": "fresh lime juice "
+      }
+    ],
+    "recipe": {
+      "author": "Kim Ley",
+      "instructions": [
+        "Preheat oven to 350° and line two muffin tins with 18 cupcake liners. In a large bowl using a hand mixer, beat butter and sugar until light and fluffy. Add eggs, one at a time, beating well after each addition. Add lime juice and zest and vanilla and mix until combined.\n",
+        "In another large bowl, whisk together flour, cornstarch, baking powder, and salt. Add half the dry ingredients to the wet ingredients, beating until just combined. Pour in milk and mix until fully incorporated. Add remaining dry ingredients and stir until just combined. Fill cupcake liners 3/4 full with batter.",
+        "Bake until slightly golden and a toothpick inserted into center of each cupcake comes out clean, about 25 minutes. Let cupcakes cool in pans 5 to 10 minutes, then transfer to a wire rack to cool completely.",
+        "In a large bowl using a hand mixer, beat butter, half of powdered sugar, lime juice, and tequila until light and fluffy. Add remaining powdered sugar and beat until smooth. ",
+        "Pipe frosting onto cooled cupcakes. Garnish with coarse salt, lime zest, and lime wedges and a cut decorative straw before serving."
+      ],
+      "isCustom": false,
+      "isFavourite": true,
+      "name": "Margarita Cupcakes",
+      "numberOfServings": 18,
+      "photo": "https://hips.hearstapps.com/del.h-cdn.co/assets/17/17/640x958/gallery-1493061025-delish-margarita-cupcakes-pin-3.jpg?resize=768:*",
+      "prepareTime": 50,
+      "levelOfDifficulty": "hard",
+      "tags": [
+        "Sweet"
+      ]
+    }
+  },
+  {
+    "ingredients": [
+      {
+        "amount": 5 ,
+        "measure": "pieces",
+        "name": "white chocolate chips, melted"
+      },
+      {
+        "amount": 1,
+        "measure": "tsp",
+        "name": "Pink food coloring"
+      },
+      {
+        "amount": 0.5,
+        "measure": "tsp",
+        "name": "Yellow food coloring"
+      },
+      {
+        "amount": 1,
+        "measure": "tsp",
+        "name": "Purple food coloring"
+      },
+      {
+        "amount": 1,
+        "measure": "pack",
+        "name": " Sprinkles and candy pearls"
+      }
+    ],
+    "recipe": {
+      "author": "Mika Minton",
+      "instructions": [
+        "Divide melted chocolate among four bowls. Add a different color food coloring to each bowl and stir until combined.",
+        "Line a baking sheet with parchment paper and drop spoonfuls of each color chocolate in a collage-like pattern, working out from middle of baking sheet.",
+        "Using an offset spatula, mix colors together to make a swirling pattern (be careful not to overmix) and fill tray.",
+        "Top all over with sprinkles and candy pearls.",
+        "Refrigerate 1 hour, then break bark into pieces before serving."
+      ],
+      "isCustom": false,
+      "isFavourite": true,
+      "name": "Unicorn Bark",
+      "numberOfServings": 8,
+      "photo": "https://hips.hearstapps.com/vidthumb/images/delish-unicorn-bark-1523565997.png",
+      "prepareTime": 15,
+      "levelOfDifficulty": "easy",
+      "tags": [
+        "Sweet"
+      ]
+    }
   }
 ]
