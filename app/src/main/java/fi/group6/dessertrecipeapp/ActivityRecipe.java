@@ -4,10 +4,8 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.annotation.SuppressLint;
-import android.app.Activity;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -26,6 +24,11 @@ import fi.group6.dessertrecipeapp.classes.AppDatabase;
 import fi.group6.dessertrecipeapp.classes.Ingredient;
 import fi.group6.dessertrecipeapp.classes.Recipe;
 
+/**
+ * Recipe activity displays the recipe page which the user has clicked on
+ * @author Tamas
+ * @version 1.4
+ */
 public class ActivityRecipe extends AppCompatActivity {
 
     public static final String CLICKED_ITEM = "indexOfRecipe";
@@ -73,6 +76,42 @@ public class ActivityRecipe extends AppCompatActivity {
         name = findViewById(R.id.name);
         name.setText(db.recipeDao().getRecipeById(indexOfRecipe).name);
 
+        addImage(indexOfRecipe);
+        initFavoritesButton(indexOfRecipe);
+
+        time = findViewById(R.id.timeText);
+        time.setText(db.recipeDao().getRecipeById(indexOfRecipe).prepareTime + " minutes");
+
+        people = findViewById(R.id.peopleText);
+        if(db.recipeDao().getRecipeById(indexOfRecipe).numberOfServings == 1){
+            people.setText(db.recipeDao().getRecipeById(indexOfRecipe).numberOfServings + " person");
+        }else{
+            people.setText(db.recipeDao().getRecipeById(indexOfRecipe).numberOfServings + " people");
+        }
+
+        difficulty = findViewById(R.id.difficultyText2);
+        difficulty.setText(db.recipeDao().getRecipeById(indexOfRecipe).levelOfDifficulty);
+
+        showIngredients(indexOfRecipe);
+        showInstructions(indexOfRecipe);
+
+        author = findViewById(R.id.authorText);
+        author.setText("Author - " + db.recipeDao().getRecipeById(indexOfRecipe).author);
+
+        showTags(indexOfRecipe);
+
+        if(db.recipeDao().getRecipeById(indexOfRecipe).isCustom){
+            buttonsForMyRecipes(indexOfRecipe);
+        }
+    }
+
+    /**
+     * This function adds photo to the recipe
+     * @param indexOfRecipe
+     * Database id of the currently selected recipe
+     */
+    private void addImage(int indexOfRecipe){
+        AppDatabase db = AppDatabase.getDbInstance(this.getApplicationContext());
         String imageUrl = db.recipeDao().getRecipeById(indexOfRecipe).photo;
         photoView = findViewById(R.id.image);
 
@@ -81,6 +120,15 @@ public class ActivityRecipe extends AppCompatActivity {
                 .centerCrop()
                 .transition(DrawableTransitionOptions.withCrossFade(500))
                 .into(photoView);
+    }
+
+    /**
+     * This function adds functionality to the favorites image
+     * @param indexOfRecipe
+     * Database id of the currently selected recipe
+     */
+    private void initFavoritesButton(int indexOfRecipe){
+        AppDatabase db = AppDatabase.getDbInstance(this.getApplicationContext());
 
         isFavorite = false;
         favorites = findViewById(R.id.favorites);
@@ -104,19 +152,15 @@ public class ActivityRecipe extends AppCompatActivity {
                 isFavorite = true;
             }
         });
+    }
 
-        time = findViewById(R.id.timeText);
-        time.setText(db.recipeDao().getRecipeById(indexOfRecipe).prepareTime + " minutes");
-
-        people = findViewById(R.id.peopleText);
-        if(db.recipeDao().getRecipeById(indexOfRecipe).numberOfServings == 1){
-            people.setText(db.recipeDao().getRecipeById(indexOfRecipe).numberOfServings + " person");
-        }else{
-            people.setText(db.recipeDao().getRecipeById(indexOfRecipe).numberOfServings + " people");
-        }
-
-        difficulty = findViewById(R.id.difficultyText2);
-        difficulty.setText(db.recipeDao().getRecipeById(indexOfRecipe).levelOfDifficulty);
+    /**
+     * This function adds the ingredients to the ingredients TextView
+     * @param indexOfRecipe
+     * Database id of the currently selected recipe
+     */
+    private void showIngredients(int indexOfRecipe) {
+        AppDatabase db = AppDatabase.getDbInstance(this.getApplicationContext());
 
         ingredients = findViewById(R.id.ingredientList);
         ingredientCount = db.recipeDao().countIngredients(indexOfRecipe);
@@ -147,6 +191,15 @@ public class ActivityRecipe extends AppCompatActivity {
             ingredients.append(ingredientList.get(i).name);
             ingredients.append("\n");
         }
+    }
+
+    /**
+     * This function adds the ingredients to the ingredients TextView
+     * @param indexOfRecipe
+     * Database id of the currently selected recipe
+     */
+    private void showInstructions(int indexOfRecipe){
+        AppDatabase db = AppDatabase.getDbInstance(this.getApplicationContext());
 
         instructions = findViewById(R.id.instructionList);
         instructionList = db.recipeDao().getRecipeById(indexOfRecipe).instructions;
@@ -157,13 +210,19 @@ public class ActivityRecipe extends AppCompatActivity {
                 instructions.append("\n\n");
             }
         }
+    }
 
-        author = findViewById(R.id.authorText);
-        author.setText("Author - " + db.recipeDao().getRecipeById(indexOfRecipe).author);
+    /**
+     * This function adds the tags to the tags TextView
+     */
+    private void showTags(int indexOfRecipe){
+        AppDatabase db = AppDatabase.getDbInstance(this.getApplicationContext());
 
         tags = findViewById(R.id.tagList);
         tags.append("Tags: ");
         tagList = db.recipeDao().getRecipeById(indexOfRecipe).tags;
+
+        //Add the tags to the recipe page
         tagCount = db.recipeDao().getRecipeById(indexOfRecipe).tags.size();
         for(int i = 0; i < tagCount; i++) {
             tags.append(tagList.get(i));
@@ -171,9 +230,13 @@ public class ActivityRecipe extends AppCompatActivity {
                 tags.append(", ");
             }
         }
-        buttonsForMyRecipes(indexOfRecipe);
     }
 
+    /**
+     * This function is only called when the user has clicked on one of their own recipes
+     * Edit button is added so that the user can edit their recipes
+     * Delete button is added so that the user can delete their recipes
+     */
     private void buttonsForMyRecipes(int indexOfRecipe){
         AppDatabase db = AppDatabase.getDbInstance(this.getApplicationContext());
 
@@ -214,7 +277,10 @@ public class ActivityRecipe extends AppCompatActivity {
 
     }
 
-    //Pressing the back button on the action bar will take the user back to the previous activity
+    /**
+     * This function is called when the user presses the back button
+     * Pressing the back button on the action bar will take the user back to the previous activity
+     */
     @Override
     public boolean onSupportNavigateUp() {
         finish();

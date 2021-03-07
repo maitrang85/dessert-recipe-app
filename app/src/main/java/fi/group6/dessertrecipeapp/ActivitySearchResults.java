@@ -13,8 +13,16 @@ import java.util.List;
 import fi.group6.dessertrecipeapp.classes.AppDatabase;
 import fi.group6.dessertrecipeapp.classes.RecipeWithIngredients;
 
+/**
+ * Search results activity displays recipes which were filtered in the Search activity
+ * @author Tamas
+ * @version 1.2
+ */
 public class ActivitySearchResults extends AppCompatActivity {
 
+    /**
+     * String array intent containing the search results
+     */
     private static final String RESULTS = "SEARCH_RESULTS";
 
     ArrayList<Integer> resultsID = new ArrayList<>();
@@ -40,15 +48,21 @@ public class ActivitySearchResults extends AppCompatActivity {
         initRecyclerView();
     }
 
-    //Pressing the back button on the action bar will take the user back to the previous activity
+    /**
+     * This function is called when the user presses the back button
+     * Pressing the back button on the action bar will take the user back to the previous activity
+     */
     @Override
     public boolean onSupportNavigateUp() {
         finish();
         return true;
     }
 
+    /**
+     * This function is called in onCreate
+     * The method implements the recyclerView for the activity
+     */
     private void initRecyclerView() {
-        Log.d("ZSA", "initRecyclerView: init recyclerView");
         RecyclerView recyclerView = findViewById(R.id.recycler_view);
         AppDatabase db = AppDatabase.getDbInstance(this.getApplicationContext());
         RecyclerViewAdapter adapter = new RecyclerViewAdapter(searchResults, this);

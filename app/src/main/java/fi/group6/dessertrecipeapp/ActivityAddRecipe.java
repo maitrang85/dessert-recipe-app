@@ -10,11 +10,9 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.util.Log;
-import android.view.Menu;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -39,7 +37,6 @@ import fi.group6.dessertrecipeapp.classes.Ingredient;
 import fi.group6.dessertrecipeapp.classes.Recipe;
 import fi.group6.dessertrecipeapp.classes.RecipeWithIngredients;
 
-//TODO - figure out how to work with photos
 
 public class ActivityAddRecipe extends AppCompatActivity implements AdapterView.OnItemSelectedListener, View.OnClickListener {
 
@@ -49,9 +46,9 @@ public class ActivityAddRecipe extends AppCompatActivity implements AdapterView.
 
     // Recipe editing
     private static final String EDIT_RECIPE_ID_KEY = "editRecipeId";
-        //Recipe to be edited
+    //Recipe to be edited
     RecipeWithIngredients editedRecipe = null;
-        //Flag set to true if editedRecipe is determined.
+    //Flag set to true if editedRecipe is determined.
     boolean editing = false;
     // Recipe editing end
 
@@ -106,24 +103,7 @@ public class ActivityAddRecipe extends AppCompatActivity implements AdapterView.
         //Add back button to the action bar
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        ingredientListLayout = findViewById(R.id.ingredient_list);
-        addIngredientButton = findViewById(R.id.addIngredientButton);
-        addPhotoPlaceholder = findViewById(R.id.addPhotoPlaceholder);
-
-        instructionListLayout = findViewById(R.id.instruction_list);
-        addInstructionButton = findViewById(R.id.addInstructionsButton);
-        addRecipeButton = findViewById(R.id.addRecipeButton);
-
-        name = findViewById(R.id.editTextTextPersonName);
-        author = findViewById(R.id.author);
-        portions = findViewById(R.id.portionSize);
-        prepTime = findViewById(R.id.prepTime);
-        ingredient = findViewById(R.id.ingredient);
-
-        addIngredientButton.setOnClickListener(this);
-        addInstructionButton.setOnClickListener(this);
-        addRecipeButton.setOnClickListener(this);
-        addPhotoPlaceholder.setOnClickListener(this);
+        connectWidgets();
 
         //Set the rating spinner to show numbers from 1-5
         Spinner ratingMenu = (Spinner) findViewById(R.id.levelOfDifficultyMenu);
@@ -193,7 +173,41 @@ public class ActivityAddRecipe extends AppCompatActivity implements AdapterView.
             }
         }
         //****** Edit recipe setup end ******//
+        selectTags();
+    }
 
+    /**
+     * This function is called in onCreate
+     * All the widgets are connected to the xml ids
+     * All the onClickListeners are set up
+     */
+    private void connectWidgets(){
+        ingredientListLayout = findViewById(R.id.ingredient_list);
+        addIngredientButton = findViewById(R.id.addIngredientButton);
+        addPhotoPlaceholder = findViewById(R.id.addPhotoPlaceholder);
+
+        instructionListLayout = findViewById(R.id.instruction_list);
+        addInstructionButton = findViewById(R.id.addInstructionsButton);
+        addRecipeButton = findViewById(R.id.addRecipeButton);
+
+        name = findViewById(R.id.editTextTextPersonName);
+        author = findViewById(R.id.author);
+        portions = findViewById(R.id.portionSize);
+        prepTime = findViewById(R.id.prepTime);
+        ingredient = findViewById(R.id.ingredient);
+
+        addIngredientButton.setOnClickListener(this);
+        addInstructionButton.setOnClickListener(this);
+        addRecipeButton.setOnClickListener(this);
+        addPhotoPlaceholder.setOnClickListener(this);
+    }
+
+    /**
+     * This function is called when the user clicks on the tag selector
+     * Upon clicking, the user is taken to a pop-up view where they can select multiple tags
+     * After selecting the tags, those will be saved inside an array
+     */
+    private void selectTags(){
         tagSelectorTv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -215,12 +229,10 @@ public class ActivityAddRecipe extends AppCompatActivity implements AdapterView.
                 builder.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-
                         tagInput = new ArrayList<>();
                         String items = "";
 
                         for(int element = 0; element < tagList.size(); element++){
-
                             items = items + tagList.get(element);
                             tagInput.add(tagList.get(element).toString());
 
@@ -238,43 +250,52 @@ public class ActivityAddRecipe extends AppCompatActivity implements AdapterView.
                         dialog.dismiss();
                     }
                 });
-
                 AlertDialog dialog = builder.create();
                 builder.show();
             }
         });
     }
 
-
-
-    //Pressing the back button on the action bar will take the user back to the previous activity
+    /**
+     * This function is called when the user presses the back button
+     * Pressing the back button on the action bar will take the user back to the previous activity
+     */
     @Override
     public boolean onSupportNavigateUp() {
         finish();
         return true;
     }
 
+    /**
+     * This function is called when the user selects a difficulty rating
+     */
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
         //The difficulty rating will be saved to an integer value when clicked
         String rating = (String) parent.getItemAtPosition(position);
     }
 
+    /**
+     * This function is called when the user does not select a difficulty rating
+     */
     @Override
-    public void onNothingSelected(AdapterView<?> parent) {
+    public void onNothingSelected(AdapterView<?> parent) {    }
 
-    }
-
+    /**
+     * This function is called when user clicks any of the buttons available
+     */
     @Override
     public void onClick(View v) {
-        //Ingredient row is added when the user clicks the "ADD INGREDIENT" button
         switch (v.getId()) {
+            //Ingredient row is added when the user clicks the "ADD INGREDIENT" button
             case R.id.addIngredientButton:
                 addIngredientRow();
                 break;
+            //Instruction row is added when the user clicks the "ADD INSTRUCTION STEP" button
             case R.id.addInstructionsButton:
                 addInstructionRow();
                 break;
+            //Data validation process begins and user recipe is added if the data is validated
             case R.id.addRecipeButton:
                 if (checkDataValidity()){
                     addNewRecipeWithIngredients();
@@ -356,7 +377,6 @@ public class ActivityAddRecipe extends AppCompatActivity implements AdapterView.
      * JPEG format. Finally it returns the String of the Uri.
      * @param context
      * @param inImage
-     * @return
      */
     public Uri getImageUri(Context context, Bitmap inImage) {
         ByteArrayOutputStream bytes = new ByteArrayOutputStream();
@@ -365,18 +385,26 @@ public class ActivityAddRecipe extends AppCompatActivity implements AdapterView.
         return Uri.parse(path);
     }
 
+    /**
+     * This function add a new recipe to the room database
+     */
     private void addNewRecipeWithIngredients() {
+        //Two empty arraLists for the dinamically added TextViews
         instructions = new ArrayList<>();
         ingredients = new ArrayList<>();
 
+        //Get user inputted data from the TextViews
         nameInput = name.getText().toString();
         authorInput = author.getText().toString();
         portionInput = Integer.parseInt(portions.getText().toString());
         prepTimeInput = Integer.parseInt(prepTime.getText().toString());
 
+        //Get user inputted data from difficulty rating spinner
         Spinner ratingMenu = (Spinner) findViewById(R.id.levelOfDifficultyMenu);
         levelOfDifficultyInput = ratingMenu.getSelectedItem().toString();
 
+        //Add elements to the instructions array, the amount depends on how many
+        //instructions the user has filled out
         for(int i = 0; i < instructionListLayout.getChildCount(); i++){
 
             View instructionStepLayout = instructionListLayout.getChildAt(i);
@@ -386,6 +414,8 @@ public class ActivityAddRecipe extends AppCompatActivity implements AdapterView.
             instructions.add(step);
         }
 
+        //Add elements to the ingredients array, the amount depends on how many
+        //ingredients the user has filled out
         for(int i = 0; i < ingredientListLayout.getChildCount(); i++){
 
             View ingredientStepLayout = ingredientListLayout.getChildAt(i);
@@ -401,6 +431,7 @@ public class ActivityAddRecipe extends AppCompatActivity implements AdapterView.
             ingredients.add(new Ingredient(ingredientNameInput, ingredientAmountInput, ingredientMeasureInput));
         }
 
+        //Prepare a recipe to be added to the database
         AppDatabase db = AppDatabase.getDbInstance(this.getApplicationContext());
         myOwnRecipe = new Recipe(nameInput, instructions, tagInput, photoInput,
                 true, false, portionInput, prepTimeInput, authorInput, levelOfDifficultyInput);
@@ -573,7 +604,6 @@ public class ActivityAddRecipe extends AppCompatActivity implements AdapterView.
     }
 
     private void addIngredientRow() {
-
         //Inflate the ingredients row by one
         View ingredientRow = getLayoutInflater().inflate(R.layout.add_ingredient_row, null, false);
 
@@ -594,7 +624,6 @@ public class ActivityAddRecipe extends AppCompatActivity implements AdapterView.
     }
 
     private void addInstructionRow() {
-
         //Inflate the instructions row by one
         View instructionRow = getLayoutInflater().inflate(R.layout.add_instruction_row, null, false);
 
