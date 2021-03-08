@@ -195,6 +195,9 @@ public class ActivityMyRecipes extends AppCompatActivity {
         editor.apply();
     }
 
+    /**
+     * Restrict backtracking ( user shouldn't be available to see deleted recipe )
+     */
     @Override
     public void onBackPressed() {
         return;

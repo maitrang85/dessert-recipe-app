@@ -142,6 +142,13 @@ public class ActivityAddRecipe extends AppCompatActivity implements AdapterView.
 
         if( editRecipeId != -1 ) { // It will be -1 only in case if there is no recipe ID received -> user is creating a new recipe.
             editedRecipe = db.recipeDao().getRecipeWithIngredientsByRecipeId(editRecipeId);
+
+            //In case haven't received a recipe - this recipe got deleted and user shouldn't be able to see it,
+            //so this activity is redundant to build any further
+            if(editedRecipe == null) {
+                return;
+            }
+
             editing = true;
         }
         //****** Edit recipe variables end ******//

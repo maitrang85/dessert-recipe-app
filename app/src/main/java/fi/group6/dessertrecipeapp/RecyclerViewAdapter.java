@@ -62,7 +62,6 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         holder.recipeName.setText(recipeWithIngredients.get(position).recipe.name);
 
         holder.parentLayout.setOnClickListener((view) -> {
-            Log.d(TAG, "onClick: clicked on: " + recipeWithIngredients.get(position).recipe.name);
             Intent intent = new Intent(mContext, ActivityRecipe.class);
             intent.putExtra(CLICKED_ITEM, recipeWithIngredients.get(position).recipe.recipeId);
             mContext.startActivity(intent);

@@ -36,7 +36,7 @@ public class ActivitySearch extends AppCompatActivity {
 
     private static final String SEARCH_TAG = "SEARCH";
     private static final String RESULTS = "SEARCH_RESULTS";
-    private static final boolean DEBUG_PRINTS = true;
+    private static final boolean DEBUG_PRINTS = false;
 
     //Variables for the tag selector
     TextView tagSelectorTv;
@@ -128,7 +128,7 @@ public class ActivitySearch extends AppCompatActivity {
                             }
                         }
                         difficultySelectorTv.setText(items2);
-                        Log.d("Tags selected", difficultyInput.toString());
+                        if (DEBUG_PRINTS) Log.d("Tags selected", difficultyInput.toString());
                     }
                 });
 
@@ -192,7 +192,7 @@ public class ActivitySearch extends AppCompatActivity {
                             }
                         }
                         tagSelectorTv.setText(items);
-                        Log.d("Tags selected", tagInput.toString());
+                        if (DEBUG_PRINTS) Log.d("Tags selected", tagInput.toString());
                     }
                 });
 
@@ -299,7 +299,7 @@ public class ActivitySearch extends AppCompatActivity {
                 }
 
                 //For Testing:
-                if(DEBUG_PRINTS) {
+                if (DEBUG_PRINTS) {
                     Log.d(SEARCH_TAG, "onlyExact=" + Boolean.toString(onlyExact));
                     Log.d(SEARCH_TAG, "Size: " + Integer.toString(filteringTags.size()) + " Tags to search for: " + filteringTags.toString());
                     Log.d(SEARCH_TAG, "Size: " + Integer.toString(filteringDifficulty.size()) + " Difficulties to search for: " + filteringDifficulty.toString());

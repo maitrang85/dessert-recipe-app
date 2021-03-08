@@ -27,7 +27,7 @@ import fi.group6.dessertrecipeapp.classes.Recipe;
 /**
  * Recipe activity displays the recipe page which the user has clicked on
  * @author Tamas
- * @version 1.4
+ * @version 1.5
  */
 public class ActivityRecipe extends AppCompatActivity {
 
@@ -70,9 +70,16 @@ public class ActivityRecipe extends AppCompatActivity {
 
         //Recall the intent and recall the index of the recipe
         Bundle b = getIntent().getExtras();
+        if (b == null) return; //if b is null - something went terribly wrong
+
         int indexOfRecipe = b.getInt(CLICKED_ITEM);
         AppDatabase db = AppDatabase.getDbInstance(this.getApplicationContext());
 
+        //In case haven't received a recipe - this recipe got deleted and user shouldn't be able to see it,
+        //so this activity is redundant to build any further
+        if(db.recipeDao().getRecipeById(indexOfRecipe) == null) {
+            return;
+        }
         name = findViewById(R.id.name);
         name.setText(db.recipeDao().getRecipeById(indexOfRecipe).name);
 
@@ -171,7 +178,6 @@ public class ActivityRecipe extends AppCompatActivity {
             if(ingredientAmountList.get(i).endsWith(".0")){
                 String newAmount = ingredientAmountList.get(i);
                 newAmount = newAmount.replace(".0", "");
-                Log.d("NEW AMOUNT", newAmount);
                 newAmountList.add(newAmount);
             }
         }
