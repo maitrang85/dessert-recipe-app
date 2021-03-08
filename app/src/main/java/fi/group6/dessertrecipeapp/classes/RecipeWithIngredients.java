@@ -1,12 +1,11 @@
 package fi.group6.dessertrecipeapp.classes;
-/**
- * This class models the one-to-many relationship between Recipe entity(one) and (to many) Ingredients entity
- */
 import java.util.List;
 
 import androidx.room.Embedded;
 import androidx.room.Relation;
-
+/**
+ * This class models the one-to-many relationship between Recipe entity(one) and (to many) Ingredients entity
+ */
 public class RecipeWithIngredients {
 
     /**

@@ -36,7 +36,7 @@
         "Bake until well browned, about 45 minutes. Remove ramekins with tongs and place on baking sheet to cool 5 to 10 minutes. Remove apple roses from ramekins and finish cooling on rack. Dust with confectioners' sugar before serving."
       ],
       "isCustom":false,
-      "isFavourite": true,
+      "isFavourite": false,
       "name":"Baked Apple Roses",
       "numberOfServings":8,
       "photo":"https://imagesvc.meredithcorp.io/v3/mm/image?url=https%3A%2F%2Fimages.media-allrecipes.com%2Fuserphotos%2F2667683.jpg&w=1200&h=678&c=sc&poi=face&q=85",
@@ -94,7 +94,7 @@
         "Bake at 350 degrees F (175 degrees C) for 12 to 15 minutes. Chill for an hour."
       ],
       "isCustom":false,
-      "isFavourite": true,
+      "isFavourite": false,
       "name":"Banana Cream Pie",
       "numberOfServings":8,
       "photo":"https://imagesvc.meredithcorp.io/v3/mm/image?url=https%3A%2F%2Fimages.media-allrecipes.com%2Fuserphotos%2F1719014.jpg&w=596&h=399&c=sc&poi=face&q=85",
@@ -907,7 +907,7 @@
         "Sprinkle with sea salt then let cool slightly before serving."
       ],
       "isCustom": false,
-      "isFavourite": true,
+      "isFavourite": false,
       "name": "Fudgy Paleo Brownies",
       "numberOfServings": 9,
       "photo": "https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/delish-paleo-brownies-074-1544135384.jpg?crop=1xw:1xh;center,top&resize=768:*",
@@ -969,7 +969,7 @@
         "Grease a large nonstick pan with cooking spray and place over medium-low heat. Pour about 1/4-cup pancake batter onto the pan, spreading it out evenly. Cook until both sides are lightly golden. Serve with butter, maple syrup, and berries."
       ],
       "isCustom": false,
-      "isFavourite": true,
+      "isFavourite": false,
       "name": "Best Paleo Pancakes",
       "numberOfServings": 2,
       "photo": "https://www.jessicagavin.com/wp-content/uploads/2018/02/paleo-pancakes-1200.jpg",
@@ -1015,7 +1015,7 @@
         "Combine pears, reserved juice, yogurt, sugar, cinnamon and allspice in canister of ice cream maker. Freeze according to manufacturers' directions."
       ],
       "isCustom": false,
-      "isFavourite": true,
+      "isFavourite": false,
       "name": "Cinnamon Pear Frozen Yogurt",
       "numberOfServings": 8,
       "photo": "https://imagesvc.meredithcorp.io/v3/mm/image?url=https%3A%2F%2Fimages.media-allrecipes.com%2Fuserphotos%2F288111.jpg&w=596&h=596&c=sc&poi=face&q=85",

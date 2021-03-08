@@ -1,27 +1,15 @@
 package fi.group6.dessertrecipeapp.classes;
 
-import android.util.Log;
-
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
-import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
 
-import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
-
 /**
  * Models a dessert recipe
  * @author Trang
- * Refactored by Daniil
- * @version 1.2
+ * @version 1.3
  */
-import androidx.room.ColumnInfo;
-import androidx.room.Entity;
-import androidx.room.PrimaryKey;
-
 @Entity
 public class Recipe {
 

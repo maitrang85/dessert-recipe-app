@@ -74,7 +74,6 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         //When user click on View holder, it will start a new activity: Activity Recipe which shows
         // a new screen with a full desciption of the recipe
         holder.parentLayout.setOnClickListener((view) -> {
-            Log.d(TAG, "onClick: clicked on: " + recipeWithIngredients.get(position).recipe.name);
             Intent intent = new Intent(mContext, ActivityRecipe.class);
             intent.putExtra(CLICKED_ITEM, recipeWithIngredients.get(position).recipe.recipeId);
             mContext.startActivity(intent);
