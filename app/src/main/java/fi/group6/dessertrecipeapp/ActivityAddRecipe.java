@@ -37,7 +37,11 @@ import fi.group6.dessertrecipeapp.classes.Ingredient;
 import fi.group6.dessertrecipeapp.classes.Recipe;
 import fi.group6.dessertrecipeapp.classes.RecipeWithIngredients;
 
-
+/**
+ * Add recipe activity displays an ui for creating a recipe.
+ * It has two functions: recipe creation and recipe modification,
+ * which is determined by the extra data from intent, that it receives.
+ */
 public class ActivityAddRecipe extends AppCompatActivity implements AdapterView.OnItemSelectedListener, View.OnClickListener {
 
     private static final String ACTIVITY_ADD_RECIPE = "ACTIVITY_ADD_RECIPE";
@@ -127,23 +131,19 @@ public class ActivityAddRecipe extends AppCompatActivity implements AdapterView.
         * RECIPE EDITING
         */
         //****** Edit recipe variables ******//
+        // If we received an intent -> get extra data, which is the recipe ID of a recipe, that was displayed on a recipe page
         Bundle b = getIntent().getExtras();
-        int editRecipeId = -1;
+        int editRecipeId = -1; //is -1 in order to check if it is incorrect
         editing = false;
         if( b != null ) editRecipeId = b.getInt(EDIT_RECIPE_ID_KEY, -1);
 
-        if( editRecipeId != -1 ) {
+        if( editRecipeId != -1 ) { // It will be -1 only in case if there is no recipe ID received -> user is creating a new recipe.
             editedRecipe = db.recipeDao().getRecipeWithIngredientsByRecipeId(editRecipeId);
             editing = true;
         }
-
-        if (editing) Log.d(ACTIVITY_ADD_RECIPE, "Received:\n" + editedRecipe.recipe.toString()); //debug
-        else Log.d(ACTIVITY_ADD_RECIPE, "Not editing any recipe."); //debug
-
         //****** Edit recipe variables end ******//
         //****** Edit recipe setup ******//
         if (editing) {
-
             //Renaming some adding stuff
             getSupportActionBar().setTitle("Modify recipe");
             addRecipeButton.setText(R.string.modify_recipe_caps);
@@ -158,11 +158,10 @@ public class ActivityAddRecipe extends AppCompatActivity implements AdapterView.
                         if (tag.equals(tagArray[i])) { //4. Check on which place this tag is found
                             selectedTag[i] = true; //5. Select that tag
                             tagList.add(tag);
-
                         }
                     }
                 }
-                //Fill tagInput here, because user can omit using the ui.
+                //Fill tagInput here, because user can omit using the tag selector.
                 tagInput = new ArrayList<>();
                 String items = "";
 
@@ -182,6 +181,7 @@ public class ActivityAddRecipe extends AppCompatActivity implements AdapterView.
         /*
         * RECIPE EDITING END
         */
+
         selectTags();
     }
 
@@ -505,6 +505,11 @@ public class ActivityAddRecipe extends AppCompatActivity implements AdapterView.
         }
     }
 
+    /**
+     * Checks if data received from fields matches the requirements of the recipe to be complete.
+     * @return
+     * true - data given is correct, false - data is flawed, throws a reason why
+     */
     private boolean checkDataValidity() {
 
         if(name.getText().toString().trim().length() < 3){
@@ -579,6 +584,9 @@ public class ActivityAddRecipe extends AppCompatActivity implements AdapterView.
         return true;
     }
 
+    /**
+     * Adds an ingredient row to the ui with empty fields to fill
+     */
     private void addIngredientRow() {
         //Inflate the ingredients row by one
         View ingredientRow = getLayoutInflater().inflate(R.layout.add_ingredient_row, null, false);
@@ -599,6 +607,9 @@ public class ActivityAddRecipe extends AppCompatActivity implements AdapterView.
         ingredientListLayout.addView(ingredientRow);
     }
 
+    /**
+     * Adds an instructions row to the ui with an empty field to fill.
+     */
     private void addInstructionRow() {
         //Inflate the instructions row by one
         View instructionRow = getLayoutInflater().inflate(R.layout.add_instruction_row, null, false);
@@ -617,11 +628,21 @@ public class ActivityAddRecipe extends AppCompatActivity implements AdapterView.
         instructionListLayout.addView(instructionRow);
     }
 
+    /**
+     * Removes ingredient row from the ui
+     * @param view
+     * Ingredient row to delete
+     */
     private void removeIngredientRow(View view) {
         //When the user clicks the delete button, the ingredient row will be deleted
         ingredientListLayout.removeView(view);
     }
 
+    /**
+     * Removes instructions row from the ui
+     * @param view
+     * Instructions row to delete
+     */
     private void removeInstructionRow(View view) {
         //When the user clicks the delete button, the ingredient row will be deleted
         instructionListLayout.removeView(view);
