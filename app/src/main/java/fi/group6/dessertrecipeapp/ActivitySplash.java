@@ -12,6 +12,8 @@ import android.os.Handler;
  * This activity is the loading screen for the app
  * @author Tamas
  * @version 1.1
+ * REFERENCES
+ * https://www.youtube.com/watch?v=WyAzD7RMwHM&ab_channel=EasyTuto
  */
 public class ActivitySplash extends AppCompatActivity {
 

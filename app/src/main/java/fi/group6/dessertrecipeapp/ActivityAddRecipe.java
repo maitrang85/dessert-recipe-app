@@ -41,6 +41,8 @@ import fi.group6.dessertrecipeapp.classes.RecipeWithIngredients;
  * Add recipe activity displays an ui for creating a recipe.
  * It has two functions: recipe creation and recipe modification,
  * which is determined by the extra data from intent, that it receives.
+ * @author Tamas and Daniil
+ * @version 1.2
  */
 public class ActivityAddRecipe extends AppCompatActivity implements AdapterView.OnItemSelectedListener, View.OnClickListener {
 
@@ -92,6 +94,7 @@ public class ActivityAddRecipe extends AppCompatActivity implements AdapterView.
     List<Ingredient> ingredients = new ArrayList<>();
     Recipe myOwnRecipe = new Recipe();
 
+    //Arrays and lists for the tag selector
     String[] tagArray = {"Dairy-free", "Gluten-free", "Nut-free", "Keto diet", "Paleo diet", "Vegetarian",
             "Low-calorie", "Low-fat", "Low-carb", "Plant based", "Sweet", "No cooking needed", "Frozen dessert"};
     ArrayList<String> tagList = new ArrayList<>();
@@ -215,6 +218,8 @@ public class ActivityAddRecipe extends AppCompatActivity implements AdapterView.
      * This function is called when the user clicks on the tag selector
      * Upon clicking, the user is taken to a pop-up view where they can select multiple tags
      * After selecting the tags, those will be saved inside an array
+     * REFERENCES
+     * https://www.youtube.com/watch?v=XrDVu3uPY3o&ab_channel=AndroidCoding
      */
     private void selectTags(){
         tagSelectorTv.setOnClickListener(new View.OnClickListener() {
@@ -509,9 +514,12 @@ public class ActivityAddRecipe extends AppCompatActivity implements AdapterView.
      * Checks if data received from fields matches the requirements of the recipe to be complete.
      * @return
      * true - data given is correct, false - data is flawed, throws a reason why
+     * REFERENCES
+     * https://www.youtube.com/watch?v=DETCfQ_EOXo&t=669s&ab_channel=DroidGuru
      */
     private boolean checkDataValidity() {
 
+        //Validating name input, checking name length
         if(name.getText().toString().trim().length() < 3){
             Toast.makeText(ActivityAddRecipe.this,
                     "Please enter a recipe name, minimum 3 letters needed", Toast.LENGTH_SHORT).show();
@@ -519,12 +527,14 @@ public class ActivityAddRecipe extends AppCompatActivity implements AdapterView.
             return false;
         }
 
+        //Validating ingredient input, checking whether at least one ingredient was added
         if(ingredientListLayout.getChildCount() == 0){
             Toast.makeText(ActivityAddRecipe.this,
                     "Please add at least one ingredient", Toast.LENGTH_SHORT).show();
             return false;
         }
 
+        //Validating instruction input, checking if the field is empty
         for(int i = 0; i < ingredientListLayout.getChildCount(); i++){
             View ingredientStepLayout = ingredientListLayout.getChildAt(i);
 
@@ -540,6 +550,7 @@ public class ActivityAddRecipe extends AppCompatActivity implements AdapterView.
             }
         }
 
+        //Validating portions input, checking if the field is empty
         if(portions.getText().toString().trim().length() == 0 || portions.getText().toString().equals("00") ||
                 portions.getText().toString().equals("000") || portions.getText().toString().equals("0") ){
             Toast.makeText(ActivityAddRecipe.this,
@@ -556,12 +567,14 @@ public class ActivityAddRecipe extends AppCompatActivity implements AdapterView.
             return false;
         }
 
+        //Validating prepTime input, checking if the field is empty
         if(instructionListLayout.getChildCount() == 0){
             Toast.makeText(ActivityAddRecipe.this,
                     "Please add at least one instruction step", Toast.LENGTH_SHORT).show();
             return false;
         }
 
+        //Validating instruction input, checking whether at least one ingredient was added
         for(int i = 0; i < instructionListLayout.getChildCount(); i++){
 
             View instructionStepLayout = instructionListLayout.getChildAt(i);
@@ -574,6 +587,7 @@ public class ActivityAddRecipe extends AppCompatActivity implements AdapterView.
             }
         }
 
+        //Validating instruction input, checking if the field is empty
         if(author.getText().toString().trim().length() == 0){
             Toast.makeText(ActivityAddRecipe.this,
                     "Please enter an author name", Toast.LENGTH_SHORT).show();
@@ -586,6 +600,8 @@ public class ActivityAddRecipe extends AppCompatActivity implements AdapterView.
 
     /**
      * Adds an ingredient row to the ui with empty fields to fill
+     * REFERENCES
+     * https://www.youtube.com/watch?v=EJrmgJT2NnI&ab_channel=DroidGuru
      */
     private void addIngredientRow() {
         //Inflate the ingredients row by one
@@ -609,6 +625,8 @@ public class ActivityAddRecipe extends AppCompatActivity implements AdapterView.
 
     /**
      * Adds an instructions row to the ui with an empty field to fill.
+     * REFERENCES
+     * https://www.youtube.com/watch?v=EJrmgJT2NnI&ab_channel=DroidGuru
      */
     private void addInstructionRow() {
         //Inflate the instructions row by one

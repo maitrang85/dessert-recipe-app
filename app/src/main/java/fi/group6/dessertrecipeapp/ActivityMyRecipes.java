@@ -121,6 +121,9 @@ public class ActivityMyRecipes extends AppCompatActivity {
     /**
      * This function is called in onCreate
      * The method implements the bottom navigation view for the activity
+     * https://material.io/components/bottom-navigation/android#using-bottom-navigation
+     * https://www.youtube.com/watch?v=xyGrdOqseuw&ab_channel=CodingWithMitch
+     * https://www.youtube.com/watch?v=JjfSjMs0ImQ&t=526s&ab_channel=AndroidCoding
      */
     private void initBottomNav() {
         //Set up the bottom navigation bar
@@ -190,5 +193,10 @@ public class ActivityMyRecipes extends AppCompatActivity {
         editor.clear();
         editor.putString(THEME_KEY, theme);
         editor.apply();
+    }
+
+    @Override
+    public void onBackPressed() {
+        return;
     }
 }

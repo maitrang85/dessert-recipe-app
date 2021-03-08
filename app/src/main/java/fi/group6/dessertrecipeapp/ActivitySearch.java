@@ -26,6 +26,12 @@ import java.util.List;
 import fi.group6.dessertrecipeapp.classes.AppDatabase;
 import fi.group6.dessertrecipeapp.classes.RecipeWithIngredients;
 
+/**
+ * Search activity lets the user search for recipes based on different filters
+ * @author Daniil
+ * Extra people filter added by Tamas
+ * @version 1.2
+ */
 public class ActivitySearch extends AppCompatActivity {
 
     private static final String SEARCH_TAG = "SEARCH";
@@ -79,6 +85,8 @@ public class ActivitySearch extends AppCompatActivity {
      * This function is called when the user clicks on the tag selector
      * Upon clicking, the user is taken to a pop-up view where they can select multiple difficulty ratings
      * After selecting the ratings, those will be saved inside an array
+     * REFERENCES
+     * https://www.youtube.com/watch?v=XrDVu3uPY3o&ab_channel=AndroidCoding
      */
     private void difficultySelector() {
         //CODE FOR THE DIFFICULTY SELECTOR
@@ -141,6 +149,8 @@ public class ActivitySearch extends AppCompatActivity {
      * This function is called when the user clicks on the tag selector
      * Upon clicking, the user is taken to a pop-up view where they can select multiple tags
      * After selecting the tags, those will be saved inside an array
+     * REFERENCES
+     * https://www.youtube.com/watch?v=XrDVu3uPY3o&ab_channel=AndroidCoding
      */
     public void tagSelector(){
         //CODE FOR THE TAG SELECTOR
@@ -322,6 +332,10 @@ public class ActivitySearch extends AppCompatActivity {
     /**
      * This function is called in onCreate
      * The method implements the bottom navigation view for the activity
+     * REFERENCES
+     * https://material.io/components/bottom-navigation/android#using-bottom-navigation
+     * https://www.youtube.com/watch?v=xyGrdOqseuw&ab_channel=CodingWithMitch
+     * https://www.youtube.com/watch?v=JjfSjMs0ImQ&t=526s&ab_channel=AndroidCoding
      */
     private void initNavigationBar() {
         //Set up the bottom navigation bar
