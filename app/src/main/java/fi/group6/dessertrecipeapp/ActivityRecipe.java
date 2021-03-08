@@ -223,11 +223,13 @@ public class ActivityRecipe extends AppCompatActivity {
         tagList = db.recipeDao().getRecipeById(indexOfRecipe).tags;
 
         //Add the tags to the recipe page
-        tagCount = db.recipeDao().getRecipeById(indexOfRecipe).tags.size();
-        for(int i = 0; i < tagCount; i++) {
-            tags.append(tagList.get(i));
-            if(i != tagCount - 1){
-                tags.append(", ");
+        if (tagList != null) {
+            tagCount = db.recipeDao().getRecipeById(indexOfRecipe).tags.size();
+            for (int i = 0; i < tagCount; i++) {
+                tags.append(tagList.get(i));
+                if (i != tagCount - 1) {
+                    tags.append(", ");
+                }
             }
         }
     }
