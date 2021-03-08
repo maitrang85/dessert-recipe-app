@@ -9,6 +9,10 @@ import androidx.room.Relation;
 
 public class RecipeWithIngredients {
 
+    /**
+     * To model the relationship between recipe and its ingredients
+     * Recipe is connected to each ingredient by recipeId
+     */
     @Embedded
     public Recipe recipe;
     @Relation(
@@ -16,8 +20,16 @@ public class RecipeWithIngredients {
             entityColumn = "recipeId"
     )
 
+    /**
+     * List of all ingredients
+     */
     public List<Ingredient> ingredients;
 
+    /**
+     * Constructor RecipeWithIngredients with parameters
+     * @param recipe the recipe
+     * @param ingredients list of ingredients belong to it
+     */
     public RecipeWithIngredients(Recipe recipe, List<Ingredient> ingredients) {
         this.recipe = recipe;
         this.ingredients = ingredients;

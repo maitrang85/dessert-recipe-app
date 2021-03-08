@@ -6,37 +6,41 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
-
 import com.bumptech.glide.Glide;
-
-import org.w3c.dom.Text;
-
 import java.util.ArrayList;
 import java.util.List;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
-//import de.hdodenhof.circleimageview.CircleImageView;
 import de.hdodenhof.circleimageview.CircleImageView;
-import fi.group6.dessertrecipeapp.classes.AppDatabase;
 import fi.group6.dessertrecipeapp.classes.RecipeWithIngredients;
 
 public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapter.ViewHolder> {
-    // log t for debug
     private static final String TAG = "RecyclerViewAdapter";
     private static final String CLICKED_ITEM = "indexOfRecipe";
 
     private List<RecipeWithIngredients> recipeWithIngredients = new ArrayList<>();
     private Context mContext;
 
+    /**
+     * Constructor RecyclerViewAdapter with parameters
+     * @param recipeWithIngredients
+     * @param Context
+     */
     public RecyclerViewAdapter(List<RecipeWithIngredients> recipeWithIngredients, Context Context) {
         this.recipeWithIngredients = recipeWithIngredients;
         mContext = Context;
     }
+
+    /**
+     * This method is called whenever a new ViewHolder is created. It initializes the View holder and connects it
+     * with View
+     * @param parent
+     * @param viewType
+     * @return view holder
+     */
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -44,6 +48,17 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         ViewHolder holder = new ViewHolder(view);
         return holder;
     }
+
+    /**
+     * This method is called to connect a ViewHolder with data. It gets appropriate data and fills data
+     * to view holder's layout
+     * Get image as bitmap from url source and then put it into image view widget
+     * Get recipe name
+     * setOnClicklistener : when user clicks on view holder, it starts a new activity, Recipe
+     * activity and shows a new screen with whole description of recipe
+     * @param holder
+     * @param position
+     */
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         Log.d(TAG, "onBindViewholder called: " + recipeWithIngredients.get(position).recipe.photo);
@@ -54,13 +69,10 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
                 .load(recipeWithIngredients.get(position).recipe.photo)
                 .placeholder(R.drawable.ic_baseline_my_recipes_24)
                 .into(holder.image);
-
-//        Glide.with(mContext).load("http://goo.gl/gEgYUd").into(holder.image);
-
-
         //get recipe name
         holder.recipeName.setText(recipeWithIngredients.get(position).recipe.name);
-
+        //When user click on View holder, it will start a new activity: Activity Recipe which shows
+        // a new screen with a full desciption of the recipe
         holder.parentLayout.setOnClickListener((view) -> {
             Log.d(TAG, "onClick: clicked on: " + recipeWithIngredients.get(position).recipe.name);
             Intent intent = new Intent(mContext, ActivityRecipe.class);
@@ -69,16 +81,27 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         });
     }
 
+    /**
+     * This function tell how many items are in the list
+     * @return number of items
+     */
     @Override
     public int getItemCount() {
         return recipeWithIngredients.size();
     }
 
+    /**
+     * Model ViewHolder which holds image and recipe name
+     */
     public class ViewHolder extends RecyclerView.ViewHolder {
         CircleImageView image;
         TextView recipeName;
         RelativeLayout parentLayout;
 
+        /**
+         * Constructor ViewHolder with parameters
+         * @param itemView
+         */
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             image = itemView.findViewById(R.id.image);
