@@ -11,10 +11,20 @@ import androidx.room.TypeConverters;
 @TypeConverters({DataConverter.class})
 public abstract class AppDatabase extends RoomDatabase {
 
+    /**
+     * This function to get access to query methods in RecipeDao class
+     * @return RecipeDao
+     */
     public abstract RecipeDao recipeDao();
 
     private static AppDatabase INSTANCE;
 
+    /**
+     * This function creates a Singleton instance to access to Room database.
+     * If there is no instance yet, an instance will be built.
+     * @param context
+     * @return instance
+     */
     public static AppDatabase getDbInstance(Context context) {
         if(INSTANCE == null) {
             INSTANCE = Room.databaseBuilder(context.getApplicationContext(), AppDatabase.class, "DB_RECIPE")

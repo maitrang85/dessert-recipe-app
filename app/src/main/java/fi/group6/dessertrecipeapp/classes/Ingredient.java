@@ -13,30 +13,61 @@ import androidx.room.PrimaryKey;
 @Entity
 public class Ingredient {
 
+    /**
+     * Id of ingredient
+     */
     @PrimaryKey(autoGenerate = true)
     public int uid;
 
+    /**
+     * Name of ingredient
+     */
     @ColumnInfo(name = "name")
     public String name;
 
+    /**
+     * Amount of ingredient
+     */
     @ColumnInfo(name = "amount")
     public double amount;
 
+    /**
+     * How to measure ingredient
+     */
     @ColumnInfo(name = "measure")
     public String measure;
 
+    /**
+     * Recipe Id
+     */
     @ColumnInfo(name = "recipeId")
     public long recipeId;
 
+    /**
+     * Constructor Ingredient without any parameters
+     */
     public Ingredient() {
     }
 
+    /**
+     * Constructor Ingredient will parameters
+     * @param name name of ingredient
+     * @param amount amount of ingredient
+     * @param measure by which measurement method
+     */
     public Ingredient(String name, double amount, String measure) {
         this.name = name;
         this.amount = amount;
         this.measure = measure;
     }
 
+    /**
+     * Constructor Ingredient will parameters
+     * @param name name of ingredient
+     * @param amount amount of ingredient
+     * @param measure by which measurement method
+     * @param recipeId id of recipe ingredient belongs to
+     */
     public Ingredient(String name, double amount, String measure, int recipeId) {
         this.name = name;
         this.amount = amount;

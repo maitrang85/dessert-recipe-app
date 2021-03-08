@@ -25,42 +25,81 @@ import androidx.room.PrimaryKey;
 @Entity
 public class Recipe {
 
+    /**
+     * Recipe Id
+     */
     @PrimaryKey(autoGenerate = true)
     public int recipeId;
 
+    /**
+     * Name of recipe
+     */
     @ColumnInfo(name = "name")
     public String name;
 
+    /**
+     * List of instructions
+     */
     @ColumnInfo(name = "instructions")
     public List<String> instructions;
 
+    /**
+     * List of tags
+     */
     @ColumnInfo(name = "tags")
     public List<String> tags;
 
+    /**
+     * Photo of recipe
+     */
     @ColumnInfo(name = "photo")
     public String photo;
 
+    /**
+     * is recipe custom (pre-made)
+     */
     @ColumnInfo(name = "is_custom")
     public boolean isCustom;
 
+    /**
+     * is recipe favourite
+     */
     @ColumnInfo(name = "is_favourite")
     public boolean isFavourite;
 
+    /**
+     * number of people to be served
+     */
     @ColumnInfo(name = "number_of_servings")
     public int numberOfServings;
 
+    /**
+     * Time for preparation
+     */
     @ColumnInfo(name = "prepare_time")
     public int prepareTime;
 
+    /**
+     * author
+     */
     @ColumnInfo(name = "author")
     public String author;
 
+    /**
+     * level of difficulty (easy, medium, hard)
+     */
     @ColumnInfo(name = "level_of_difficulty")
     public String levelOfDifficulty ;
 
+    /**
+     * Constructor Recipe without parameters
+     */
     public Recipe() {
     }
 
+    /**
+     * Constructor Recipe with parameters
+     */
     public Recipe(String name, List<String> instructions, List<String> tags, String photo, boolean isCustom, boolean isFavourite, int numberOfServings, int prepareTime, String author, String levelOfDifficulty) {
         this.recipeId = recipeId;
         this.name = name;
