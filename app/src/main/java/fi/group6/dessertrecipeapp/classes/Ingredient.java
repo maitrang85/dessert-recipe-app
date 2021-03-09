@@ -50,7 +50,7 @@ public class Ingredient {
     }
 
     /**
-     * Constructor Ingredient will parameters
+     * Constructor Ingredient with parameters
      * @param name name of ingredient
      * @param amount amount of ingredient
      * @param measure by which measurement method
@@ -91,7 +91,8 @@ public class Ingredient {
      * @param o
      * Object to compare with
      * @return
-     * name, amount, measure, recipeId - are the same
+     * name, amount, measure, recipeId - are the same.
+     * true - they are, false - they are not
      */
     @Override
     public boolean equals (Object o) {

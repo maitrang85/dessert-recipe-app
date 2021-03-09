@@ -26,8 +26,8 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
     /**
      * Constructor RecyclerViewAdapter with parameters
-     * @param recipeWithIngredients
-     * @param Context
+     * @param recipeWithIngredients List<RecipeWithIngredients>
+     * @param Context context
      */
     public RecyclerViewAdapter(List<RecipeWithIngredients> recipeWithIngredients, Context Context) {
         this.recipeWithIngredients = recipeWithIngredients;
@@ -37,9 +37,9 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     /**
      * This method is called whenever a new ViewHolder is created. It initializes the View holder and connects it
      * with View
-     * @param parent
-     * @param viewType
-     * @return view holder
+     * @param parent ViewGroup
+     * @param viewType type of view
+     * @return holder view holder
      */
     @NonNull
     @Override
@@ -56,8 +56,8 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
      * Get recipe name
      * setOnClicklistener : when user clicks on view holder, it starts a new activity, Recipe
      * activity and shows a new screen with whole description of recipe
-     * @param holder
-     * @param position
+     * @param holder ViewHolder
+     * @param position position as integer
      */
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
@@ -99,7 +99,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
         /**
          * Constructor ViewHolder with parameters
-         * @param itemView
+         * @param itemView View
          */
         public ViewHolder(@NonNull View itemView) {
             super(itemView);

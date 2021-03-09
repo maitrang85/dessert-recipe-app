@@ -3,7 +3,6 @@ package fi.group6.dessertrecipeapp.classes;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
-
 import java.util.List;
 /**
  * Models a dessert recipe
@@ -117,5 +116,48 @@ public class Recipe {
                 ", author='" + author + '\'' +
                 ", levelOfDifficulty=" + levelOfDifficulty +
                 '}';
+    }
+
+    /**
+     * Special Recipe comparison
+     * Not takes into account recipeId
+     * @param o
+     * Object to compare with
+     * @return
+     * name, author, levelOfDifficulty, prepareTime, numberOfServings,
+     * photo, instructions, tags, isCustom, isFavourite - are the same.
+     * true - they are, false - they are not
+     */
+    @Override
+    public boolean equals (Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+
+        Recipe recipe = (Recipe) o;
+
+        //Photo comparison must take null into account, so handled separately
+        boolean photoCheck;
+        if (this.photo != null && recipe.photo != null) {
+            photoCheck = this.photo.equals(recipe.photo);
+        } else if( this.photo == null && recipe.photo == null ) {
+            photoCheck = true;
+        } else {
+            photoCheck = false;
+        }
+
+        return this.name.equals(recipe.name) &&
+                this.author.equals(recipe.author) &&
+                this.levelOfDifficulty.equals(recipe.levelOfDifficulty) &&
+                this.prepareTime == recipe.prepareTime &&
+                this.numberOfServings == recipe.numberOfServings &&
+                photoCheck &&
+                this.instructions.equals(recipe.instructions) &&
+                this.tags.equals(recipe.tags) &&
+                this.isCustom == recipe.isCustom &&
+                this.isFavourite == recipe.isFavourite;
     }
 }

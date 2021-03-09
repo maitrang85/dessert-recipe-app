@@ -334,6 +334,9 @@ public class ActivityAddRecipe extends AppCompatActivity implements AdapterView.
      * User can choose to take photo with camera(with permission) or select photo from Gallery, or
      * Cancel selecting photo.
      */
+        //REFERENCE:
+        //https://developer.android.com/training/basics/intents/result
+        //https://www.c-sharpcorner.com/UploadFile/e14021/capture-image-from-camera-and-selecting-image-from-gallery-o/
     private void selectPhoto() {
         final CharSequence[] options = {"Use your camera", "Choose a photo from  your gallery", "Cancel"};
         android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(ActivityAddRecipe.this);
@@ -367,10 +370,13 @@ public class ActivityAddRecipe extends AppCompatActivity implements AdapterView.
     /**
      * This function is the result after user selects photo. Photos are saved as bitmap, then be converted
      * into String by function getImageUri.
-     * @param requestCode
-     * @param resultCode
-     * @param imageReturnedIntent
+     * @param requestCode to identify from which intent is came back from
+     * @param resultCode the photo user has chosen
+     * @param imageReturnedIntent intent activity after user chosen an option
      */
+        //REFERENCES:
+        //https://developer.android.com/training/basics/intents/result
+        //https://www.c-sharpcorner.com/UploadFile/e14021/capture-image-from-camera-and-selecting-image-from-gallery-o/
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent imageReturnedIntent) {
         super.onActivityResult(requestCode, resultCode, imageReturnedIntent);
@@ -396,9 +402,11 @@ public class ActivityAddRecipe extends AppCompatActivity implements AdapterView.
     /**
      * This getImageUri function first changes Bitmap image into Stream bytes. Then compress image into
      * JPEG format. Finally it returns the String of the Uri.
-     * @param context
-     * @param inImage
+     * @param context context
+     * @param inImage Bitmap of the image user chosen
      */
+        // REFERENCES:
+        // https://stackoverflow.com/questions/12555420/how-to-get-a-uri-object-from-bitmap
     public Uri getImageUri(Context context, Bitmap inImage) {
         ByteArrayOutputStream bytes = new ByteArrayOutputStream();
         inImage.compress(Bitmap.CompressFormat.JPEG, 100, bytes);
@@ -410,7 +418,7 @@ public class ActivityAddRecipe extends AppCompatActivity implements AdapterView.
      * This function adds a new recipe to the room database or modifies an existing one
      */
     private void addNewRecipeWithIngredients() {
-        //Two empty arraLists for the dinamically added TextViews
+        //Two empty arrayLists for the dynamically added TextViews
         instructions = new ArrayList<>();
         ingredients = new ArrayList<>();
 
@@ -479,7 +487,6 @@ public class ActivityAddRecipe extends AppCompatActivity implements AdapterView.
             editedRecipe.recipe.levelOfDifficulty = levelOfDifficultyInput;
 
             //HANDLING INGREDIENTS//
-
             //Deleting all previous ingredients from the database
             for (int i = 0; i < editedRecipe.ingredients.size(); i++) {
                 db.recipeDao().deleteIngredient(editedRecipe.ingredients.get(i));
@@ -499,7 +506,7 @@ public class ActivityAddRecipe extends AppCompatActivity implements AdapterView.
             //Sending user to the MyRecipes activity
             Intent intent = new Intent(ActivityAddRecipe.this, ActivityMyRecipes.class);
             startActivity(intent);
-
+            //Send message to the user
             Toast.makeText(ActivityAddRecipe.this,
                     "Congrats, you've modified a recipe!", Toast.LENGTH_LONG).show();
             /*
@@ -511,7 +518,7 @@ public class ActivityAddRecipe extends AppCompatActivity implements AdapterView.
             //Sending user to the MyRecipes activity
             Intent intent = new Intent(ActivityAddRecipe.this, ActivityMyRecipes.class);
             startActivity(intent);
-
+            //Send message to the user
             Toast.makeText(ActivityAddRecipe.this,
                     "Congrats, you've created a new recipe!", Toast.LENGTH_LONG).show();
         }
@@ -541,7 +548,7 @@ public class ActivityAddRecipe extends AppCompatActivity implements AdapterView.
             return false;
         }
 
-        //Validating instruction input, checking if the field is empty
+        //Validating ingredients input, checking whether there are empty fields
         for(int i = 0; i < ingredientListLayout.getChildCount(); i++){
             View ingredientStepLayout = ingredientListLayout.getChildAt(i);
 
@@ -565,7 +572,7 @@ public class ActivityAddRecipe extends AppCompatActivity implements AdapterView.
             portions.setError("Please enter a correct portion size");
             return false;
         }
-
+        //Validating prepTime input, checking if the field is empty
         if(prepTime.getText().toString().equals("0") || prepTime.getText().toString().equals("00") ||
                 prepTime.getText().toString().equals("000") || prepTime.getText().toString().trim().length() == 0){
             Toast.makeText(ActivityAddRecipe.this,
@@ -574,14 +581,14 @@ public class ActivityAddRecipe extends AppCompatActivity implements AdapterView.
             return false;
         }
 
-        //Validating prepTime input, checking if the field is empty
+        //Validating instructions, checking if there is none
         if(instructionListLayout.getChildCount() == 0){
             Toast.makeText(ActivityAddRecipe.this,
                     "Please add at least one instruction step", Toast.LENGTH_SHORT).show();
             return false;
         }
 
-        //Validating instruction input, checking whether at least one ingredient was added
+        //Validating instruction input, checking whether fields are empty
         for(int i = 0; i < instructionListLayout.getChildCount(); i++){
 
             View instructionStepLayout = instructionListLayout.getChildAt(i);
@@ -594,7 +601,7 @@ public class ActivityAddRecipe extends AppCompatActivity implements AdapterView.
             }
         }
 
-        //Validating instruction input, checking if the field is empty
+        //Validating author input, checking if the field is empty
         if(author.getText().toString().trim().length() == 0){
             Toast.makeText(ActivityAddRecipe.this,
                     "Please enter an author name", Toast.LENGTH_SHORT).show();
@@ -818,7 +825,7 @@ public class ActivityAddRecipe extends AppCompatActivity implements AdapterView.
      * @param recipeToModify
      * Recipe chosen to modify
      * @param modifiedRecipe
-     * Recipe created from fields
+     * Recipe created from fields data
      * @return
      * true - something was modified, false - nothing was modified
      */
@@ -846,11 +853,11 @@ public class ActivityAddRecipe extends AppCompatActivity implements AdapterView.
         }
         //Photo check
         boolean photoSame;
-        if (recipeToModify.recipe.photo != null && modifiedRecipe.recipe.photo != null) {
+        if (recipeToModify.recipe.photo != null && modifiedRecipe.recipe.photo != null) { //both are not null - check if they are the same
             photoSame = recipeToModify.recipe.photo.equals(modifiedRecipe.recipe.photo);
-        } else if( recipeToModify.recipe.photo == null && modifiedRecipe.recipe.photo == null ) {
+        } else if( recipeToModify.recipe.photo == null && modifiedRecipe.recipe.photo == null ) { //both are null - they are the same
             photoSame = true;
-        } else {
+        } else { //one is null - surely not the same
             photoSame = false;
         }
 
@@ -858,9 +865,9 @@ public class ActivityAddRecipe extends AppCompatActivity implements AdapterView.
             return true;
         }
         //Ingredients check
-        if (recipeToModify.ingredients.size() != modifiedRecipe.ingredients.size()) {
+        if (recipeToModify.ingredients.size() != modifiedRecipe.ingredients.size()) { //different number of ingredients? - surely not the same
             return true;
-        } else {
+        } else { //Compare every ingredient with each other on the same positions. (ingredient place change is considered as recipe modification)
             for (int i = 0; i < recipeToModify.ingredients.size(); i++) {
                 if (!recipeToModify.ingredients.get(i).name.equals(modifiedRecipe.ingredients.get(i).name)) {
                     return true;
@@ -874,6 +881,8 @@ public class ActivityAddRecipe extends AppCompatActivity implements AdapterView.
             }
         }
 
+        //Everything appeared to be the same, send text to the user.
+        //Something has to be changed in order to succeed with modification.
         Toast.makeText(ActivityAddRecipe.this,
                 "Nothing was changed, recipe haven't been modified", Toast.LENGTH_LONG).show();
         return false;

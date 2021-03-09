@@ -129,7 +129,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     /**
-     * This function reads the data from the raw recipe json
+     * This function reads the data from the raw recipe json.
      * @param inputStream
      * Recipe json file input data
      */
