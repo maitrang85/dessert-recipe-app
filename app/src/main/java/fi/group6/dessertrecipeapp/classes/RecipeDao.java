@@ -1,11 +1,7 @@
 package fi.group6.dessertrecipeapp.classes;
 
 import android.annotation.SuppressLint;
-import android.os.Build;
-
 import java.util.List;
-
-import androidx.annotation.RequiresApi;
 import androidx.room.Dao;
 import androidx.room.Delete;
 import androidx.room.Insert;
@@ -14,7 +10,10 @@ import androidx.room.Transaction;
 import androidx.room.Update;
 
 /**
- * Data access object class RecipeDao is used to access the app's persisted data.
+ * Data access object class RecipeDao provides methods for app to use to query, insert, update, and
+ * delete data in the database
+ * @author Trang
+ * @version 1.2
  */
 @Dao
 public abstract class RecipeDao {

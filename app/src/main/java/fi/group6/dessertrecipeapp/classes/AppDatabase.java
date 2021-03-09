@@ -7,6 +7,11 @@ import androidx.room.Room;
 import androidx.room.RoomDatabase;
 import androidx.room.TypeConverters;
 
+/**
+ * Database class to hold the database and be the main point for accessing app's persisted data
+ * @author Trang
+ * @version 1.2
+ */
 @Database(entities = {Recipe.class, Ingredient.class}, version = 1)
 @TypeConverters({DataConverter.class})
 public abstract class AppDatabase extends RoomDatabase {

@@ -334,6 +334,9 @@ public class ActivityAddRecipe extends AppCompatActivity implements AdapterView.
      * User can choose to take photo with camera(with permission) or select photo from Gallery, or
      * Cancel selecting photo.
      */
+        //REFERENCE:
+        //https://developer.android.com/training/basics/intents/result
+        //https://www.c-sharpcorner.com/UploadFile/e14021/capture-image-from-camera-and-selecting-image-from-gallery-o/
     private void selectPhoto() {
         final CharSequence[] options = {"Use your camera", "Choose a photo from  your gallery", "Cancel"};
         android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(ActivityAddRecipe.this);
@@ -367,10 +370,13 @@ public class ActivityAddRecipe extends AppCompatActivity implements AdapterView.
     /**
      * This function is the result after user selects photo. Photos are saved as bitmap, then be converted
      * into String by function getImageUri.
-     * @param requestCode
-     * @param resultCode
-     * @param imageReturnedIntent
+     * @param requestCode to identify from which intent is came back from
+     * @param resultCode the photo user has chosen
+     * @param imageReturnedIntent intent activity after user chosen an option
      */
+        //REFERENCES:
+        //https://developer.android.com/training/basics/intents/result
+        //https://www.c-sharpcorner.com/UploadFile/e14021/capture-image-from-camera-and-selecting-image-from-gallery-o/
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent imageReturnedIntent) {
         super.onActivityResult(requestCode, resultCode, imageReturnedIntent);
@@ -396,9 +402,11 @@ public class ActivityAddRecipe extends AppCompatActivity implements AdapterView.
     /**
      * This getImageUri function first changes Bitmap image into Stream bytes. Then compress image into
      * JPEG format. Finally it returns the String of the Uri.
-     * @param context
-     * @param inImage
+     * @param context context
+     * @param inImage Bitmap of the image user chosen
      */
+        // REFERENCES:
+        // https://stackoverflow.com/questions/12555420/how-to-get-a-uri-object-from-bitmap
     public Uri getImageUri(Context context, Bitmap inImage) {
         ByteArrayOutputStream bytes = new ByteArrayOutputStream();
         inImage.compress(Bitmap.CompressFormat.JPEG, 100, bytes);

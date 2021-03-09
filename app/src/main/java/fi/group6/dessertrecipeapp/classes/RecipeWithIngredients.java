@@ -6,7 +6,7 @@ import androidx.room.Relation;
 /**
  * This class models the one-to-many relationship between Recipe entity(one) and (to many) Ingredients entity
  * @author Trang
- * @version 1.1
+ * @version 1.2
  */
 public class RecipeWithIngredients {
 
