@@ -1,9 +1,5 @@
 package fi.group6.dessertrecipeapp;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.RequiresApi;
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.annotation.SuppressLint;
 import android.app.ActionBar;
 import android.content.Intent;
@@ -12,7 +8,12 @@ import android.os.Build;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.Toolbar;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.gson.Gson;
@@ -24,8 +25,6 @@ import java.io.InputStream;
 import java.lang.reflect.Type;
 import java.util.List;
 
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 import fi.group6.dessertrecipeapp.classes.AppDatabase;
 import fi.group6.dessertrecipeapp.classes.RecipeWithIngredients;
 
