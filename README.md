@@ -1,4 +1,4 @@
-## DailyDesserts
+# DailyDesserts
 
 This app is made for users who are looking for a dessert recipe to make at home.
 
@@ -11,10 +11,11 @@ This app is made for users who are looking for a dessert recipe to make at home.
 
 ## Links
 
-[JavaDoc - TO BE UPDATED](https://google.com/)
-[UML diagram](https://i.imgur.com/GoENoCj.png)
-[Demo video - TO BE UPDATED](https://google.com/) of the app
-
+- [JavaDoc](https://users.metropolia.fi/~daniilm/mobiles2021/project_javadoc/)
+- [UML diagram](https://i.imgur.com/GoENoCj.png)
+- [Demo video](https://www.dropbox.com/s/jynyk9fanlvflbi/DailyDesserts.mp4?dl=0) of the app
+- UML diagram: [.png](https://drive.google.com/file/d/1ZjwrYucNk8WZMshR7iZbx0y87B3LKvlC/view?usp=sharing) and [.drawio](https://drive.google.com/file/d/1xU2ZAbtCqAiEtKag1a7q3jwKuCerAwm7/view?usp=sharing
+)
 
 ## Team members
 
