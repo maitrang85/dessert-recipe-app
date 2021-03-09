@@ -9,8 +9,8 @@ import java.util.List;
 import androidx.room.TypeConverter;
 /**
  * Convert from raw data in json to list of object string and vice versa
- * @author: Trang
- * @version: 1.2
+ * @author Trang
+ * @version 1.2
  * REFERENCES:
  * https://stackoverflow.com/questions/56077525/java-android-room-list-in-class-cannot-figure-out-how-to-save-this-field-into-da
  * https://www.tutorialspoint.com/gson/gson_serialization_examples.htm
