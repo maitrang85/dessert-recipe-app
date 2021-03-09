@@ -36,7 +36,7 @@ public class ActivitySearch extends AppCompatActivity {
 
     private static final String SEARCH_TAG = "SEARCH";
     private static final String RESULTS = "SEARCH_RESULTS";
-    private static final boolean DEBUG_PRINTS = false;
+    private static final boolean DEBUG_PRINTS = false; //Set to true to see search debug prints.
 
     //Variables for the tag selector
     TextView tagSelectorTv;
@@ -45,7 +45,7 @@ public class ActivitySearch extends AppCompatActivity {
     ArrayList<String> tagList = new ArrayList<>();
     boolean[] selectedTag;
 
-    //THIS CAN BE USED FOR SEARCH, IT'S AN ARRAY MADE ONLY FROM THE SELECTED ITEMS
+    //THIS IS USED FOR SEARCH, IT'S AN ARRAY MADE ONLY FROM THE SELECTED ITEMS IN THE TAG SELECTOR
     List<String> tagInput;
 
     //Variables for the difficulty selector
@@ -54,7 +54,7 @@ public class ActivitySearch extends AppCompatActivity {
     ArrayList<String> difficultyList = new ArrayList<>();
     boolean[] selectedDifficulty;
 
-    //THIS CAN BE USED FOR SEARCH, IT'S AN ARRAY MADE ONLY FROM THE SELECTED ITEMS
+    //THIS IS USED FOR SEARCH, IT'S AN ARRAY MADE ONLY FROM THE SELECTED ITEMS IN THE DIFFICULTY SELECTOR
     List<String> difficultyInput;
 
     //THIS IS USED TO GET A LIST WITH THE SEARCH RESULTS
@@ -298,7 +298,7 @@ public class ActivitySearch extends AppCompatActivity {
                     searchResults = searchInRecipesList(filteredRecipesList, searchingFor, onlyExact);
                 }
 
-                //For Testing:
+                //Useful search debug prints
                 if (DEBUG_PRINTS) {
                     Log.d(SEARCH_TAG, "onlyExact=" + Boolean.toString(onlyExact));
                     Log.d(SEARCH_TAG, "Size: " + Integer.toString(filteringTags.size()) + " Tags to search for: " + filteringTags.toString());
@@ -307,13 +307,10 @@ public class ActivitySearch extends AppCompatActivity {
                     Log.d(SEARCH_TAG, "Time To  =" + Integer.toString(prepTimeTo));
                     Log.d(SEARCH_TAG, Integer.toString(searchResults.size()) + " results found");
 
-                    //DEBUG
                     int i;
                     for (i = 0; i < searchResults.size(); i++) {
                         Log.d(SEARCH_TAG, Integer.toString(i + 1) + ".\n" + searchResults.get(i).recipe.toString());
                     }
-                    //DEBUG
-
                 }
 
                 List<Integer> resultsRecipeId = new ArrayList<>();

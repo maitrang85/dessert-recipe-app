@@ -96,6 +96,7 @@ public abstract class RecipeDao {
     /**
      * This function to get list of ingredients by using recipeId
      * @param uid
+     * recipeId of the attached recipe
      * @return List<Ingredients>
      */
     @Query("SELECT * FROM ingredient WHERE recipeId=:uid")
@@ -104,6 +105,7 @@ public abstract class RecipeDao {
     /**
      * This function to insert recipe
      * @param recipe
+     * Recipe to insert
      * @return recipeId
      */
     @Insert
@@ -112,6 +114,7 @@ public abstract class RecipeDao {
     /**
      * This function to insert ingredient
      * @param ingredient
+     * Ingredient to insert
      */
     @Insert
     abstract public void insertIngredient(Ingredient ingredient);
@@ -119,15 +122,18 @@ public abstract class RecipeDao {
     /**
      * This function to insert all ingredients for the List of ingredients
      * @param ingredients
+     * List of ingredients to insert
      */
     @Insert
     abstract public void insertAllIngredients(List<Ingredient> ingredients);
 
     /**
-     * This is a priority function. It inserts all recipes with all ingredients.
+     * This is a priority function. It inserts recipe with all ingredients.
      * For each ingredient, recipeId will be identified to match with the recipe it belongs to.
      * @param recipe
+     * Recipe to insert
      * @param ingredients
+     * List of ingredients to attach to that recipe and insert
      */
     @SuppressLint("NewApi")
     @Insert
@@ -140,6 +146,7 @@ public abstract class RecipeDao {
     /**
      * This function to delete a recipe
      * @param recipe
+     * Recipe to delete
      */
     @Delete
     abstract public void deleteRecipe(Recipe recipe);
@@ -147,6 +154,7 @@ public abstract class RecipeDao {
     /**
      * This function to delete an ingredient
      * @param ingredient
+     * Ingredients to delete
      */
     @Delete
     abstract public void deleteIngredient(Ingredient ingredient);
@@ -154,7 +162,9 @@ public abstract class RecipeDao {
     /**
      * This function to delete recipe with all ingredients.
      * @param recipe
+     * Recipe to delete
      * @param ingredients
+     * List of ingredients to delete
      */
     @Delete
     abstract public void deleteRecipeWithIngredients(Recipe recipe, List<Ingredient> ingredients);
@@ -170,6 +180,7 @@ public abstract class RecipeDao {
     /**
      * This function to search for a recipe by its name.
      * @param search
+     * Name to search for
      * @return a list of recipes with names where search keyword is present(anywhere in the name)
      */
     @Query("SELECT * FROM recipe WHERE name LIKE '%' || :search || '%'") // Priority function
@@ -178,6 +189,7 @@ public abstract class RecipeDao {
     /**
      * This function to search for a recipe by its name.
      * @param search
+     * Name to search for
      * @return a list of recipes with names and all of its ingredients where search keyword is
      * present(anywhere in the name)
      */
@@ -187,6 +199,7 @@ public abstract class RecipeDao {
     /**
      * This function to search for recipe by its Id
      * @param recipeId
+     * recipeId to search for
      * @return recipe with its ingredients
      */
     @Query("SELECT * FROM recipe WHERE recipeId =:recipeId")
@@ -195,6 +208,7 @@ public abstract class RecipeDao {
     /**
      * This function to add a recipe which has is_favourite = 1 to Favourites
      * @param recipeId
+     * recipeId of a recipe to update
      */
     @Query("UPDATE recipe SET is_favourite = 1 WHERE recipeId=:recipeId")
     public abstract void addRecipeToFavorites(int recipeId);
@@ -202,6 +216,7 @@ public abstract class RecipeDao {
     /**
      * This function is used to delete a recipe which has is_favourite = 0 from Favourites
      * @param recipeId
+     * recipeId of a recipe to update
      */
     @Query("UPDATE recipe SET is_favourite = 0 WHERE recipeId=:recipeId")
     public abstract void deleteRecipeFromFavorites(int recipeId);
@@ -209,6 +224,7 @@ public abstract class RecipeDao {
     /**
      * This function is for update a recipe
      * @param recipe
+     * Recipe to update
      */
     @Update
     abstract public void updateRecipe(Recipe recipe);
@@ -216,14 +232,17 @@ public abstract class RecipeDao {
     /**
      * This function is for update ingredient
      * @param Ingredient
+     * Ingredient to update
      */
     @Update
     abstract public void updateIngredient(Ingredient Ingredient);
 
     /**
-     * This function is for update all ingredients with its recipe
+     * This function is for update all ingredients with corresponding recipe
      * @param recipe
+     * Recipe to update
      * @param ingredients
+     * Ingredients to update
      */
     @Update
     abstract public void updateIngredientWithRecipe(Recipe recipe, List<Ingredient> ingredients);

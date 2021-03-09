@@ -5,6 +5,8 @@ import androidx.room.Embedded;
 import androidx.room.Relation;
 /**
  * This class models the one-to-many relationship between Recipe entity(one) and (to many) Ingredients entity
+ * @author Trang
+ * @version 1.1
  */
 public class RecipeWithIngredients {
 
@@ -41,7 +43,8 @@ public class RecipeWithIngredients {
      * Object to compare with
      * @return
      * Ingredients, name, author, levelOfDifficulty, prepareTime, numberOfServings,
-     * photo, instructions, tags, isCustom, isFavourite - are the same
+     * photo, instructions, tags, isCustom, isFavourite - are the same.
+     * true - they are, false - they are not
      */
     @Override
     public boolean equals (Object o) {
@@ -54,26 +57,7 @@ public class RecipeWithIngredients {
 
         RecipeWithIngredients recipeWithIngredients = (RecipeWithIngredients) o;
 
-        //Photo comparison must take null into account, so handled separately
-        boolean photoCheck;
-        if (this.recipe.photo != null && recipeWithIngredients.recipe.photo != null) {
-            photoCheck = this.recipe.photo.equals(recipeWithIngredients.recipe.photo);
-        } else if( this.recipe.photo == null && recipeWithIngredients.recipe.photo == null ) {
-            photoCheck = true;
-        } else {
-            photoCheck = false;
-        }
-
         return this.ingredients.equals(recipeWithIngredients.ingredients) &&
-                this.recipe.name.equals(recipeWithIngredients.recipe.name) &&
-                this.recipe.author.equals(recipeWithIngredients.recipe.author) &&
-                this.recipe.levelOfDifficulty.equals(recipeWithIngredients.recipe.levelOfDifficulty) &&
-                this.recipe.prepareTime == recipeWithIngredients.recipe.prepareTime &&
-                this.recipe.numberOfServings == recipeWithIngredients.recipe.numberOfServings &&
-                photoCheck &&
-                this.recipe.instructions.equals(recipeWithIngredients.recipe.instructions) &&
-                this.recipe.tags.equals(recipeWithIngredients.recipe.tags) &&
-                this.recipe.isCustom == recipeWithIngredients.recipe.isCustom &&
-                this.recipe.isFavourite == recipeWithIngredients.recipe.isFavourite;
+                this.recipe.equals(recipeWithIngredients.recipe);
     }
 }
